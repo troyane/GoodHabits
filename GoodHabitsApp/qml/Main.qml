@@ -12,7 +12,7 @@ App {
     //  * Remove the Felgo Splash Screen or set a custom one (available with the Pro Licenses)
     //  * Add plugins to monetize, analyze & improve your apps (available with the Pro Licenses)
 
-    licenseKey: License.key
+    licenseKey: Secrets.key
 
     // app initialization
     Component.onCompleted: {
