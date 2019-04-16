@@ -1,37 +1,37 @@
 {
   "habits": [
     { 
-      id: 1,
-      title: "Reading",
-      description: "Read books, comics, tech literature etc",
-      icon: "book",
-      duration: "0.75",
-      time: "09:00",
-      days: "Mo, Tu, We",
-      private: false,
-      notifications: true
+      "id": 1,
+      "title": "Reading",
+      "description": "Read books, comics, tech literature etc",
+      "icon": "book",
+      "duration": "0.75",
+      "time": "09:00",
+      "days": "Mo, Tu, We",
+      "private": false,
+      "notifications": true
     },
     { 
-      id: 2,
-      title: "Board Games",
-      description: "Play board games with friends",
-      icon: "cube",
-      duration: "2.5",
-      time: "19:00",
-      days: "Su",
-      private: false,
-      notifications: true
+      "id": 2,
+      "title": "Board Games",
+      "description": "Play board games with friends",
+      "icon": "cube",
+      "duration": "2.5",
+      "time": "19:00",
+      "days": "Su",
+      "private": false,
+      "notifications": true
     },
     { 
-      id: 3,
-      title: "Calligraphy",
-      description: "Use brushes to practise in Japanese calligraphy",
-      icon: "brush",
-      duration: "1.0",
-      time: "18:00",
-      days: "Mo, We, Fr",
-      private: false,
-      notifications: true
+      "id": 3,
+      "title": "Calligraphy",
+      "description": "Use brushes to practice in Japanese calligraphy",
+      "icon": "brush",
+      "duration": "1.0",
+      "time": "18:00",
+      "days": "Mo, We, Fr",
+      "private": false,
+      "notifications": true
     }
   ]
 }
