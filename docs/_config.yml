@@ -1,0 +1,12 @@
+theme: jekyll-theme-minimal
+title: GoodHabits 
+description: Encourage your good habbits!
+email: troyan3@gmail.com
+url: "http://GoodHabits.github.io" 
+twitter_username: troyane
+github_username: troyane
+logo: /assets/img/logo.png
+show_downloads: true
+# Build settings
+markdown: kramdown
+permalink: /:year/:title:output_ext
