@@ -1,0 +1,2 @@
+# Ignore any local builds of Jekyll site
+_site*
