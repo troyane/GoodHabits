@@ -1,0 +1,10 @@
+import QtQuick 2.0
+
+// This file intended to be secret and available only on build-machine.
+//   1. Rename License.qml_template -> License.qml.
+//   2. Insert your key into <KEY GOES HERE>.
+//   3. Add License.qml into .gitignore (if not added yet).
+
+QtObject {
+    readonly property string key: "<KEY GOES HERE>"
+}

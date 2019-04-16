@@ -1,0 +1,8 @@
+{
+    "title": "GoodHabitsApp",
+    "identifier": "com.trola.GoodHabitsApp",
+    "orientation": "portrait",
+    "versioncode": 1,
+    "versionname": "1.0.0",
+    "stage": "test"
+}
