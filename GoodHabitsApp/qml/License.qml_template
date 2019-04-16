@@ -1,10 +1,18 @@
 import QtQuick 2.0
 
-// This file intended to be secret and available only on build-machine.
-//   1. Rename License.qml_template -> License.qml.
-//   2. Insert your key into <KEY GOES HERE>.
-//   3. Add License.qml into .gitignore (if not added yet).
+/**
+ * This file intended to be secret and available only on build-machine.
+ *   1. Rename License.qml_template -> License.qml.
+ *   2. Insert your key into <KEY GOES HERE>.
+ *   3. Add License.qml into .gitignore (if not added yet).
+ * ---
+ * In case you use FelgoGameNetwork you can put here gameId and gameSecret to
+ *   keep this sensitive information in secret.
+ */
 
 QtObject {
     readonly property string key: "<KEY GOES HERE>"
+    // ---
+    readonly property int gameId: <GAME NUMBER GOES HERE>
+    readonly property string gameSecret: "<GAME SECRET GOES HERE>"
 }
