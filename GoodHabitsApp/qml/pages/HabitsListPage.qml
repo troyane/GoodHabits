@@ -13,25 +13,25 @@ Page {
             showItem: showItemAlways // do not collapse into sub-menu on Android
         }
 
-        // add new todo
+        // add new habit
         IconButtonBarItem {
             icon: IconType.plus
             showItem: showItemAlways
             onClicked: {
                 // use qsTr for strings you want to translate
-                // var title = qsTr("New Todo")
+                // var title = qsTr("New Habit")
 
-                // this logic helper function creates a todo
-                // logic.addTodo(title)
+                // this logic helper function creates a habit
+                // logic.addHabit(title)
             }
         }
     }
 
-    // when a todo is added, we open the detail page for it
+    // when a habit is added, we open the detail page for it
     Connections {
         target: dataModel
-        onTodoStored: {
-            page.navigationStack.popAllExceptFirstAndPush(detailPageComponent, { todoId: todo.id })
+        onHabitStored: {
+            page.navigationStack.popAllExceptFirstAndPush(detailPageComponent, { habitId: habit.id })
         }
     }
 
@@ -39,12 +39,12 @@ Page {
     // A ViewModel for JSON data that offers best integration and performance with list views
     JsonListModel {
         id: listModel
-        source: dataModel.todos // show todos from data model
+        source: dataModel.habits // show habits from data model
         keyField: "id"
-        fields: ["id", "title", "completed"]
+        fields: ["id", "title", "description", "icon"]
     }
 
-    // show sorted/filterd todos of data model
+    // show sorted/filterd habits of data model
     AppListView {
         id: listView
         anchors.fill: parent
@@ -54,10 +54,13 @@ Page {
 
         // the delegate is the template item for each entry of the list
         delegate: SimpleRow {
-            text: viewHelper.formatTitle(model)
+            text: model.title
+            detailText: model.description
+            iconSource: model.icon
 
-            // push detail page when selected, pass chosen todo id
-            onSelected: page.navigationStack.popAllExceptFirstAndPush(detailPageComponent, { todoId: model.id })
+            // push detail page when selected, pass chosen habit id
+            onSelected: page.navigationStack.popAllExceptFirstAndPush(detailPageComponent,
+                                                                      { habitId: model.id })
         }
     }
 

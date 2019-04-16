@@ -2,7 +2,6 @@ import QtQuick 2.0
 import Felgo 3.0
 
 Item {
-
     // loading state
     readonly property bool busy: HttpNetworkActivityIndicator.enabled
 
@@ -18,7 +17,7 @@ Item {
     // private
     QtObject {
         id: _
-        property string todoUrl: "https://jsonplaceholder.typicode.com/todos"
+        property string habitUrl: "https://my-json-server.typicode.com/troyane/GoodHabits/habits"
 
         function fetch(url, success, error) {
             HttpRequest.get(url)
@@ -38,16 +37,15 @@ Item {
     }
 
     // public rest api functions
-
-    function getTodos(success, error) {
-        _.fetch(_.todoUrl, success, error)
+    function getHabits(success, error) {
+        _.fetch(_.habitUrl, success, error)
     }
 
-    function getTodoById(id, success, error) {
-        _.fetch(_.todoUrl+"/"+id, success, error)
+    function getHabitById(id, success, error) {
+        _.fetch(_.habitUrl + "/" + id, success, error)
     }
 
-    function addTodo(todo, success, error) {
-        _.post(_.todoUrl, todo, success, error)
+    function addHabit(habit, success, error) {
+        _.post(_.habitUrl, habit, success, error)
     }
 }

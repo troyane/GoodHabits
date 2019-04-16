@@ -3,12 +3,12 @@ import QtQuick 2.0
 
 Page {
     id: habitDetailPage
-    title: viewHelper.formatTitle(todoData)
+    title: !!habitsData ? habitsData.title : ""
 
     // network activity indicator
     rightBarItem: ActivityIndicatorBarItem {
         id: activityBarItem
-        visible: dataModel.isBusy && !dataModel.isStoringTodos
+        visible: dataModel.isBusy && !dataModel.isStoringhabits
         showItem: showItemAlways // do not collapse into sub-menu on Android
     }
 
@@ -16,14 +16,14 @@ Page {
     property int habitId: 0
 
     // data property for page
-    property var todoData: dataModel.todoDetails[habitId]
+    property var habitsData: dataModel.habitDetails[habitId]
 
     // load data initially or when id changes
     onHabitIdChanged: {
-        logic.fetchTodoDetails(habitId)
+        logic.fetchHabitDetails(habitId)
     }
 
-    // column to show all todo object properties, if data is available
+    // column to show all habit object properties, if data is available
     Column {
         y: spacing
         width: parent.width - 2 * spacing
@@ -34,12 +34,12 @@ Page {
         // Repeater creates copies of given item based on configured model data
         Repeater {
             enabled: parent.visible
-            model: !!todoData ? Object.keys(todoData) : undefined
+            model: !!habitsData ? Object.keys(habitsData) : undefined
 
             // Text Item to show each property - value pair
             AppText {
                 property string propName: modelData
-                property string value: todoData[propName]
+                property string value: habitsData[propName]
 
                 width: parent.width
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -55,9 +55,9 @@ Page {
     AppText {
         id: noDataMessage
         anchors.verticalCenter: parent.verticalCenter
-        text: qsTr("Todo data not available. Please check your internet connection.")
+        text: qsTr("Habit data not available. Please check your internet connection.")
         width: parent.width
         horizontalAlignment: Qt.AlignHCenter
-        visible: !todoData && !dataModel.isBusy
+        visible: !habitsData && !dataModel.isBusy
     }
 }

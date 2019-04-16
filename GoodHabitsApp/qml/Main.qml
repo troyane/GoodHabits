@@ -5,7 +5,6 @@ import "logic"
 import "pages"
 import "secrets"
 
-
 App {
     // You get free licenseKeys from https://felgo.com/licenseKey
     // With a licenseKey you can:
@@ -20,34 +19,24 @@ App {
         // if device has network connection, clear cache at startup
         // you'll probably implement a more intelligent cache cleanup for your app
         // e.g. to only clear the items that aren't required regularly
-        if(isOnline) {
+        if (isOnline) {
             logic.clearCache()
         }
 
         // fetch todo list data
-        // logic.fetchTodos()
-        // logic.fetchDraftTodos()
+        logic.fetchHabits()
+        logic.fetchDraftHabits()
     }
 
     // business logic
-    Logic {
-        id: logic
-    }
+    Logic { id: logic }
 
     // model
     DataModel {
         id: dataModel
         dispatcher: logic // data model handles actions sent by logic
 
-        // global error handling
-        onFetchTodosFailed: nativeUtils.displayMessageBox("Unable to load todos", error, 1)
-        onFetchTodoDetailsFailed: nativeUtils.displayMessageBox("Unable to load todo "+id, error, 1)
-        onStoreTodoFailed: nativeUtils.displayMessageBox("Failed to store "+viewHelper.formatTitle(todo))
-    }
-
-    // helper functions for view
-    ViewHelper {
-        id: viewHelper
+        onFetchHabitsFailed: nativeUtils.displayMessageBox(qsTr("Unable to load habits"), error, 1)
     }
 
     // view
@@ -56,46 +45,43 @@ App {
 
         // only enable if user is logged in
         // login page below overlays navigation then
-        enabled: dataModel.userLoggedIn
+        enabled: true // dataModel.userLoggedIn
 
-        // first tab
         NavigationItem {
-            title: qsTr("Todo List")
+            title: qsTr("Habits list")
             icon: IconType.list
 
             NavigationStack {
                 splitView: tablet // use side-by-side view on tablets
-                initialPage: TodoListPage { }
+                initialPage: HabitsListPage { }
             }
         }
 
-        // second tab
+        NavigationItem {
+            title: qsTr("Report")
+            icon: IconType.barchart
+
+            NavigationStack {
+                splitView: tablet // use side-by-side view on tablets
+                initialPage: ReportPage { }
+            }
+        }
+
         NavigationItem {
             title: qsTr("Profile") // use qsTr for strings you want to translate
-            icon: IconType.circle
+            icon: IconType.user
 
             NavigationStack {
                 initialPage: ProfilePage {
                     // handle logout
                     onLogoutClicked: {
-                        logic.logout()
-
+                        //                        logic.logout()
                         // jump to main page after logout
-                        navigation.currentIndex = 0
-                        navigation.currentNavigationItem.navigationStack.popAllExceptFirst()
+                        //                        navigation.currentIndex = 0
+                        //                        navigation.currentNavigationItem.navigationStack.popAllExceptFirst()
                     }
                 }
             }
         }
     }
-
-    // login page lies on top of previous items and overlays if user is not logged in
-    LoginPage {
-        visible: opacity > 0
-        enabled: visible
-        opacity: dataModel.userLoggedIn ? 0 : 1 // hide if user is logged in
-
-        Behavior on opacity { NumberAnimation { duration: 250 } } // page fade in/out
-    }
-
 }

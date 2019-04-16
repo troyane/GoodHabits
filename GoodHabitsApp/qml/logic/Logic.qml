@@ -3,13 +3,13 @@ import QtQuick 2.0
 Item {
 
     // actions
-    signal fetchTodos()
+    signal fetchHabits()
 
-    signal fetchTodoDetails(int id)
+    signal fetchHabitDetails(int id)
 
-    signal fetchDraftTodos()
+    signal fetchDraftHabits()
 
-    signal storeTodo(var todo)
+    signal storeHabit(var habit)
 
     signal clearCache()
 
@@ -17,15 +17,15 @@ Item {
 
     signal logout()
 
-    // function to store a new todo
-    function addTodo(title) {
+    // function to store a new habit
+    function addHabit(title) {
         var draft = {
             completed: false,
             title: title,
             userId: 1,
         }
 
-        storeTodo(draft)
+        storeHabit(draft)
     }
 
 }
