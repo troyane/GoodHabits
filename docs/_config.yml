@@ -9,4 +9,4 @@ show_downloads: true
 # Build settings
 markdown: kramdown
 permalink: /:year/:title:output_ext
-baseurl: /GoodHabits
+baseurl: https://troyane.github.io/GoodHabits/
