@@ -2,6 +2,7 @@
 layout: default
 title: Blog
 navigation_weight: 2
+permalink: /blog/
 ---
 <h1>Latest Posts</h1>
 

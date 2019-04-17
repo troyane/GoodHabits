@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Developer info
-permalink: /GoodHabits/dev/
+permalink: /dev/
 navigation_weight: 1
 ---
 
