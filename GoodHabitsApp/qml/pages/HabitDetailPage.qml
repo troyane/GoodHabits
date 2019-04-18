@@ -12,6 +12,7 @@ Page {
     // data property for page
     property var currentHabit: dataModel.habitDetails
     property bool locked: true
+    backNavigationEnabled: locked
 
     onPopped: {
         console.log("POPPED")
@@ -35,10 +36,6 @@ Page {
                     currentHabit[Constants.hHabitPrivate] = habitPrivate.checked
                     currentHabit[Constants.hHabitNotifications] = habitNotification.checked
                     logic.storeHabits()
-                    backNavigationEnabled = true
-                } else {
-                    // unlocked, so no way to go back
-                    backNavigationEnabled = false
                 }
             }
         }
