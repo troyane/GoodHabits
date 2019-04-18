@@ -19,4 +19,5 @@ QtObject {
     // Predefined colors
     readonly property color alternateListItemColor1: "#f7f7f7"
     readonly property color alternateListItemColor2: "white"
+    readonly property color attentionColor: "#FF5722" // deep orange for attention
 }
