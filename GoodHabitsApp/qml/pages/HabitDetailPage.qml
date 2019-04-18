@@ -26,7 +26,14 @@ Page {
                 habitDetailPage.locked = !habitDetailPage.locked
                 if (habitDetailPage.locked) {
                     // Store changes
+                    currentHabit[Constants.hHabitTitle] = habitTitleText.text
+                    currentHabit[Constants.hHabitDescription] = habitDescriptionText.text
+//                    currentHabit[Constants.hHabitIcon] = //habit.text // TODO
                     currentHabit[Constants.hHabitDuration] = habitDurationSlider.value
+                    currentHabit[Constants.hHabitTime] = habitTypicalTime.text
+                    currentHabit[Constants.hHabitDays] = "Mo"//habitTitleText.text // TODO
+                    currentHabit[Constants.hHabitPrivate] = habitPrivate.checked
+                    currentHabit[Constants.hHabitNotifications] = habitNotification.checked
                     logic.storeHabits()
                     backNavigationEnabled = true
                 } else {
@@ -45,10 +52,6 @@ Page {
 
         var field = currentHabit[fieldName]
         return field ? field : ""
-    }
-
-    onCurrentHabitChanged: {
-
     }
 
     // load data initially or when id changes
