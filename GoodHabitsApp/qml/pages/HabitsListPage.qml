@@ -1,5 +1,6 @@
 import Felgo 3.0
 import QtQuick 2.0
+import QtQuick.Layouts 1.3
 
 import "../components"
 
@@ -41,29 +42,63 @@ Page {
         fields: ["id", "title", "description", "icon"]
     }
 
-    // show sorted/filterd habits of data model
-    AppListView {
-        id: listView
+    property bool sortByTitleActive: true
+    SortFilterProxyModel {
+        id: filteredModel
+        sourceModel: listModel
+        filters: [
+            RegExpFilter {
+                roleName: "title"
+                pattern: ".*" + searchBar.text
+                enabled: searchBar.text != ""
+                caseSensitivity: Qt.CaseInsensitive
+            }]
+        sorters: [
+            StringSorter {
+              roleName: "title"
+              enabled: sortByTitleActive
+            }]
+    }
+
+
+    ColumnLayout {
         anchors.fill: parent
 
-        // the model specifies the data for the list view
-        model: listModel
+        RowLayout {
+            SearchBar {
+                id: searchBar
+                Layout.fillWidth: true
+            }
+            IconButton {
+                icon: sortByTitleActive ? IconType.arrowdown : IconType.arrowup
+                onClicked: sortByTitleActive = !sortByTitleActive
+            }
+        }
 
-        // the delegate is the template item for each entry of the list
-        delegate: SimpleRow {
-            style.backgroundColor: index % 2 == 0
-                                   ? Constants.alternateListItemColor1
-                                   : Constants.alternateListItemColor2
-            text: model.title
-            detailText: model.description
-            iconSource: model.icon
+        // show sorted/filterd habits of data model
+        AppListView {
+            id: listView
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+            // the model specifies the data for the list view
+            model: filteredModel
 
-            // push detail page when selected, pass chosen habit id
-            onSelected: {
-                console.log("# Selected ", model.id)
-                logic.loadHabitDetails(model.id)
-                page.navigationStack.popAllExceptFirstAndPush(detailPageComponent,
-                                                              { habitId: model.id })
+            // the delegate is the template item for each entry of the list
+            delegate: SimpleRow {
+                style.backgroundColor: index % 2 == 0
+                                       ? Constants.alternateListItemColor1
+                                       : Constants.alternateListItemColor2
+                text: model.title
+                detailText: model.description
+                iconSource: model.icon
+
+                // push detail page when selected, pass chosen habit id
+                onSelected: {
+                    console.log("# Selected ", model.id)
+                    logic.loadHabitDetails(model.id)
+                    page.navigationStack.popAllExceptFirstAndPush(detailPageComponent,
+                                                                  { habitId: model.id })
+                }
             }
         }
     }
