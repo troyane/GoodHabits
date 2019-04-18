@@ -51,6 +51,8 @@ Item {
         // action 3 - storeHabit
         onStoreHabits: {
             cache.setValue(Constants.hHabits, _.habits)
+            habitsChanged()
+            habitDetailsChanged()
         }
 
         // action 4 - clearCache
