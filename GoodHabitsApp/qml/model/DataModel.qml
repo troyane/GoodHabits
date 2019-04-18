@@ -42,6 +42,13 @@ Item {
         } while (needToRegenerate)
         return possibleUnique;
     }
+
+    function saveAndUpdatehabits() {
+        cache.setValue(Constants.hHabits, _.habits)
+        habitsChanged()
+        habitDetailsChanged()
+    }
+
     // listen to actions from dispatcher
     Connections {
         id: logicConnection
@@ -55,8 +62,10 @@ Item {
 
             if (cached) {
                 _.habits = cached
+                getUniqueId(cached)
                 //console.log(JSON.stringify(cached["habits"]))
             } else {
+                // TODO: Add Warning dialog
                 console.log("Can't find any")
             }
         }
@@ -69,14 +78,30 @@ Item {
 
         // action 3 - storeHabit
         onStoreHabits: {
-            cache.setValue(Constants.hHabits, _.habits)
-            habitsChanged()
-            habitDetailsChanged()
+            saveAndUpdatehabits()
         }
 
         // action 4 - clearCache
         onClearCache: {
             cache.clearAll()
+        }
+
+        onAddEmptyHabit: {
+            var draft = {
+                id: getUniqueId(_.habits),
+                title: "My new habit...",
+                description: "",
+                icon: "",
+                duration: "1.0",
+                time: "09:00",
+                days: "",
+                private: false,
+                notification: true,
+            }
+            _.habits.push(draft)
+            saveAndUpdatehabits()
+            _.habitDetails = draft
+            habitStored(draft)
         }
     }
 

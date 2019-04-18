@@ -18,18 +18,17 @@ Page {
             icon: IconType.plus
             showItem: showItemAlways
             onClicked: {
-                // var title = qsTr("New Habit")
-                // this logic helper function creates a habit
-                // logic.addHabit(title)
+                logic.addEmptyHabit()
             }
         }
     }
 
-    // when a habit is added, we open the detail page for it
+    // when a habit is added, we open the detail page for it unlocked
     Connections {
         target: dataModel
         onHabitStored: {
-            page.navigationStack.popAllExceptFirstAndPush(detailPageComponent, { habitId: habit.id })
+            page.navigationStack.popAllExceptFirstAndPush(detailPageComponent,
+                                                          { habitId: habit.id, locked: false})
         }
     }
 

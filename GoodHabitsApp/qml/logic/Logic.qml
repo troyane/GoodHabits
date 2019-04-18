@@ -12,19 +12,5 @@ Item {
 
     signal clearCache()
 
-    // function to store a new habit
-    function addHabit(title) {
-        var draft = {
-            id: "Z",
-            title: title,
-            description: "",
-            icon: "",
-            duration: "1.0",
-            time: "09:00",
-            days: "",
-            private: false,
-            notification: true,
-        }
-        storeHabit(draft)
-    }
+    signal addEmptyHabit()
 }
