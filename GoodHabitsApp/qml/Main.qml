@@ -31,8 +31,7 @@ App {
     // Simple data for testing. Located here to be easier to use
     function _debugPrepareData() {
         dataModel.cache.clearAll()
-        var jsonData = {
-            "habits" : [
+        var jsonData = [
                 {
                     "id": "H1",
                     "title": "Reading",
@@ -66,8 +65,7 @@ App {
                     "private": false,
                     "notifications": true
                 }
-            ]
-        };
+            ];
 
         dataModel.cache.setValue("habits", jsonData)
         console.log("Already saved!")
@@ -75,7 +73,7 @@ App {
 
     // app initialization
     Component.onCompleted: {
-        // _debugPrepareData()
+         _debugPrepareData()
         logic.loadHabits()
     }
 
