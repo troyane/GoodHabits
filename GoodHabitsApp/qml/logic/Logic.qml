@@ -13,4 +13,6 @@ Item {
     signal clearCache()
 
     signal addEmptyHabit()
+
+    signal removeHabit(string habitId)
 }

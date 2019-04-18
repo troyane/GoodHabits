@@ -184,6 +184,19 @@ Page {
                 enabled: !habitDetailPage.locked
                 checked: getHabitDataByName(Constants.hHabitNotifications)
             }
+
+            RowLayout {
+                Layout.fillWidth: true
+                Item { Layout.fillWidth: true }
+                IconButton {
+                    Layout.alignment: Qt.AlignRight
+                    icon: IconType.trash
+
+                    onClicked: {
+                        logic.removeHabit(currentHabit.id)
+                    }
+                }
+            }
         }
     }
 }

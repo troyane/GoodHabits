@@ -19,6 +19,8 @@ Item {
     // action success signals
     signal habitStored(var habit)
 
+    signal habitRemoved()
+
     // action error signals
     signal loadHabitsFailed(var error)
     signal storeHabitFailed(var habit, var error)
@@ -43,7 +45,7 @@ Item {
         return possibleUnique;
     }
 
-    function saveAndUpdatehabits() {
+    function saveAndUpdateHabits() {
         cache.setValue(Constants.hHabits, _.habits)
         habitsChanged()
         habitDetailsChanged()
@@ -78,7 +80,7 @@ Item {
 
         // action 3 - storeHabit
         onStoreHabits: {
-            saveAndUpdatehabits()
+            saveAndUpdateHabits()
         }
 
         // action 4 - clearCache
@@ -89,6 +91,7 @@ Item {
         onAddEmptyHabit: {
             var draft = {
                 id: getUniqueId(_.habits),
+                // TODO: Add randomizer for habit names (tunable via settings)
                 title: "My new habit...",
                 description: "",
                 icon: "",
@@ -99,9 +102,19 @@ Item {
                 notification: true,
             }
             _.habits.push(draft)
-            saveAndUpdatehabits()
+            saveAndUpdateHabits()
             _.habitDetails = draft
             habitStored(draft)
+        }
+
+        onRemoveHabit: {
+            for (var i = _.habits.length - 1; i >= 0; --i) {
+                if (_.habits[i].id == habitId) {
+                    _.habits.splice(i, 1)
+                }
+            }
+            saveAndUpdateHabits()
+            habitRemoved()
         }
     }
 

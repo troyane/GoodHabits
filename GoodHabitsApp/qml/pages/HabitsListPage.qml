@@ -30,6 +30,10 @@ Page {
             page.navigationStack.popAllExceptFirstAndPush(detailPageComponent,
                                                           { habitId: habit.id, locked: false})
         }
+        onHabitRemoved: {
+            page.navigationStack.popAllExceptFirst()
+        }
+
     }
 
     // JsonListModel
