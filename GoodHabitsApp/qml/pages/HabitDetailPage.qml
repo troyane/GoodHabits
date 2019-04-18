@@ -29,11 +29,9 @@ Page {
                     currentHabit[Constants.hHabitDuration] = habitDurationSlider.value
                     logic.storeHabits()
                     backNavigationEnabled = true
-                    editNote.visible = false
                 } else {
                     // unlocked, so no way to go back
                     backNavigationEnabled = false
-                    editNote.visible = true
                 }
             }
         }
@@ -62,8 +60,8 @@ Page {
 
     QQC.ScrollView {
         id: scrollView
-        padding: 10
-        spacing: 10
+        padding: dp(Constants.defaultPadding)
+        spacing: dp(Constants.defaultSpacing)
         anchors.fill: parent
         QQC.ScrollBar.horizontal.policy: QQC.ScrollBar.AlwaysOff
         QQC.ScrollBar.vertical.policy: QQC.ScrollBar.AsNeeded
@@ -74,40 +72,20 @@ Page {
 
         ColumnLayout {
             width: habitDetailPage.width - 2*scrollView.padding
-            height: habitDetailPage.height - 2*scrollView.padding
 
-            AppPaper {
-                id: editNote
-                // TODO: Add animation on appearance
-                visible: false
+            WarningPaper {
+                text: qsTr("Apply changes and lock it.")
+                isVisible: habitDetailPage.locked
                 Layout.fillWidth: true
-                height: appText.height
-                radius: dp(5)
-                background.color: Constants.attentionColor
-
-                AppText {
-                    id: appText
-                    width: parent.width
-                    anchors.centerIn: parent
-                    horizontalAlignment: Text.AlignHCenter
-
-                    padding: dp(10)
-                    text: qsTr("Apply changes and lock it.")
-                }
+                Layout.alignment: Qt.AlignCenter
             }
 
             RowLayout {
                 Layout.fillWidth: true
-                spacing: dp(10)
+                spacing: dp(Constants.defaultSpacing)
                 AppText {
-                    fontSize: 12
-                    text: qsTr("ID:")
-                }
-                AppTextEdit {
-                    id: habitIdText
-                    fontSize: 12
-                    text: habitId
-                    readOnly: true
+                    fontSize: Constants.fontSizeSmall
+                    text: qsTr("Identifier: ") + habitId
                 }
             }
             RowLayout {
@@ -116,14 +94,14 @@ Page {
                 AppTextEdit {
                     id: habitTitleText
                     text: getHabitDataByName(Constants.hHabitTitle)
-                    readOnly: !habitDetailPage.locked
+                    readOnly: habitDetailPage.locked
                 }
             }
             AppText { text: qsTr("Description:"); Layout.fillWidth: true}
             AppTextEdit {
                 id: habitDescriptionText
                 text: getHabitDataByName(Constants.hHabitDescription)
-                readOnly: !habitDetailPage.locked
+                readOnly: habitDetailPage.locked
                 wrapMode: TextEdit.WordWrap
                 Layout.fillWidth: true
             }
@@ -206,11 +184,6 @@ Page {
                 enabled: !habitDetailPage.locked
                 checked: getHabitDataByName(Constants.hHabitNotifications)
             }
-
-            Item { // spacer
-                Layout.fillHeight: true
-            }
         }
-
     }
 }
