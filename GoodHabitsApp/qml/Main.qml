@@ -33,7 +33,7 @@ App {
         dataModel.cache.clearAll()
         var jsonData = [
                 {
-                    "id": "H1",
+                    "id": "g19yc4bd3vjumu3h2n",
                     "title": "Reading",
                     "description": "Read books, comics, tech literature etc",
                     "icon": "\uf02d",
@@ -44,7 +44,7 @@ App {
                     "notifications": true
                 },
                 {
-                    "id": "H2",
+                    "id": "iiiuerpitpgjumu3xcg",
                     "title": "Board Games",
                     "description": "Play board games with friends",
                     "icon": "\uf1b2",
@@ -55,7 +55,7 @@ App {
                     "notifications": true
                 },
                 {
-                    "id": "H3",
+                    "id": "r9we6s329jjumu41k4",
                     "title": "Calligraphy",
                     "description": "Use brushes to practice in Japanese calligraphy",
                     "icon": "\uf1fc",

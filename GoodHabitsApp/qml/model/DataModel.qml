@@ -23,6 +23,25 @@ Item {
     signal loadHabitsFailed(var error)
     signal storeHabitFailed(var habit, var error)
 
+    function generateId() {
+        return Math.random().toString(36).substring(2) + (new Date()).getTime().toString(36);
+    }
+
+    // TODO: Add documentation
+
+    function getUniqueId(array) {
+        var needToRegenerate = false
+        do {
+            var possibleUnique = generateId();
+            for (var i = 0; i < array.length; ++i) {
+                if (array[i].id == possibleUnique) {
+                    needToRegenerate = true;
+                    break;
+                }
+            }
+        } while (needToRegenerate)
+        return possibleUnique;
+    }
     // listen to actions from dispatcher
     Connections {
         id: logicConnection
