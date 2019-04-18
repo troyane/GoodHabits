@@ -28,6 +28,12 @@ Page {
                     // Store changes
                     currentHabit[Constants.hHabitDuration] = habitDurationSlider.value
                     logic.storeHabits()
+                    backNavigationEnabled = true
+                    editNote.visible = false
+                } else {
+                    // unlocked, so no way to go back
+                    backNavigationEnabled = false
+                    editNote.visible = true
                 }
             }
         }
@@ -49,23 +55,47 @@ Page {
 
     // load data initially or when id changes
     onHabitIdChanged: {
-        console.log(JSON.stringify(currentHabit))
-
+//        console.log(JSON.stringify(currentHabit))
     }
 
+    width: parent.width
+
     QQC.ScrollView {
+        id: scrollView
         padding: 10
-        width: parent.width
-        height: parent.height
+        spacing: 10
+        anchors.fill: parent
         QQC.ScrollBar.horizontal.policy: QQC.ScrollBar.AlwaysOff
-        QQC.ScrollBar.vertical.policy: QQC.ScrollBar.AlwaysOn
+        QQC.ScrollBar.vertical.policy: QQC.ScrollBar.AsNeeded
 
         // TODO: Prepare separate components
 
         // TODO: Prepare helper functions
 
         ColumnLayout {
-            width: parent.width
+            width: habitDetailPage.width - 2*scrollView.padding
+            height: habitDetailPage.height - 2*scrollView.padding
+
+            AppPaper {
+                id: editNote
+                // TODO: Add animation on appearance
+                visible: false
+                Layout.fillWidth: true
+                height: appText.height
+                radius: dp(5)
+                background.color: Constants.attentionColor
+
+                AppText {
+                    id: appText
+                    width: parent.width
+                    anchors.centerIn: parent
+                    horizontalAlignment: Text.AlignHCenter
+
+                    padding: dp(10)
+                    text: qsTr("Apply changes and lock it.")
+                }
+            }
+
             RowLayout {
                 Layout.fillWidth: true
                 spacing: dp(10)
@@ -181,5 +211,6 @@ Page {
                 Layout.fillHeight: true
             }
         }
+
     }
 }
