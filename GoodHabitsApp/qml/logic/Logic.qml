@@ -1,31 +1,30 @@
 import QtQuick 2.0
 
 Item {
-
     // actions
-    signal fetchHabits()
+    signal loadHabits()
 
-    signal fetchHabitDetails(int id)
-
-    signal fetchDraftHabits()
+    signal loadHabitDetails(string habitId)
 
     signal storeHabit(var habit)
 
+    signal storeHabits()
+
     signal clearCache()
-
-    signal login(string username, string password)
-
-    signal logout()
 
     // function to store a new habit
     function addHabit(title) {
         var draft = {
-            completed: false,
+            id: "Z",
             title: title,
-            userId: 1,
+            description: "",
+            icon: "",
+            duration: "1.0",
+            time: "09:00",
+            days: "",
+            private: false,
+            notification: true,
         }
-
         storeHabit(draft)
     }
-
 }

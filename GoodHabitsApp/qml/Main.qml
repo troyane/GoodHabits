@@ -13,19 +13,70 @@ App {
     //  * Add plugins to monetize, analyze & improve your apps (available with the Pro Licenses)
 
     licenseKey: Secrets.key
+    property int numberAppStarts: 0
+
+    function updateNumberAppStartsCount() {
+        var tempNumberAppStarts = settings.getValue("numberAppStarts")
+        if (tempNumberAppStarts === undefined) {
+            // first start
+            tempNumberAppStarts = 0
+        } else {
+            tempNumberAppStarts++
+        }
+        settings.setValue("numberAppStarts", tempNumberAppStarts)
+        numberAppStarts = tempNumberAppStarts
+        console.log("It is #" + numberAppStarts + " run of application")
+    }
+
+    // Simple data for testing. Located here to be easier to use
+    function _debugPrepareData() {
+        dataModel.cache.clearAll()
+        var jsonData = {
+            "habits" : [
+                {
+                    "id": "H1",
+                    "title": "Reading",
+                    "description": "Read books, comics, tech literature etc",
+                    "icon": "\uf02d",
+                    "duration": "0.75",
+                    "time": "09:00",
+                    "days": "Mo, Tu, We",
+                    "private": false,
+                    "notifications": true
+                },
+                {
+                    "id": "H2",
+                    "title": "Board Games",
+                    "description": "Play board games with friends",
+                    "icon": "\uf1b2",
+                    "duration": "2.5",
+                    "time": "19:00",
+                    "days": "Su",
+                    "private": false,
+                    "notifications": true
+                },
+                {
+                    "id": "H3",
+                    "title": "Calligraphy",
+                    "description": "Use brushes to practice in Japanese calligraphy",
+                    "icon": "\uf1fc",
+                    "duration": "1.0",
+                    "time": "18:00",
+                    "days": "Mo, We, Fr",
+                    "private": false,
+                    "notifications": true
+                }
+            ]
+        };
+
+        dataModel.cache.setValue("habits", jsonData)
+        console.log("Already saved!")
+    }
 
     // app initialization
     Component.onCompleted: {
-        // if device has network connection, clear cache at startup
-        // you'll probably implement a more intelligent cache cleanup for your app
-        // e.g. to only clear the items that aren't required regularly
-        if (isOnline) {
-            logic.clearCache()
-        }
-
-        // fetch todo list data
-        logic.fetchHabits()
-        logic.fetchDraftHabits()
+        // _debugPrepareData()
+        logic.loadHabits()
     }
 
     // business logic
@@ -35,25 +86,23 @@ App {
     DataModel {
         id: dataModel
         dispatcher: logic // data model handles actions sent by logic
-
-        onFetchHabitsFailed: nativeUtils.displayMessageBox(qsTr("Unable to load habits"), error, 1)
+        onLoadHabitsFailed: nativeUtils.displayMessageBox(qsTr("Unable to load habits"), error, 1)
     }
 
     // view
     Navigation {
         id: navigation
 
-        // only enable if user is logged in
-        // login page below overlays navigation then
-        enabled: true // dataModel.userLoggedIn
+        enabled: true
 
         NavigationItem {
-            title: qsTr("Habits list")
+            title: qsTr("Habits list ") + numberAppStarts
             icon: IconType.list
 
             NavigationStack {
                 splitView: tablet // use side-by-side view on tablets
                 initialPage: HabitsListPage { }
+
             }
         }
 
@@ -68,18 +117,12 @@ App {
         }
 
         NavigationItem {
-            title: qsTr("Profile") // use qsTr for strings you want to translate
+            title: qsTr("Profile")
             icon: IconType.user
 
             NavigationStack {
                 initialPage: ProfilePage {
-                    // handle logout
-                    onLogoutClicked: {
-                        //                        logic.logout()
-                        // jump to main page after logout
-                        //                        navigation.currentIndex = 0
-                        //                        navigation.currentNavigationItem.navigationStack.popAllExceptFirst()
-                    }
+                    // TODO: Implement info
                 }
             }
         }

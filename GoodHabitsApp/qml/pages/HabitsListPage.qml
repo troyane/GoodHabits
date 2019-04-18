@@ -1,26 +1,23 @@
 import Felgo 3.0
 import QtQuick 2.0
 
+import "../components"
+
 Page {
     id: page
-    title: qsTr("Habits list") // use qsTr for strings you want to translate
+    title: qsTr("Habits list")
+
+    onPopped: {
+        console.log("On popped")
+    }
 
     rightBarItem: NavigationBarRow {
-        // network activity indicator
-        ActivityIndicatorBarItem {
-            enabled: dataModel.isBusy
-            visible: enabled
-            showItem: showItemAlways // do not collapse into sub-menu on Android
-        }
-
         // add new habit
         IconButtonBarItem {
             icon: IconType.plus
             showItem: showItemAlways
             onClicked: {
-                // use qsTr for strings you want to translate
                 // var title = qsTr("New Habit")
-
                 // this logic helper function creates a habit
                 // logic.addHabit(title)
             }
@@ -54,13 +51,20 @@ Page {
 
         // the delegate is the template item for each entry of the list
         delegate: SimpleRow {
+            style.backgroundColor: index % 2 == 0
+                                   ? Constants.alternateListItemColor1
+                                   : Constants.alternateListItemColor2
             text: model.title
             detailText: model.description
             iconSource: model.icon
 
             // push detail page when selected, pass chosen habit id
-            onSelected: page.navigationStack.popAllExceptFirstAndPush(detailPageComponent,
-                                                                      { habitId: model.id })
+            onSelected: {
+                console.log("# Selected ", model.id)
+                logic.loadHabitDetails(model.id)
+                page.navigationStack.popAllExceptFirstAndPush(detailPageComponent,
+                                                              { habitId: model.id })
+            }
         }
     }
 
