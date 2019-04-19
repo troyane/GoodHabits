@@ -25,7 +25,7 @@ Page {
         currentHabit[Constants.hHabitIcon] = habitIconButton.iconName
         currentHabit[Constants.hHabitDuration] = habitDurationSlider.value
         currentHabit[Constants.hHabitTime] = habitTypicalTime.text
-        currentHabit[Constants.hHabitDays] = "Mo"//habitTitleText.text // TODO
+        currentHabit[Constants.hHabitDays] = daysPicker.getDays()
         currentHabit[Constants.hHabitPrivate] = habitPrivate.checked
         currentHabit[Constants.hHabitNotifications] = habitNotification.checked
         logic.storeHabits()
@@ -59,12 +59,10 @@ Page {
 
     // load data initially or when id changes
     onHabitIdChanged: {
-//        console.log(JSON.stringify(currentHabit))
+        daysPicker.setDays(getHabitDataByName(Constants.hHabitDays))
     }
 
     width: parent.width
-
-
 
     QQC.ScrollView {
         id: scrollView
@@ -142,53 +140,29 @@ Page {
                 enabled: !habitDetailPage.locked
             }
 
-            AppText { text: qsTr("Typical time:") }
-            AppTextInput {
-                id: habitTypicalTime
-                text: getHabitDataByName(Constants.hHabitTime)
+            RowLayout {
                 Layout.fillWidth: true
-                enabled: !habitDetailPage.locked
-                placeholderText: "00:00"
-                validator: RegExpValidator {
-                    regExp: /^(0[0-9]|1[0-9]|2[0-3]|[0-9]):[0-5][0-9]$/
+
+                AppText { text: qsTr("Typical time:") }
+
+                AppTextInput {
+                    id: habitTypicalTime
+                    text: getHabitDataByName(Constants.hHabitTime)
+                    Layout.fillWidth: true
+                    enabled: !habitDetailPage.locked
+                    placeholderText: "00:00"
+                    validator: RegExpValidator {
+                        regExp: /^(0[0-9]|1[0-9]|2[0-3]|[0-9]):[0-5][0-9]$/
+                    }
                 }
             }
 
             AppText { text: qsTr("Typical days:") }
 
-            AppCheckBox {
-                id: habitDayMonday
-                text: qsTr("Monday")
-                enabled: !habitDetailPage.locked
-            }
-            AppCheckBox {
-                id: habitDayTuesday
-                text: qsTr("Tuesday")
-                enabled: !habitDetailPage.locked
-            }
-            AppCheckBox {
-                id: habitDayWednesday
-                text: qsTr("Wednesday")
-                enabled: !habitDetailPage.locked
-            }
-            AppCheckBox {
-                id: habitDayThursday
-                text: qsTr("Thursday")
-                enabled: !habitDetailPage.locked
-            }
-            AppCheckBox {
-                id: habitDayFriday
-                text: qsTr("Friday")
-                enabled: !habitDetailPage.locked
-            }
-            AppCheckBox {
-                id: habitDaySaturday
-                text: qsTr("Saturday")
-                enabled: !habitDetailPage.locked
-            }
-            AppCheckBox {
-                id: habitDaySunday
-                text: qsTr("Sunday")
+            DaysPicker {
+                id: daysPicker
+                Layout.fillWidth: true
+                Layout.fillHeight: true
                 enabled: !habitDetailPage.locked
             }
 

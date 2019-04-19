@@ -39,7 +39,7 @@ App {
                     "icon": "book",
                     "duration": "0.75",
                     "time": "09:00",
-                    "days": "Mo, Tu, We",
+                    "days": "Mon,Tue,Wed",
                     "private": false,
                     "notifications": true
                 },
@@ -50,7 +50,7 @@ App {
                     "icon": "cube",
                     "duration": "2.5",
                     "time": "19:00",
-                    "days": "Su",
+                    "days": "Sun",
                     "private": false,
                     "notifications": true
                 },
@@ -61,7 +61,7 @@ App {
                     "icon": "paintbrush",
                     "duration": "1.0",
                     "time": "18:00",
-                    "days": "Mo, We, Fr",
+                    "days": "Mon,Wed,Fri",
                     "private": false,
                     "notifications": true
                 }
