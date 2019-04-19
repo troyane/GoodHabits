@@ -1,2 +1,3 @@
 singleton Constants 1.0 Constants.qml
 WarningPaper 1.0 WarningPaper.qml
+singleton IconTypeHelper 1.0 IconTypeHelper.qml

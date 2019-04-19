@@ -63,7 +63,6 @@ Page {
             }]
     }
 
-
     ColumnLayout {
         anchors.fill: parent
 
@@ -93,7 +92,7 @@ Page {
                                        : Constants.alternateListItemColor2
                 text: model.title
                 detailText: model.description
-                iconSource: model.icon
+                iconSource: IconType[model.icon]
 
                 // push detail page when selected, pass chosen habit id
                 onSelected: {

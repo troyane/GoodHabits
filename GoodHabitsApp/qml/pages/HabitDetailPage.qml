@@ -29,7 +29,7 @@ Page {
                     // Store changes
                     currentHabit[Constants.hHabitTitle] = habitTitleText.text
                     currentHabit[Constants.hHabitDescription] = habitDescriptionText.text
-//                    currentHabit[Constants.hHabitIcon] = //habit.text // TODO
+                    currentHabit[Constants.hHabitIcon] = habitIconButton.iconName
                     currentHabit[Constants.hHabitDuration] = habitDurationSlider.value
                     currentHabit[Constants.hHabitTime] = habitTypicalTime.text
                     currentHabit[Constants.hHabitDays] = "Mo"//habitTitleText.text // TODO
@@ -57,6 +57,8 @@ Page {
     }
 
     width: parent.width
+
+
 
     QQC.ScrollView {
         id: scrollView
@@ -109,8 +111,13 @@ Page {
                 Layout.fillWidth: true
                 AppText { text: qsTr("Icon:") }
                 IconButton {
-                    icon: getHabitDataByName(Constants.hHabitIcon)
+                    id: habitIconButton
+                    property string iconName: getHabitDataByName(Constants.hHabitIcon)
+                    icon: IconType[iconName]
                     enabled: !habitDetailPage.locked
+                    onClicked: {
+                        iconPicker.visible = true
+                    }
                 }
             }
             AppText {
@@ -197,6 +204,21 @@ Page {
                     }
                 }
             }
+        }
+    }
+
+    IconPicker {
+        id: iconPicker
+        anchors.fill: parent
+        visible: false
+
+        onCanceled: {
+            iconPicker.visible = false
+        }
+        onIconChoosed: {
+            habitIconButton.icon = iconUtf
+            habitIconButton.iconName = iconName
+            iconPicker.visible = false
         }
     }
 }
