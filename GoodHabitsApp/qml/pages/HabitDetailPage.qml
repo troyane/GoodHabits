@@ -14,10 +14,6 @@ Page {
     property bool locked: true
     backNavigationEnabled: locked
 
-    onPopped: {
-        console.log("POPPED")
-    }
-
     function saveAll() {
         // Store changes
         currentHabit[Constants.hHabitTitle] = habitTitleText.text
@@ -43,7 +39,11 @@ Page {
         IconButtonBarItem {
             icon: habitDetailPage.locked ? IconType.lock : IconType.unlock
             showItem: showItemAlways
-            onClicked: toggleLocked()
+            onClicked: {
+                if (iconPicker.visible)
+                    iconPicker.canceled()
+                toggleLocked()
+            }
         }
     }
 

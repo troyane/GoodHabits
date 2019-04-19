@@ -14,14 +14,14 @@ Rectangle {
 
     // TODO: Add microanimations
 
-    color: "white" // TODO: Use color from Constants
+    color: Theme.backgroundColor
     AppPaper {
         anchors {
             fill: parent
             margins: dp(Constants.defaultSpacing)
         }
         radius: dp(Constants.defaultSpacing)
-        background.color: "white" // TODO: Use color from Constants
+        background.color: Theme.backgroundColor
         clip: true
 
         SortFilterProxyModel {
@@ -37,16 +37,11 @@ Rectangle {
         }
 
         Rectangle {
-            anchors {
-                fill: parent
-                margins: 0.5 * dp(Constants.defaultPadding)
-            }
+            anchors.fill: parent
             color: iconPicker.color
 
             ColumnLayout {
-                anchors {
-                    fill: parent
-                }
+                anchors.fill: parent
                 AppText {
                     text: qsTr("Find best icon:")
                     fontSize: Constants.fontSizeNormal

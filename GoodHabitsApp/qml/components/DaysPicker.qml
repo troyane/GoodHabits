@@ -25,7 +25,6 @@ Grid {
     }
 
     function uncheckAll() {
-        console.log("Uncheck all")
         for (var i = 0; i < daysPicker.children.length; ++i) {
             // TODO: Add checks if component is checkable
             daysPicker.children[i].checked = false
@@ -44,7 +43,6 @@ Grid {
             console.warn("Something strange happenning")
         }
         for (var i = 0; i < days.length; ++i) {
-            console.log("Day ", days[i])
             switch (days[i]) {
             case dayMonday: habitDayMonday.checked = true; break;
             case dayTuesday: habitDayTuesday.checked = true; break;

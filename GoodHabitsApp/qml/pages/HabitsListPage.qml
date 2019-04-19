@@ -8,6 +8,8 @@ Page {
     id: page
     title: qsTr("Habits list")
 
+    backgroundColor: Theme.backgroundColor
+
     onPopped: {
         console.log("On popped")
     }
@@ -70,6 +72,7 @@ Page {
             SearchBar {
                 id: searchBar
                 Layout.fillWidth: true
+                barBackgroundColor: Theme.backgroundColor
             }
             IconButton {
                 icon: sortByTitleActive ? IconType.arrowdown : IconType.arrowup
@@ -88,8 +91,8 @@ Page {
             // the delegate is the template item for each entry of the list
             delegate: SimpleRow {
                 style.backgroundColor: index % 2 == 0
-                                       ? Constants.alternateListItemColor1
-                                       : Constants.alternateListItemColor2
+                                       ? Theme.backgroundColor
+                                       : Theme.secondaryBackgroundColor
                 text: model.title
                 detailText: model.description
                 iconSource: IconType[model.icon]
