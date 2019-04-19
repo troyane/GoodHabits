@@ -18,26 +18,32 @@ Page {
         console.log("POPPED")
     }
 
+    function saveAll() {
+        // Store changes
+        currentHabit[Constants.hHabitTitle] = habitTitleText.text
+        currentHabit[Constants.hHabitDescription] = habitDescriptionText.text
+        currentHabit[Constants.hHabitIcon] = habitIconButton.iconName
+        currentHabit[Constants.hHabitDuration] = habitDurationSlider.value
+        currentHabit[Constants.hHabitTime] = habitTypicalTime.text
+        currentHabit[Constants.hHabitDays] = "Mo"//habitTitleText.text // TODO
+        currentHabit[Constants.hHabitPrivate] = habitPrivate.checked
+        currentHabit[Constants.hHabitNotifications] = habitNotification.checked
+        logic.storeHabits()
+    }
+
+    function toggleLocked() {
+        habitDetailPage.locked = !habitDetailPage.locked
+        if (habitDetailPage.locked) {
+            saveAll()
+        }
+    }
+
     rightBarItem: NavigationBarRow {
         // edit habit
         IconButtonBarItem {
             icon: habitDetailPage.locked ? IconType.lock : IconType.unlock
             showItem: showItemAlways
-            onClicked: {
-                habitDetailPage.locked = !habitDetailPage.locked
-                if (habitDetailPage.locked) {
-                    // Store changes
-                    currentHabit[Constants.hHabitTitle] = habitTitleText.text
-                    currentHabit[Constants.hHabitDescription] = habitDescriptionText.text
-                    currentHabit[Constants.hHabitIcon] = habitIconButton.iconName
-                    currentHabit[Constants.hHabitDuration] = habitDurationSlider.value
-                    currentHabit[Constants.hHabitTime] = habitTypicalTime.text
-                    currentHabit[Constants.hHabitDays] = "Mo"//habitTitleText.text // TODO
-                    currentHabit[Constants.hHabitPrivate] = habitPrivate.checked
-                    currentHabit[Constants.hHabitNotifications] = habitNotification.checked
-                    logic.storeHabits()
-                }
-            }
+            onClicked: toggleLocked()
         }
     }
 
@@ -80,6 +86,10 @@ Page {
                 isVisible: habitDetailPage.locked
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignCenter
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: toggleLocked()
+                }
             }
 
             RowLayout {
@@ -97,6 +107,18 @@ Page {
                     id: habitTitleText
                     text: getHabitDataByName(Constants.hHabitTitle)
                     readOnly: habitDetailPage.locked
+                    Layout.fillWidth: true
+                }
+
+                IconButton {
+                    id: habitIconButton
+                    property string iconName: getHabitDataByName(Constants.hHabitIcon)
+                    icon: IconType[iconName]
+                    enabled: !habitDetailPage.locked
+
+                    onClicked: {
+                        iconPicker.visible = true
+                    }
                 }
             }
             AppText { text: qsTr("Description:"); Layout.fillWidth: true}
@@ -106,19 +128,6 @@ Page {
                 readOnly: habitDetailPage.locked
                 wrapMode: TextEdit.WordWrap
                 Layout.fillWidth: true
-            }
-            RowLayout {
-                Layout.fillWidth: true
-                AppText { text: qsTr("Icon:") }
-                IconButton {
-                    id: habitIconButton
-                    property string iconName: getHabitDataByName(Constants.hHabitIcon)
-                    icon: IconType[iconName]
-                    enabled: !habitDetailPage.locked
-                    onClicked: {
-                        iconPicker.visible = true
-                    }
-                }
             }
             AppText {
                 Layout.fillWidth: true
@@ -139,6 +148,10 @@ Page {
                 text: getHabitDataByName(Constants.hHabitTime)
                 Layout.fillWidth: true
                 enabled: !habitDetailPage.locked
+                placeholderText: "00:00"
+                validator: RegExpValidator {
+                    regExp: /^(0[0-9]|1[0-9]|2[0-3]|[0-9]):[0-5][0-9]$/
+                }
             }
 
             AppText { text: qsTr("Typical days:") }
