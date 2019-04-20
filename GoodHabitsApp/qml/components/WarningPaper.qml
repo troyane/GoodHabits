@@ -7,7 +7,9 @@ import QtQuick.Layouts 1.3
 AppPaper {
     id: editNote
     property alias text: appText.text
-    property bool isVisible
+    property bool needShow
+    signal clicked()
+
     radius: dp(Constants.defaultSpacing)
     background.color: Constants.attentionColor
 
@@ -24,15 +26,20 @@ AppPaper {
     states: [
         State {
             name: "invisible"
-            when: isVisible
+            when: !needShow
             PropertyChanges { target: editNote; Layout.preferredHeight: 0 }
         },
         State {
             name: "visible"
-            when: !isVisible
+            when: needShow
             PropertyChanges { target: editNote; Layout.preferredHeight: appText.implicitHeight }
         }
     ]
 
     Behavior on Layout.preferredHeight { NumberAnimation { duration: Constants.animationDuration } }
+
+    MouseArea {
+        anchors.fill: parent
+        onClicked: editNote.clicked()
+    }
 }

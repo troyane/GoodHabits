@@ -81,13 +81,10 @@ Page {
 
             WarningPaper {
                 text: qsTr("Apply changes and lock it.")
-                isVisible: habitDetailPage.locked
+                needShow: !habitDetailPage.locked
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignCenter
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: toggleLocked()
-                }
+                onClicked: toggleLocked()
             }
 
             RowLayout {
