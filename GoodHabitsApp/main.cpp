@@ -6,11 +6,11 @@
 // uncomment this line to add the Live Client Module and use live reloading with your custom C++ code
 //#include <FelgoLiveClient>
 
-
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
     FelgoApplication felgo;
+    qApp->setOrganizationName("Trola Family");
 
     // Use platform-specific fonts instead of Felgo's default font
     felgo.setPreservePlatformFonts(true);
