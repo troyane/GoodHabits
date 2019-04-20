@@ -60,15 +60,28 @@ Item {
             // check cached value first
             console.log("Going to load habits...")
             var cached = cache.getValue(Constants.hHabits)
-            console.log(JSON.stringify(cached))
+            // console.log(JSON.stringify(cached))
 
             if (cached) {
                 _.habits = cached
-                getUniqueId(cached)
                 //console.log(JSON.stringify(cached["habits"]))
             } else {
                 // TODO: Add Warning dialog
                 console.log("Can't find any")
+                nativeUtils.displayMessageBox(qsTr("Can't find any cached habits!"),
+                                              qsTr("Looks like you run this application for first time."), 1)
+            }
+        }
+
+        onImportHabits: {
+            if (habits) {
+                _.habits = habits
+                saveAndUpdateHabits()
+            } else {
+                // TODO: Add checks
+                nativeUtils.displayMessageBox(qsTr("Can't import any habits!"),
+                                              qsTr("Something strange hapenning."), 1)
+
             }
         }
 

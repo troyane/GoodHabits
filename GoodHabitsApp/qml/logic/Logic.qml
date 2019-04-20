@@ -4,6 +4,8 @@ Item {
     // actions
     signal loadHabits()
 
+    signal importHabits(var habits)
+
     signal loadHabitDetails(string habitId)
 
     signal storeHabit(var habit)

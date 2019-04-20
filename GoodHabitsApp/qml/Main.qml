@@ -84,7 +84,7 @@ App {
     DataModel {
         id: dataModel
         dispatcher: logic // data model handles actions sent by logic
-        onLoadHabitsFailed: nativeUtils.displayMessageBox(qsTr("Unable to load habits"), error, 1)
+        // onLoadHabitsFailed: nativeUtils.displayMessageBox(qsTr("Unable to load habits"), error, 1)
     }
 
     // view
