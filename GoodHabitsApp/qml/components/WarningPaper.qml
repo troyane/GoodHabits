@@ -8,10 +8,16 @@ AppPaper {
     id: editNote
     property alias text: appText.text
     property bool needShow
+    property bool isWarning: true
+
     signal clicked()
 
+    Layout.fillWidth: true
+    Layout.alignment: Qt.AlignHCenter
     radius: dp(Constants.defaultSpacing)
-    background.color: Constants.attentionColor
+    background.color: isWarning
+                      ? Constants.attentionColor
+                      : Constants.okColor
 
     AppText {
         id: appText
