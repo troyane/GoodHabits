@@ -82,8 +82,6 @@ Page {
             WarningPaper {
                 text: qsTr("Apply changes and lock it.")
                 needShow: !habitDetailPage.locked
-                Layout.fillWidth: true
-                Layout.alignment: Qt.AlignCenter
                 onClicked: toggleLocked()
             }
 
