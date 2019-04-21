@@ -14,14 +14,12 @@ Rectangle {
     // TODO: Add microanimations
 
     color: Theme.backgroundColor
-    AppPaper {
+    HBPaper {
         anchors {
             fill: parent
             margins: dp(Constants.defaultSpacing)
         }
-        radius: dp(Constants.defaultSpacing)
         background.color: Theme.backgroundColor
-        clip: true
 
         SortFilterProxyModel {
             id: filteredModel

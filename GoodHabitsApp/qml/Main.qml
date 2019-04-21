@@ -19,12 +19,10 @@ App {
 
     function getSettingsValueOrUseDefault(name, defaultValue) {
         var value = app.settings.getValue(name)
-        console.log("Read value:", value)
         if (value === undefined) {
             app.settings.setValue(name, defaultValue)
             value = defaultValue
         }
-        console.log("Will use value:", value)
         return value
     }
 

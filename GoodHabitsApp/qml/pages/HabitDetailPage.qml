@@ -116,6 +116,7 @@ Page {
                 wrapMode: TextEdit.WordWrap
                 Layout.fillWidth: true
             }
+
             AppText {
                 Layout.fillWidth: true
                 text: qsTr("Typical duration (") + habitDurationSlider.value.toFixed(2) + "h)"
