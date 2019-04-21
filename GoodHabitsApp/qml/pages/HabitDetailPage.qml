@@ -66,11 +66,6 @@ Page {
     HBScrollView {
         id: scrollView
         anchors.fill: parent
-
-        // TODO: Prepare separate components
-
-        // TODO: Prepare helper functions
-
         ColumnLayout {
             width: habitDetailPage.width - 2*scrollView.padding
 

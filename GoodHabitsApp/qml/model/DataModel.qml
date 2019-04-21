@@ -30,7 +30,6 @@ Item {
     }
 
     // TODO: Add documentation
-
     function getUniqueId(array) {
         var needToRegenerate = false
         do {
@@ -66,7 +65,6 @@ Item {
                 _.habits = cached
                 //console.log(JSON.stringify(cached["habits"]))
             } else {
-                // TODO: Add Warning dialog
                 console.log("Can't find any")
                 nativeUtils.displayMessageBox(qsTr("Can't find any cached habits!"),
                                               qsTr("Looks like you run this application for first time."), 1)
