@@ -1,5 +1,5 @@
 import Felgo 3.0
-import QtQuick 2.0
+import QtQuick 2.3
 import QtQuick.Layouts 1.3
 
 import "../components"
@@ -55,7 +55,7 @@ Page {
         id: listModel
         source: dataModel.habits // show habits from data model
         keyField: "id"
-        fields: ["id", "title", "description", "icon"]
+        fields: ["id", "title", "description", "icon", "duration", "time"]
     }
 
     SortFilterProxyModel {
@@ -111,12 +111,22 @@ Page {
                 detailText: model.description
                 iconSource: IconType[model.icon]
 
-                // push detail page when selected, pass chosen habit id
-                onSelected: {
-                    console.log("# Selected ", model.id)
-                    logic.loadHabitDetails(model.id)
-                    page.navigationStack.popAllExceptFirstAndPush(detailPageComponent,
-                                                                  { habitId: model.id })
+                badgeValue: "Done!"
+                MouseArea {
+                    anchors.fill: parent
+                    propagateComposedEvents: true // just in case...
+                    onClicked: {
+                        logic.loadHabitDetails(model.id)
+                        page.navigationStack.popAllExceptFirstAndPush(detailPageComponent,
+                                                                      { habitId: model.id })
+                        mouse.accepted = true
+                    }
+                    onPressAndHold: {
+                        recordDialog.show(model.id,
+                                          model.title,
+                                          model.duration,
+                                          model.time)
+                    }
                 }
             }
         }
@@ -126,5 +136,11 @@ Page {
     Component {
         id: detailPageComponent
         HabitDetailPage { }
+    }
+
+    RecordDialog {
+        id: recordDialog
+        width: parent.width
+        height: parent.height
     }
 }
