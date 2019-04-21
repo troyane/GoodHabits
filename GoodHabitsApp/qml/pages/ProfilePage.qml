@@ -54,10 +54,18 @@ Page {
             }
 
             AppButton {
-                text: qsTr("Export/Import all data we store")
+                text: qsTr("Export/Import data we store...")
                 Layout.alignment: Qt.AlignHCenter
                 onClicked: {
                     profilePage.navigationStack.popAllExceptFirstAndPush(importExportPage)
+                }
+            }
+
+            AppButton {
+                text: qsTr("Settings...")
+                Layout.alignment: Qt.AlignHCenter
+                onClicked: {
+                    profilePage.navigationStack.popAllExceptFirstAndPush(settingsPage)
                 }
             }
         }
@@ -66,5 +74,10 @@ Page {
     Component {
         id: importExportPage
         ImportExportPage { }
+    }
+
+    Component {
+        id: settingsPage
+        SettingsPage { }
     }
 }

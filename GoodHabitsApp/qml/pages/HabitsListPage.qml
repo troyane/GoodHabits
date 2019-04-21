@@ -7,12 +7,23 @@ import "../components"
 Page {
     id: page
     title: qsTr("Habits list")
+    property bool sortByTitleActive: true
+    property bool showSearchBox: true
+
+    function applySettings() {
+        sortByTitleActive = app.getSettingsValueOrUseDefault(Constants.habitsSorted, true)
+        showSearchBox = app.getSettingsValueOrUseDefault(Constants.showHabitsSearchBox, true)
+    }
+
+    onAppeared: {
+        applySettings()
+    }
+
+    Component.onCompleted: {
+        applySettings()
+    }
 
     backgroundColor: Theme.backgroundColor
-
-    onPopped: {
-        console.log("On popped")
-    }
 
     rightBarItem: NavigationBarRow {
         // add new habit
@@ -47,7 +58,6 @@ Page {
         fields: ["id", "title", "description", "icon"]
     }
 
-    property bool sortByTitleActive: true
     SortFilterProxyModel {
         id: filteredModel
         sourceModel: listModel
@@ -71,12 +81,16 @@ Page {
         RowLayout {
             SearchBar {
                 id: searchBar
+                visible: showSearchBox
                 Layout.fillWidth: true
                 barBackgroundColor: Theme.backgroundColor
             }
             IconButton {
                 icon: sortByTitleActive ? IconType.arrowdown : IconType.arrowup
-                onClicked: sortByTitleActive = !sortByTitleActive
+                onClicked: {
+                    sortByTitleActive = !sortByTitleActive
+                    app.settings.setValue(Constants.habitsSorted, sortByTitleActive)
+                }
             }
         }
 

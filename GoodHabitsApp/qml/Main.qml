@@ -12,8 +12,21 @@ App {
     //  * Remove the Felgo Splash Screen or set a custom one (available with the Pro Licenses)
     //  * Add plugins to monetize, analyze & improve your apps (available with the Pro Licenses)
 
+    id: app
+
     licenseKey: Secrets.key
     property int numberAppStarts: 0
+
+    function getSettingsValueOrUseDefault(name, defaultValue) {
+        var value = app.settings.getValue(name)
+        console.log("Read value:", value)
+        if (value === undefined) {
+            app.settings.setValue(name, defaultValue)
+            value = defaultValue
+        }
+        console.log("Will use value:", value)
+        return value
+    }
 
     function updateNumberAppStartsCount() {
         var tempNumberAppStarts = settings.getValue("numberAppStarts")
@@ -90,17 +103,20 @@ App {
     // view
     Navigation {
         id: navigation
-
         enabled: true
-
         NavigationItem {
+            id: navHabits
             title: qsTr("Habits list ") + numberAppStarts
             icon: IconType.list
 
+            onSelected: {
+                navHabits.navigationStack.currentPage.applySettings()
+            }
+
             NavigationStack {
+                id: niHabitsList
                 splitView: tablet // use side-by-side view on tablets
                 initialPage: HabitsListPage { }
-
             }
         }
 
@@ -120,7 +136,6 @@ App {
 
             NavigationStack {
                 initialPage: ProfilePage {
-                    // TODO: Implement info
                 }
             }
         }

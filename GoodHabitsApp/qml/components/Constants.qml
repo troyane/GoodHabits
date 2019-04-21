@@ -32,4 +32,8 @@ QtObject {
     readonly property int fontSizeSmall: 10
     readonly property int fontSizeNormal: 14
     readonly property int fontSizeBig: 18
+
+    // Settings names
+    readonly property string habitsSorted: "habitsSorted"
+    readonly property string showHabitsSearchBox: "showHabitsSearchBox"
 }
