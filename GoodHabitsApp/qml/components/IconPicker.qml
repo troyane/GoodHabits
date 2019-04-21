@@ -1,7 +1,6 @@
 import Felgo 3.0
 import QtQuick 2.0
 import QtQuick.Layouts 1.3
-import QtQuick.Controls 2.2 as QQC
 
 Rectangle {
     // Rectangle, since we do really want to cover all
@@ -53,8 +52,7 @@ Rectangle {
                     Layout.fillWidth: true
                 }
 
-                QQC.ScrollView {
-                    clip: true
+                HBScrollView {
                     Layout.fillHeight: true
                     Layout.fillWidth: true
                     GridView {

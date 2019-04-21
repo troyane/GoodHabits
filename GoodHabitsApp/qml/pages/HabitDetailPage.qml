@@ -1,7 +1,6 @@
 import Felgo 3.0
 import QtQuick 2.0
 import QtQuick.Layouts 1.3
-import QtQuick.Controls 2.2 as QQC
 
 import "../components"
 
@@ -64,13 +63,9 @@ Page {
 
     width: parent.width
 
-    QQC.ScrollView {
+    HBScrollView {
         id: scrollView
-        padding: dp(Constants.defaultPadding)
-        spacing: dp(Constants.defaultSpacing)
         anchors.fill: parent
-        QQC.ScrollBar.horizontal.policy: QQC.ScrollBar.AlwaysOff
-        QQC.ScrollBar.vertical.policy: QQC.ScrollBar.AsNeeded
 
         // TODO: Prepare separate components
 
@@ -103,10 +98,9 @@ Page {
                     Layout.fillWidth: true
                 }
 
-                AppPaper {
+                HBPaper {
                     width: habitIconButton.implicitWidth
                     height: habitIconButton.implicitHeight
-                    radius: dp(Constants.defaultSpacing)
                     IconButton {
                         id: habitIconButton
                         property string iconName: getHabitDataByName(Constants.hHabitIcon)
