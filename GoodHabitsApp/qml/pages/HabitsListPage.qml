@@ -28,6 +28,7 @@ Page {
     rightBarItem: NavigationBarRow {
         // add new habit
         IconButtonBarItem {
+            visible: !recordDialog.visible
             icon: IconType.plus
             showItem: showItemAlways
             onClicked: {
@@ -140,6 +141,7 @@ Page {
 
     RecordDialog {
         id: recordDialog
+        visible: false
         width: parent.width
         height: parent.height
     }
