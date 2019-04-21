@@ -20,6 +20,7 @@ QtObject {
     readonly property color alternateListItemColor1: "#f7f7f7"
     readonly property color alternateListItemColor2: "white"
     readonly property color attentionColor: "#FF5722" // deep orange for attention
+    readonly property color okColor: "#ccff90" // light green for "it goes ok"
 
     // Default sizes
     readonly property int defaultPadding: 10
