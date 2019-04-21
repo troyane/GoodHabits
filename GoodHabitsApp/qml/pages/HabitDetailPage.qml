@@ -103,14 +103,19 @@ Page {
                     Layout.fillWidth: true
                 }
 
-                IconButton {
-                    id: habitIconButton
-                    property string iconName: getHabitDataByName(Constants.hHabitIcon)
-                    icon: IconType[iconName]
-                    enabled: !habitDetailPage.locked
+                AppPaper {
+                    width: habitIconButton.implicitWidth
+                    height: habitIconButton.implicitHeight
+                    radius: dp(Constants.defaultSpacing)
+                    IconButton {
+                        id: habitIconButton
+                        property string iconName: getHabitDataByName(Constants.hHabitIcon)
+                        icon: IconType[iconName]
+                        enabled: !habitDetailPage.locked
 
-                    onClicked: {
-                        iconPicker.visible = true
+                        onClicked: {
+                            iconPicker.visible = true
+                        }
                     }
                 }
             }
