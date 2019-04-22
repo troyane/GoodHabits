@@ -47,7 +47,7 @@ Page {
                                        ? Theme.backgroundColor
                                        : Theme.secondaryBackgroundColor
                 text: dataModel.getHabitTitleById(model.habit)
-                detailText: model.duration + " " + model.time + " " + model["id"]
+                detailText: model.time
                 badgeValue: model.duration + "h"
 
                 // TODO: Add range-slider-like element for visualization

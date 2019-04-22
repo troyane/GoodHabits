@@ -20,7 +20,18 @@ Page {
                 checked: app.getSettingsValueOrUseDefault(Constants.showHabitsSearchBox, true)
                 text: qsTr("Show search bar on habits list")
                 Layout.alignment: Qt.AlignHCenter
-                onClicked:  app.settings.setValue(Constants.showHabitsSearchBox, checked)
+                onClicked:  app.settings.setValue(Constants.showHabitsSearchBox,
+                                                  showSearchBarCheckBox.checked)
+            }
+
+            AppCheckBox {
+                id: showIdentifiersCheckBox
+                checked: app.getSettingsValueOrUseDefault(Constants.showIdentifiers, false)
+                enabled: false
+                text: qsTr("[debug] Show identifiers")
+                Layout.alignment: Qt.AlignHCenter
+                onClicked:  app.settings.setValue(Constants.showIdentifiers,
+                                                  showIdentifiersCheckBox.checked)
             }
         }
     }

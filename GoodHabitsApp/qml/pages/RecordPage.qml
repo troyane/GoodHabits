@@ -43,6 +43,7 @@ Page {
                 Layout.alignment: Qt.AlignHCenter
             }
             AppText {
+                visible: false
                 text: currentRecord.habit
                 fontSize: Constants.fontSizeSmall
                 font.bold: true
@@ -59,7 +60,7 @@ Page {
 
             AppButton {
                 id: dateButton
-
+                enabled: false
                 Layout.fillWidth: true
                 text: recordPage.todayText
                 onClicked: nativeUtils.displayDatePicker()

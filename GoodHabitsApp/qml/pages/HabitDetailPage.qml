@@ -79,6 +79,7 @@ Page {
                 Layout.fillWidth: true
                 spacing: dp(Constants.defaultSpacing)
                 AppText {
+                    visible: false // app.getSettingsValueOrUseDefault(Constants.showIdentifiers, false)
                     fontSize: Constants.fontSizeSmall
                     text: qsTr("Identifier: ") + habitId
                 }
@@ -155,12 +156,14 @@ Page {
             AppCheckBox {
                 id: habitPrivate
                 text: qsTr("Private")
+                visible: false // TODO: implement it as soon as sharing options will be available
                 enabled: !habitDetailPage.locked
                 checked: getHabitDataByName(Constants.hHabitPrivate)
             }
             AppCheckBox {
                 id: habitNotification
                 text: qsTr("Need notifications")
+                visible: false // TODO: implement it as soon as local notifications will be available
                 enabled: !habitDetailPage.locked
                 checked: getHabitDataByName(Constants.hHabitNotifications)
             }

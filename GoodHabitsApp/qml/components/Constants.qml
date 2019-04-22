@@ -46,4 +46,5 @@ QtObject {
     // Settings names
     readonly property string habitsSorted: "habitsSorted"
     readonly property string showHabitsSearchBox: "showHabitsSearchBox"
+    readonly property string showIdentifiers: "showIdentifiers"
 }
