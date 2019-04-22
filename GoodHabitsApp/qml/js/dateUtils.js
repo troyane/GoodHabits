@@ -1,8 +1,3 @@
-// Returns if value is a date object
-function isDate(value) {
-    return value instanceof Date
-}
-
 // Generally we expect YYYY-MM-DD form
 function getDateFromString(inputString) {
     var date = ""
@@ -22,4 +17,8 @@ function formatDateToString(date) {
         console.log(error)
     }
     return result
+}
+
+function getCurrentDate() {
+    return formatDateToString(new Date())
 }
