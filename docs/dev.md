@@ -7,19 +7,22 @@ navigation_weight: 1
 
 # Developers section
 
-...
-
 ## Get source code
 
 You can fork/clone the project from [here](https://github.com/troyane/GoodHabits).
 
+Or even use fancy buttons on the left to do it.
+
 ## Prepare build environment
 
-...
+To build the project one just need to have Felgo SDK installed. Download it and follow all instructions from https://felgo.com/download.
+
+No more additional dependencies are required.
+
 
 ## Build and run
 
-...
+To build project -- open it in Felgo's QtCreator and then Build and Run (or use Live Run).
 
 ## Documentation
 
