@@ -5,6 +5,8 @@ import "logic"
 import "pages"
 import "secrets"
 
+import "js/testData.js" as TestData
+
 App {
     // You get free licenseKeys from https://felgo.com/licenseKey
     // With a licenseKey you can:
@@ -42,44 +44,15 @@ App {
     // Simple data for testing. Located here to be easier to use
     function _debugPrepareData() {
         dataModel.cache.clearAll()
-        var jsonData = [
-                {
-                    "id": "g19yc4bd3vjumu3h2n",
-                    "title": "Reading",
-                    "description": "Read books, comics, tech literature etc",
-                    "icon": "book",
-                    "duration": "0.75",
-                    "time": "09:00",
-                    "days": "Mon,Tue,Wed",
-                    "private": false,
-                    "notifications": true
-                },
-                {
-                    "id": "iiiuerpitpgjumu3xcg",
-                    "title": "Board Games",
-                    "description": "Play board games with friends",
-                    "icon": "cube",
-                    "duration": "2.5",
-                    "time": "19:00",
-                    "days": "Sun",
-                    "private": false,
-                    "notifications": true
-                },
-                {
-                    "id": "r9we6s329jjumu41k4",
-                    "title": "Calligraphy",
-                    "description": "Use brushes to practice in Japanese calligraphy",
-                    "icon": "paintbrush",
-                    "duration": "1.0",
-                    "time": "18:00",
-                    "days": "Mon,Wed,Fri",
-                    "private": false,
-                    "notifications": true
-                }
-            ];
+        dataModel.records.clearAll()
 
-        dataModel.cache.setValue("habits", jsonData)
-        console.log("Already saved!")
+        var habitsData = TestData.habitsData
+        dataModel.cache.setValue("habits", habitsData)
+
+        var recordsData = TestData.recordsData
+        dataModel.records.setValue("records", recordsData)
+
+//        console.log("#", JSON.stringify(dataModel.records.getValue("records")) )
     }
 
     // app initialization
