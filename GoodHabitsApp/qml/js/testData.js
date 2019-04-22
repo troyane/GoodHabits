@@ -34,75 +34,44 @@ var habitsData = [
             }
         ];
 
-var recordsData1 = {
-    "2019-04-01": [
-        {
-            "habit": "g19yc4bd3vjumu3h2n",
-            "duration": "0.75",
-            "time": "09:00"
-        },
-        {
-            "habit": "g19yc4bd3vjumu3h2n",
-            "duration": "1",
-            "time": "19:00"
-        },
-        {
-            "habit": "iiiuerpitpgjumu3xcg",
-            "duration": "1",
-            "time": "20:00"
-        }
-    ],
-    "2019-04-02": [
-        {
-            "habit": "g19yc4bd3vjumu3h2n",
-            "duration": "0.75",
-            "time": "09:00"
-        },
-        {
-            "habit": "g19yc4bd3vjumu3h2n",
-            "duration": "1",
-            "time": "19:00"
-        },
-        {
-            "habit": "iiiuerpitpgjumu3xcg",
-            "duration": "1",
-            "time": "20:00"
-        }
-    ]
-};
-
 var recordsData = [
             {
-                "date":"2019-04-01",
+                "id": "123",
+                "date": "2019-04-01",
                 "habit": "g19yc4bd3vjumu3h2n",
                 "duration": "0.75",
                 "time": "09:00"
             },
             {
+                "id": "124",
                 "date":"2019-04-01",
                 "habit": "g19yc4bd3vjumu3h2n",
                 "duration": "1",
                 "time": "19:00"
             },
             {
+                "id": "125",
                 "date":"2019-04-01",
                 "habit": "iiiuerpitpgjumu3xcg",
                 "duration": "1",
                 "time": "20:00"
             },
             {
+                "id": "126",
                 "date":"2019-04-02",
                 "habit": "g19yc4bd3vjumu3h2n",
                 "duration": "0.75",
                 "time": "09:00"
             },
             {
+                "id": "127",
                 "date":"2019-04-02",
                 "habit": "g19yc4bd3vjumu3h2n",
                 "duration": "1",
                 "time": "19:00"
             },
             {
+                "id": "128",
                 "date":"2019-04-02",
                 "habit": "iiiuerpitpgjumu3xcg",
                 "duration": "1",
