@@ -64,8 +64,7 @@ $(function() {
 <div class="title">GoodHabits application </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>This is quite simple application that uses next Felgo features and/or components:</p>
-<p>For native looking:</p>
+<div class="textblock"><h2>Felgo features and/or components</h2>
 <ul>
 <li><a href="https://felgo.com/doc/felgo-app/"><code>App</code></a> &ndash; as main application instance. It provides lots of useful properties, like <code>tablet</code> &ndash; to check if it is tablet mode, <code>settings</code> for persistent settings storage, values for work with pixel density on different screens etc.</li>
 <li><b>For application structure and navigation:</b><ul>
@@ -87,9 +86,35 @@ $(function() {
 <li><b>For data manipulations:</b><ul>
 <li><a href="https://felgo.com/doc/felgo-jsonlistmodel/"><code>JsonListModel</code></a> &ndash; very easy to use proxy view model for JSON data sources.</li>
 <li><a href="https://felgo.com/doc/felgo-sortfilterproxymodel/"><code>SortFilterProxyModel</code></a> &ndash; sort and/or filter proxy model to apply filter and/or sorting settings to QML ListModel items.</li>
-<li><a href="https://felgo.com/doc/felgo-storage/"><code>Storage</code></a> &ndash; for persistent and offline storage for arbitrary key-value pair data. In future it could be changed for <a href="https://felgo.com/doc/felgo-webstorage/"><code>WebStorage</code></a>. </li>
+<li><a href="https://felgo.com/doc/felgo-storage/"><code>Storage</code></a> &ndash; for persistent and offline storage for arbitrary key-value pair data. In future it could be changed for <a href="https://felgo.com/doc/felgo-webstorage/"><code>WebStorage</code></a>.</li>
 </ul>
 </li>
+</ul>
+<h2>Developed components</h2>
+<h2>Standalone components</h2>
+<ul>
+<li><a href="https://troyane.github.io/GoodHabits/doxy/classConstants.html"><code>Constants</code></a> &ndash; to ease usage of components. We created one component that holds all constants, that could be used application wide.</li>
+<li><a href="https://troyane.github.io/GoodHabits/doxy/classDaysPicker.html"><code>DaysPicker</code></a> &ndash; visual component that has days checkboxes on a grid.</li>
+<li><a href="https://troyane.github.io/GoodHabits/doxy/classIconPicker.html"><code>IconPicker</code></a> &ndash; as component for choosing icon from available in <a href="https://felgo.com/doc/felgo-icontype/"><code>IconType</code></a> icons. unfortunately <code>IconType</code> have no possibility to use and store human names for icons. That's why <a href="https://troyane.github.io/GoodHabits/doxy/classIconTypeHelper.html"><code>IconTypeHelper</code></a> was created.</li>
+<li><a href="https://troyane.github.io/GoodHabits/doxy/classWarningPaper.html"><code>WarningPaper</code></a> &ndash; as <code>AppPaper</code> override for any in-place message boxes. Appearance and dissappearance of this box is animated.</li>
+<li><code>Secrets.qml</code> &ndash; file didn't presented in repository and excluded from <code>.gitignore</code>. See <a href="https://github.com/troyane/GoodHabits/blob/master/GoodHabitsApp/qml/secrets/Secrets.qml_template"><code>Secrets.qml_template</code></a> for reference. This file intended to be secret and available only on build-machine. One just can put Felgo <code>license</code> string here, <code>gameId</code> and <code>gameSecret</code>.</li>
+</ul>
+<h3>Helper UI components</h3>
+<ul>
+<li><a href="https://troyane.github.io/GoodHabits/doxy/classGHDeleteButton.html"><code>GHDeleteButton</code></a> &ndash; button with trashcan on it.</li>
+<li><a href="https://troyane.github.io/GoodHabits/doxy/classGHPaper.html"><code>GHPaper</code></a> &ndash; <a href="https://felgo.com/doc/felgo-apppaper/"><code>AppPaper</code></a> override for ease of use inside the application. Component has predefined radius and could react to clicks.</li>
+<li><a href="https://troyane.github.io/GoodHabits/doxy/classGHScrollView.html"><code>GHScrollView</code></a> &ndash; simple <a href="https://felgo.com/doc/qt/qml-qtquick-controls-scrollview/"><code>ScrollView</code></a> override with predefined <code>padding</code>, <code>spacing</code> and <code></code> <a href="https://felgo.com/doc/qt/qml-qtquick-controls2-scrollbar/"><code>ScrollBar</code></a> policies.</li>
+<li><a href="https://troyane.github.io/GoodHabits/doxy/classGHTextInputTime.html"><code>GHTextInputTime</code></a> &ndash; simple <a href="https://felgo.com/doc/qt/qml-qtquick-textinput/"><code>TextInput</code></a> with predefined <code>placeholderText</code> (as <code>"00:00"</code>) and with applied <code>RegExp</code> validator to filter only time in 24H format.</li>
+</ul>
+<h2>Pages</h2>
+<ul>
+<li><a href="https://troyane.github.io/GoodHabits/doxy/classHabitDetailPage.html"><code>HabitDetailPage</code></a> &ndash; application page for display habit details.</li>
+<li><a href="https://troyane.github.io/GoodHabits/doxy/classHabitsListPage.html"><code>HabitsListPage</code></a> &ndash; application page for displaing a list of habits.</li>
+<li><a href="https://troyane.github.io/GoodHabits/doxy/classImportExportPage.html"><code>ImportExportPage</code></a> &ndash; application page where user can import and export data managed by this application.</li>
+<li><a href="https://troyane.github.io/GoodHabits/doxy/classProfilePage.html"><code>ProfilePage</code></a> &ndash; application page that contains information about application and leads to another pages where user can Export/Import his habits, records, apply settings, etc.</li>
+<li><a href="https://troyane.github.io/GoodHabits/doxy/classRecordPage.html"><code>RecordPage</code></a> &ndash; application page that displays details on specific record. It gives ability to view and edit record.</li>
+<li><a href="https://troyane.github.io/GoodHabits/doxy/classReportPage.html"><code>ReportPage</code></a> &ndash; application page that display list of user's records.</li>
+<li><a href="https://troyane.github.io/GoodHabits/doxy/classSettingsPage.html"><code>SettingsPage</code></a> &ndash; application page to access to settings. Mostly check-boxes for settings user can change. </li>
 </ul>
 </div></div><!-- contents -->
 <!-- start footer part -->

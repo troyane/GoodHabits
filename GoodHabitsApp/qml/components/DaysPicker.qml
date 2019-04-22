@@ -12,6 +12,10 @@ Grid {
     readonly property string daySaturday:  qsTr("Sat")
     readonly property string daySunday:    qsTr("Sun")
 
+    /**
+      * Function returns joined string of checked ckeckboxes that represents days.
+      * @return type:string containing joined string.
+      */
     function getDays() {
         var result = ""
         result += habitDayMonday.checked    ? dayMonday    + "," : ""
@@ -24,6 +28,9 @@ Grid {
         return result
     }
 
+    /**
+      * Inner function that uncheck all checked checkboxes.
+      */
     function uncheckAll() {
         for (var i = 0; i < daysPicker.children.length; ++i) {
             // TODO: Add checks if component is checkable
@@ -31,6 +38,10 @@ Grid {
         }
     }
 
+    /**
+      * Function parses given string \c fromString and checks respective checkboxes.
+      * @param type:string fromString string containing days of week divided by comma.
+      */
     function setDays(fromString) {
         uncheckAll()
         if (fromString == "") {
