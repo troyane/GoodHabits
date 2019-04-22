@@ -180,7 +180,7 @@ Item {
             var draft = {
                 id: getUniqueId(_.habits),
                 // TODO: Add randomizer for habit names (tunable via settings)
-                title: "My new habit...",
+                title: qsTr("My new habit..."),
                 description: "",
                 icon: "bed",
                 duration: "1.0",
@@ -204,9 +204,6 @@ Item {
                 duration: habit.duration,
                 time: habit.time
             }
-            console.log("In addrecord:")
-            console.log(JSON.stringify(draft))
-
             _.records.push(draft)
             saveAndUpdateRecords()
             _.recordDetails = draft
