@@ -30,7 +30,7 @@ Page {
         // Note: when using JsonListModel, the sorters or filter might not be applied correctly when directly assigning sourceModel
         // use the Component.onCompleted handler instead to initialize SortFilterProxyModel
         Component.onCompleted: sourceModel = jsonModel
-        sorters: StringSorter { id: typeSorter; roleName: "type"; ascendingOrder: true }
+        sorters: StringSorter { id: typeSorter; roleName: "date"; ascendingOrder: false }
     }
 
     ColumnLayout {
