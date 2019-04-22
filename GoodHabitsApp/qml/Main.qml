@@ -38,7 +38,6 @@ App {
 
     /**
       * Function for testing purposes. It loads test data.
-      *
       */
     function _debugPrepareData() {
         dataModel.cache.clearAll()
