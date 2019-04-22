@@ -29,7 +29,7 @@ Page {
         }
     }
 
-    HBPaper {
+    GHPaper {
         height: parent.height
         width: parent.width
         anchors {

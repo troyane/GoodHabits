@@ -8,7 +8,7 @@ Page {
     id: importExportPage
     title: qsTr("Settings")
 
-    HBScrollView {
+    GHScrollView {
         id: scrollView
         anchors.fill: parent
 

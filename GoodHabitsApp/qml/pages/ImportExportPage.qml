@@ -21,7 +21,7 @@ Page {
         exportHabitsResult.needShow = true
     }
 
-    HBScrollView {
+    GHScrollView {
         id: scrollView
         anchors.fill: parent
 

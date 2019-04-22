@@ -4,7 +4,7 @@ import QtQuick.Layouts 1.3
 
 // It is expected that WarningPaper will be layed out in *Layout.
 
-HBPaper {
+GHPaper {
     id: editNote
     property alias text: appText.text
     property bool needShow

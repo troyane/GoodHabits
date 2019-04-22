@@ -14,7 +14,7 @@ Rectangle {
     // TODO: Add microanimations
 
     color: Theme.backgroundColor
-    HBPaper {
+    GHPaper {
         anchors {
             fill: parent
             margins: dp(Constants.defaultSpacing)
@@ -50,7 +50,7 @@ Rectangle {
                     Layout.fillWidth: true
                 }
 
-                HBScrollView {
+                GHScrollView {
                     Layout.fillHeight: true
                     Layout.fillWidth: true
                     GridView {

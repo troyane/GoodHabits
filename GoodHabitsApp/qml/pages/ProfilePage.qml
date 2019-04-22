@@ -10,14 +10,14 @@ Page {
     id: profilePage
     title: qsTr("Profile")
 
-    HBScrollView {
+    GHScrollView {
         id: scrollView
         anchors.fill: parent
 
         ColumnLayout {
             width: profilePage.width - 2*scrollView.padding
 
-            HBPaper {
+            GHPaper {
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter
 

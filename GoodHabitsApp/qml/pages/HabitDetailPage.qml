@@ -63,7 +63,7 @@ Page {
 
     width: parent.width
 
-    HBScrollView {
+    GHScrollView {
         id: scrollView
         anchors.fill: parent
         ColumnLayout {
@@ -94,7 +94,7 @@ Page {
                     Layout.fillWidth: true
                 }
 
-                HBPaper {
+                GHPaper {
                     width: habitIconButton.implicitWidth
                     height: habitIconButton.implicitHeight
                     IconButton {
