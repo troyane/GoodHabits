@@ -18,6 +18,13 @@ QtObject {
     readonly property string hHabitPrivate: "private"
     readonly property string hHabitNotifications: "notifications"
 
+    readonly property string records: "records"
+    readonly property string rRecordId: "id"
+    readonly property string rRecordDate: "date"
+    readonly property string rRecordHabit: "habit"
+    readonly property string rRecordDuration: "duration"
+    readonly property string rRecordTime: "time"
+
     // Predefined colors
     readonly property color alternateListItemColor1: "#f7f7f7"
     readonly property color alternateListItemColor2: "white"
