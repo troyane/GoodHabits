@@ -46,7 +46,6 @@ Page {
         onHabitRemoved: {
             page.navigationStack.popAllExceptFirst()
         }
-
     }
 
     // JsonListModel

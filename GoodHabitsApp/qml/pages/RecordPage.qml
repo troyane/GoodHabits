@@ -100,6 +100,16 @@ Page {
                 Layout.fillWidth: true
             }
 
+
+            RowLayout {
+                Layout.fillWidth: true
+                Item { Layout.fillWidth: true }
+                GHDeleteButton {
+                    Layout.alignment: Qt.AlignRight
+                    onClicked: logic.removeRecord(currentRecord.id)
+                }
+            }
+
             AppButton {
                 text: qsTr("Done!")
                 Layout.fillWidth: true

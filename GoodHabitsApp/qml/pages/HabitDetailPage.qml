@@ -171,10 +171,8 @@ Page {
             RowLayout {
                 Layout.fillWidth: true
                 Item { Layout.fillWidth: true }
-                IconButton {
+                GHDeleteButton {
                     Layout.alignment: Qt.AlignRight
-                    icon: IconType.trash
-
                     onClicked: {
                         logic.removeHabit(currentHabit.id)
                     }
