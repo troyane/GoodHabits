@@ -4,10 +4,14 @@ import QtQuick.Layouts 1.3
 
 import "../components"
 
+/// Page for displaing a list of habits.
+/// Have several tunables: \c sortByTitleActive and \c showSearchBox
 Page {
     id: page
     title: qsTr("Habits list")
+    /// Variable that reflects sort by title strategy (asc/desc)
     property bool sortByTitleActive: true
+    /// Variable that reflects weather we need to show search box
     property bool showSearchBox: true
 
     function applySettings() {

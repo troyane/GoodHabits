@@ -6,32 +6,38 @@ import "../components"
 import "../js/jsonpath.js" as JP
 import "../js/dateUtils.js" as DateUtils
 
+/// Data access object. Component do read/write access to storage and holds in memory
+/// all data required for application.
+/// \note In future this component could be adapted to work with \c WebStorage.
 Item {
-    // property to configure target dispatcher / logic
+    /// Property to configure target dispatcher / logic. \see \c Logic
     property alias dispatcher: logicConnection.target
 
-    //
+    /// Main cache component
     property alias cache: cache
+    /// Loaded in-memory records
     property alias records: _.records
-
-    // model data properties
-    // all habits
+    /// Loaded in-memory habits
     readonly property alias habits: _.habits
-    // current habit
+    /// Component for ease of usage, loaded in-memory habit
     readonly property alias habitDetails: _.habitDetails
+    /// Component for ease of usage, loaded in-memory record
     property alias recordDetails: _.recordDetails
 
-    // action success signals
+    /// Signal emited as habit stored.
+    /// @param var habit JSON-onject of stored habit.
     signal habitStored(var habit)
 
+    /// Signal emited as habit removed.
     signal habitRemoved()
+    /// Signal emited as record removed.
     signal recordRemoved()
 
-
-    // action error signals
-    signal loadHabitsFailed(var error)
-    signal storeHabitFailed(var habit, var error)
-
+    /**
+     * Function that returns title of habit by given id.
+     * @param type:string uid identifier of habit
+     * @return type:string containing title atribute of given habit if any, otherwise empty string.
+     */
     function getHabitTitleById(uid) {
         if (uid == "")
             return ""
@@ -40,6 +46,12 @@ Item {
         return h.title
     }
 
+    /**
+     * Helper function that returns habit by given id.
+     * @param type:string uid identifier of habit
+     * @return type:var JSON-object containing given habit.
+     * \note this method uses JSONPath.
+     */
     function getHabitById(uid) {
         // TODO: add checks
         var jpath = "$[?(@.id=='" + uid + "')]";
@@ -51,11 +63,22 @@ Item {
         }
     }
 
+    /**
+      * Function returns random id based on random and on time.
+      * Simple and light implementation UUID.
+      * @return type:string containing random uid.
+      */
     function generateId() {
         return Math.random().toString(36).substring(2) + (new Date()).getTime().toString(36);
     }
 
-    // TODO: Add documentation
+    /**
+      * Function generate unique id using \c generateId. Then iterate over given \c array to ensure that generated
+      * id is unique. If so, returns it, otherwise generate new and repeat procedure until generated id will be
+      * unique.
+      * @param type:var JSON-array of elements with attribute `id`.
+      * @return type:string containing random unique (on \c array) uid.
+      */
     function getUniqueId(array) {
         var needToRegenerate = false
         do {
@@ -70,19 +93,25 @@ Item {
         return possibleUnique;
     }
 
+    /**
+      * Store habits permanently and notify views by sending respective signals.
+      */
     function saveAndUpdateHabits() {
         cache.setValue(Constants.hHabits, _.habits)
         habitsChanged()
         habitDetailsChanged()
     }
 
+    /**
+      * Store records permanently and notify views by sending respective signals.
+      */
     function saveAndUpdateRecords() {
         cache.setValue(Constants.records, _.records)
         recordsChanged()
         recordDetailsChanged()
     }
 
-    // listen to actions from dispatcher
+    // Listen to actions from dispatcher
     Connections {
         id: logicConnection
 
@@ -209,11 +238,6 @@ Item {
         id: cache
         databaseName: Constants.habitsDatabaseName
     }
-
-//    Storage {
-//        id: recordsStorage
-//        databaseName: Constants.recordsDatabaseName
-//    }
 
     // private
     Item {

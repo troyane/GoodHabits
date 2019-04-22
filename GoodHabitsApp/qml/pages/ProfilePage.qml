@@ -6,6 +6,8 @@ import QtQml 2.11
 import "../components"
 import "../pages"
 
+/// Profile page that contains information about application and leads to another
+/// pages where user can Export/Import his habits, records, apply settings, etc.
 Page {
     id: profilePage
     title: qsTr("Profile")

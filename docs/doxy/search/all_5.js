@@ -1,20 +1,14 @@
 var searchData=
 [
-  ['habitdetailpage',['HabitDetailPage',['../classHabitDetailPage.html',1,'']]],
-  ['habitdetails',['habitDetails',['../classDataModel.html#aa475c75fefa896eecd20f33f377545c4',1,'DataModel']]],
-  ['habitname',['habitName',['../classRecordPage.html#add0405842e2c1be4553e3ddd254f4027',1,'RecordPage']]],
-  ['habits',['habits',['../classDataModel.html#ab29da3a3f51a768ed7286cf6201d89f0',1,'DataModel']]],
-  ['habitsdatabasename',['habitsDatabaseName',['../classConstants.html#a5eca3ed763de4a910a9ddef1b8b1867a',1,'Constants']]],
-  ['habitslistpage',['HabitsListPage',['../classHabitsListPage.html',1,'']]],
-  ['habitssorted',['habitsSorted',['../classConstants.html#a4c3c6da6aa3e25a6259fbe04466a5056',1,'Constants']]],
-  ['hhabitdays',['hHabitDays',['../classConstants.html#a29bc37b265a53ab3ed0481b65962f053',1,'Constants']]],
-  ['hhabitdescription',['hHabitDescription',['../classConstants.html#a840922ce1b183819061fb4b02a955a84',1,'Constants']]],
-  ['hhabitduration',['hHabitDuration',['../classConstants.html#aec2810b8de517c58c8bd96c19beae727',1,'Constants']]],
-  ['hhabiticon',['hHabitIcon',['../classConstants.html#a303b832af90f22ad536bf71748999b1d',1,'Constants']]],
-  ['hhabitid',['hHabitID',['../classConstants.html#aad0ccf57a2e32e6894ed260202d4b87d',1,'Constants']]],
-  ['hhabitnotifications',['hHabitNotifications',['../classConstants.html#ab4f2b209b6dfa2ad135d0f5bd3296f9a',1,'Constants']]],
-  ['hhabitprivate',['hHabitPrivate',['../classConstants.html#a8d4dbeccf8c5022cfc9c8053063dd378',1,'Constants']]],
-  ['hhabits',['hHabits',['../classConstants.html#a92e18c1d6be2e993c28d22c2e23d3e6a',1,'Constants']]],
-  ['hhabittime',['hHabitTime',['../classConstants.html#ad1b80a08f435645bc081ba8ac1afb8b7',1,'Constants']]],
-  ['hhabittitle',['hHabitTitle',['../classConstants.html#a6db867cfa01b2af299769a14db2f1a07',1,'Constants']]]
+  ['gameid',['gameId',['../classSecrets.html#a1d0ce639cdc1b7001c22ff306e823d81',1,'Secrets']]],
+  ['gamesecret',['gameSecret',['../classSecrets.html#a5cc87e3721dfa75bdccdbdc7a52bd737',1,'Secrets']]],
+  ['generateid',['generateId',['../classDataModel.html#a6cc7ca75d979b8aee8bbe6d464432d3d',1,'DataModel']]],
+  ['gethabitbyid',['getHabitById',['../classDataModel.html#a1635dd14ec2244c8429536c7d558ddc9',1,'DataModel']]],
+  ['gethabittitlebyid',['getHabitTitleById',['../classDataModel.html#a7331d5cc76d8cc85dc5a81b70d80da19',1,'DataModel']]],
+  ['getsettingsvalueorusedefault',['getSettingsValueOrUseDefault',['../classMain.html#a534124cb3509c4a33cdc6a2169d4f639',1,'Main']]],
+  ['getuniqueid',['getUniqueId',['../classDataModel.html#a5b405a0136d1c5fac3212d1daf443904',1,'DataModel']]],
+  ['ghdeletebutton',['GHDeleteButton',['../classGHDeleteButton.html',1,'']]],
+  ['ghpaper',['GHPaper',['../classGHPaper.html',1,'']]],
+  ['ghscrollview',['GHScrollView',['../classGHScrollView.html',1,'']]],
+  ['ghtextinputtime',['GHTextInputTime',['../classGHTextInputTime.html',1,'']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['okcolor',['okColor',['../classConstants.html#a7a365bc641a187c46f59a69543aa153d',1,'Constants']]]
+  ['needshow',['needShow',['../classWarningPaper.html#a5bf7e47c72502c0f3bc1625574081ebc',1,'WarningPaper']]]
 ];

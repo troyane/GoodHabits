@@ -4,12 +4,14 @@ import QtQuick.Layouts 1.3
 
 import "../components"
 
+/// Page that displays habit details
 Page {
     id: habitDetailPage
-    // target id
+    /// Current habit id
     property string habitId: "0"
-    // data property for page
+    /// Current habit JSON-object that populates all controls
     property var currentHabit: dataModel.habitDetails
+    /// In case if `true` -- whole page will be locked, and no changes could be made.
     property bool locked: true
     backNavigationEnabled: locked
 
@@ -26,6 +28,7 @@ Page {
         logic.storeHabits()
     }
 
+    /// Function used to toggle locked state.
     function toggleLocked() {
         habitDetailPage.locked = !habitDetailPage.locked
         if (habitDetailPage.locked) {

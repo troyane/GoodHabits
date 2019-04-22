@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['okcolor',['okColor',['../classConstants.html#a7a365bc641a187c46f59a69543aa153d',1,'Constants']]]
+  ['locked',['locked',['../classHabitDetailPage.html#a9511407092202031871d9d14a30a0f13',1,'HabitDetailPage']]]
 ];

@@ -5,13 +5,17 @@ import QtQuick.Layouts 1.3
 import "../js/dateUtils.js" as DateUtils
 import "../components"
 
+/// Page that displays details on specific record. It gives ability to view and edit record.
 Page {
     id: recordPage
+    /// Currently loaded record
     property var currentRecord: dataModel.recordDetails
+    /// Dynamically loaded habit name of currently loaded record
     readonly property string habitName: dataModel.getHabitTitleById(currentRecord.habit)
     property string todayText: qsTr("Today")
     property date choosedDate: new Date()
 
+    /// Signal that emits as user click "Done" button
     signal done()
 
     function saveAll() {

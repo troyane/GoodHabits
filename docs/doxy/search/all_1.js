@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['canceled',['canceled',['../classIconPicker.html#a5b0d64ab258f3c636a51a48c0dfcb10c',1,'IconPicker']]],
-  ['clearcache',['clearCache',['../classLogic.html#a19c990c6e5a1b278abd2df8aa3525038',1,'Logic']]],
-  ['clicked',['clicked',['../classGHPaper.html#ace31f5bf83854109e5d911442bee2d96',1,'GHPaper']]],
-  ['constants',['Constants',['../classConstants.html',1,'']]]
+  ['addemptyhabit',['addEmptyHabit',['../classLogic.html#a1592e62290fa826f4806a5c95e324e5c',1,'Logic']]],
+  ['addrecord',['addRecord',['../classLogic.html#a0abcca147a68254c95d83638cd92d17c',1,'Logic']]],
+  ['animationduration',['animationDuration',['../classConstants.html#abd52eb23192f93cde4d2e7ffe24415dc',1,'Constants']]],
+  ['attentioncolor',['attentionColor',['../classConstants.html#a558af91e3f35d4ac62c4be3109fea372',1,'Constants']]]
 ];

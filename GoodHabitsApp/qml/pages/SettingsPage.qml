@@ -4,6 +4,7 @@ import QtQuick.Layouts 1.3
 
 import "../components"
 
+/// Page to access to settings. Mostly check-boxes for settings user can change.
 Page {
     id: importExportPage
     title: qsTr("Settings")

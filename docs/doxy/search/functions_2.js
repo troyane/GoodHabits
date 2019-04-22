@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['iconchoosed',['iconChoosed',['../classIconPicker.html#aa86bb6b65593de02b3840c76fdde71db',1,'IconPicker']]],
-  ['importhabits',['importHabits',['../classLogic.html#a29e24db9f3bd210632bdae5f0ae39901',1,'Logic']]]
+  ['canceled',['canceled',['../classIconPicker.html#a5b0d64ab258f3c636a51a48c0dfcb10c',1,'IconPicker']]],
+  ['clearcache',['clearCache',['../classLogic.html#a19c990c6e5a1b278abd2df8aa3525038',1,'Logic']]],
+  ['clicked',['clicked',['../classGHPaper.html#ace31f5bf83854109e5d911442bee2d96',1,'GHPaper']]]
 ];

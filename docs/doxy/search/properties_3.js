@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['gameid',['gameId',['../classSecrets.html#a1d0ce639cdc1b7001c22ff306e823d81',1,'Secrets']]],
-  ['gamesecret',['gameSecret',['../classSecrets.html#a5cc87e3721dfa75bdccdbdc7a52bd737',1,'Secrets']]]
+  ['fontsizebig',['fontSizeBig',['../classConstants.html#aa01fb5fddc11e3bac6291d2843402521',1,'Constants']]],
+  ['fontsizenormal',['fontSizeNormal',['../classConstants.html#ae8886e0b853f7432714c1d1ae9fdd6de',1,'Constants']]],
+  ['fontsizesmall',['fontSizeSmall',['../classConstants.html#a7e374e0d49812c9cafb25e712af733ac',1,'Constants']]]
 ];

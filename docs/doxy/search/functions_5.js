@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['storehabits',['storeHabits',['../classLogic.html#a03ea6fff99bbfdb76fd87d3da8cbd309',1,'Logic']]],
-  ['storerecords',['storeRecords',['../classLogic.html#aebefa423b7411c312e2d1c5213468661',1,'Logic']]]
+  ['habitremoved',['habitRemoved',['../classDataModel.html#a5779bd7867735735aacc6969653e88b6',1,'DataModel']]],
+  ['habitstored',['habitStored',['../classDataModel.html#a2f0589600e47901656732370ee991563',1,'DataModel']]]
 ];

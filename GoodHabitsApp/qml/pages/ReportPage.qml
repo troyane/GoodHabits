@@ -4,6 +4,7 @@ import QtQuick.Layouts 1.3
 
 import "../components"
 
+/// Page that display list of user's records.
 Page {
     id: reportPage
     title: qsTr("Report")
@@ -18,10 +19,6 @@ Page {
 
     function applySettings() {
         console.log("Apply Settings in ReportPage")
-    }
-
-    function storeRecord() {
-
     }
 
     // SortFilterProxyModel for sorting or filtering lists

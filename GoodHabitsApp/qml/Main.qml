@@ -17,9 +17,16 @@ App {
 
     id: app
 
+    /// See `GoodHabitsApp/qml/secrets/Secrets.qml` for
     licenseKey: Secrets.key
     property int numberAppStarts: 0
 
+    /**
+      * Gets stored settings value with given \c name, or if not found -- returns default value
+      * @param string name name of settings
+      * @param string defaultValue dafault value of settings that will be used in case if given not found.
+      * @return var value
+      */
     function getSettingsValueOrUseDefault(name, defaultValue) {
         var value = app.settings.getValue(name)
         if (value === undefined) {
@@ -29,20 +36,10 @@ App {
         return value
     }
 
-    function updateNumberAppStartsCount() {
-        var tempNumberAppStarts = settings.getValue("numberAppStarts")
-        if (tempNumberAppStarts === undefined) {
-            // first start
-            tempNumberAppStarts = 0
-        } else {
-            tempNumberAppStarts++
-        }
-        settings.setValue("numberAppStarts", tempNumberAppStarts)
-        numberAppStarts = tempNumberAppStarts
-        console.log("It is #" + numberAppStarts + " run of application")
-    }
-
-    // Simple data for testing. Located here to be easier to use
+    /**
+      * Function for testing purposes. It loads test data.
+      *
+      */
     function _debugPrepareData() {
         dataModel.cache.clearAll()
 

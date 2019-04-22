@@ -4,6 +4,7 @@ import QtQuick.Layouts 1.3
 
 import "../components"
 
+/// Page where user can import and export data managed by this application.
 Page {
     id: importExportPage
     title: qsTr("Import/Export")

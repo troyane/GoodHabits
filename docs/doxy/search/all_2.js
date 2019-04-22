@@ -1,14 +1,10 @@
 var searchData=
 [
-  ['datamodel',['DataModel',['../classDataModel.html',1,'']]],
-  ['dayfriday',['dayFriday',['../classDaysPicker.html#a4fddeaffb59bdada42cbaf55345f8e2e',1,'DaysPicker']]],
-  ['daymonday',['dayMonday',['../classDaysPicker.html#a4be5a0204a942deee0008e1ef7afc0d8',1,'DaysPicker']]],
-  ['daysaturday',['daySaturday',['../classDaysPicker.html#a804be69541c994799d92ad6b463aeb63',1,'DaysPicker']]],
-  ['dayspicker',['DaysPicker',['../classDaysPicker.html',1,'']]],
-  ['daysunday',['daySunday',['../classDaysPicker.html#a27d58ae9383869c1d979d03baaf394eb',1,'DaysPicker']]],
-  ['daythursday',['dayThursday',['../classDaysPicker.html#afedaf0072b9b30a41faa9067a3e78bc6',1,'DaysPicker']]],
-  ['daytuesday',['dayTuesday',['../classDaysPicker.html#afd8ad028068f84ee57cf095b29203128',1,'DaysPicker']]],
-  ['daywednesday',['dayWednesday',['../classDaysPicker.html#a0ada98202b9338072862b0cee360c7e0',1,'DaysPicker']]],
-  ['defaultpadding',['defaultPadding',['../classConstants.html#a4ce7642f60776f4de69953ac9b154cce',1,'Constants']]],
-  ['defaultspacing',['defaultSpacing',['../classConstants.html#a68a476ed5e56691e5bb03c2ba62d2da6',1,'Constants']]]
+  ['cache',['cache',['../classDataModel.html#a3ce0d6ee41a0669f4703fc764155bd50',1,'DataModel']]],
+  ['canceled',['canceled',['../classIconPicker.html#a5b0d64ab258f3c636a51a48c0dfcb10c',1,'IconPicker']]],
+  ['clearcache',['clearCache',['../classLogic.html#a19c990c6e5a1b278abd2df8aa3525038',1,'Logic']]],
+  ['clicked',['clicked',['../classGHPaper.html#ace31f5bf83854109e5d911442bee2d96',1,'GHPaper']]],
+  ['constants',['Constants',['../classConstants.html',1,'']]],
+  ['currenthabit',['currentHabit',['../classHabitDetailPage.html#ac1652a62a1521c3fc7fd0cc90db7efb7',1,'HabitDetailPage']]],
+  ['currentrecord',['currentRecord',['../classRecordPage.html#a117170076e034deb41800c37eeee48ce',1,'RecordPage']]]
 ];
