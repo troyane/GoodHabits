@@ -4,7 +4,7 @@ import Felgo 3.0
 import "../components"
 
 import "../js/jsonpath.js" as JP
-
+import "../js/dateUtils.js" as DateUtils
 
 Item {
     // property to configure target dispatcher / logic
@@ -12,13 +12,14 @@ Item {
 
     //
     property alias cache: cache
-    property alias records: recordsStorage
+    property alias records: _.records
 
     // model data properties
     // all habits
     readonly property alias habits: _.habits
     // current habit
     readonly property alias habitDetails: _.habitDetails
+    property alias recordDetails: _.recordDetails
 
     // action success signals
     signal habitStored(var habit)
@@ -30,10 +31,22 @@ Item {
     signal storeHabitFailed(var habit, var error)
 
     function getHabitTitleById(uid) {
+        if (uid == "")
+            return ""
+        var h = getHabitById(uid)
+        if (h == false) return ""
+        return h.title
+    }
+
+    function getHabitById(uid) {
         // TODO: add checks
         var jpath = "$[?(@.id=='" + uid + "')]";
         var result = JP.jsonPath(dataModel.habits, jpath)
-        return result[0].title
+        if (result == false) {
+            return ""
+        } else {
+            return result[0]
+        }
     }
 
     function generateId() {
@@ -61,13 +74,17 @@ Item {
         habitDetailsChanged()
     }
 
+    function saveAndUpdateRecords() {
+        cache.setValue(Constants.records, _.records)
+        recordsChanged()
+        recordDetailsChanged()
+    }
+
     // listen to actions from dispatcher
     Connections {
         id: logicConnection
 
-        // action 1 - loadHabits
         onLoadHabits: {
-            // check cached value first
             console.log("Going to load habits...")
             var cached = cache.getValue(Constants.hHabits)
             // console.log(JSON.stringify(cached))
@@ -78,6 +95,19 @@ Item {
             } else {
                 console.log("Can't find any")
                 nativeUtils.displayMessageBox(qsTr("Can't find any cached habits!"),
+                                              qsTr("Looks like you run this application for first time."), 1)
+            }
+        }
+
+        onLoadRecords: {
+            console.log("Going to load records...")
+            var cached = cache.getValue(Constants.records)
+
+            if (cached) {
+                _.records = cached
+            } else {
+                console.log("Can't find any")
+                nativeUtils.displayMessageBox(qsTr("Can't find any cached records!"),
                                               qsTr("Looks like you run this application for first time."), 1)
             }
         }
@@ -94,18 +124,25 @@ Item {
             }
         }
 
-        // action 2 - loadHabitDetails
         onLoadHabitDetails: {
             _.habitDetails = _.habits.find(function(element){ return element.id === habitId })
             console.log(JSON.stringify(_.habitDetails))
         }
 
-        // action 3 - storeHabit
+        onLoadRecordDetails: {
+            console.log("--- ASKED FOR: ", recordId)
+            _.recordDetails = _.records.find(function(element){ return element.id === recordId })
+            console.log("--- FOUND: ", JSON.stringify(_.recordDetails))
+        }
+
         onStoreHabits: {
             saveAndUpdateHabits()
         }
 
-        // action 4 - clearCache
+        onStoreRecords: {
+            saveAndUpdateRecords()
+        }
+
         onClearCache: {
             cache.clearAll()
         }
@@ -116,10 +153,10 @@ Item {
                 // TODO: Add randomizer for habit names (tunable via settings)
                 title: "My new habit...",
                 description: "",
-                icon: "",
+                icon: "bed",
                 duration: "1.0",
                 time: "09:00",
-                days: "",
+                days: "Mon",
                 private: false,
                 notification: true,
             }
@@ -127,6 +164,23 @@ Item {
             saveAndUpdateHabits()
             _.habitDetails = draft
             habitStored(draft)
+        }
+
+        onAddRecord: {
+            var habit = getHabitById(habitId)
+            var draft = {
+                id: getUniqueId(_.records),
+                date: DateUtils.getCurrentDate(),
+                habit: habitId,
+                duration: habit.duration,
+                time: habit.time
+            }
+            console.log("In addrecord:")
+            console.log(JSON.stringify(draft))
+
+            _.records.push(draft)
+            saveAndUpdateRecords()
+            _.recordDetails = draft
         }
 
         onRemoveHabit: {
@@ -146,10 +200,10 @@ Item {
         databaseName: Constants.habitsDatabaseName
     }
 
-    Storage {
-        id: recordsStorage
-        databaseName: Constants.recordsDatabaseName
-    }
+//    Storage {
+//        id: recordsStorage
+//        databaseName: Constants.recordsDatabaseName
+//    }
 
     // private
     Item {
@@ -157,5 +211,7 @@ Item {
         // data properties
         property var habits: []  // Array
         property var habitDetails: ({}) // Map
+        property var records: [] // Array
+        property var recordDetails: ({}) // Map
     }
 }

@@ -6,6 +6,7 @@ import "pages"
 import "secrets"
 
 import "js/testData.js" as TestData
+import "components"
 
 App {
     // You get free licenseKeys from https://felgo.com/licenseKey
@@ -44,21 +45,19 @@ App {
     // Simple data for testing. Located here to be easier to use
     function _debugPrepareData() {
         dataModel.cache.clearAll()
-        dataModel.records.clearAll()
 
         var habitsData = TestData.habitsData
-        dataModel.cache.setValue("habits", habitsData)
+        dataModel.cache.setValue(Constants.hHabits, habitsData)
 
         var recordsData = TestData.recordsData
-        dataModel.records.setValue("records", recordsData)
-
-//        console.log("#", JSON.stringify(dataModel.records.getValue("records")) )
+        dataModel.cache.setValue(Constants.records, recordsData)
     }
 
     // app initialization
     Component.onCompleted: {
-         _debugPrepareData()
+//         _debugPrepareData()
         logic.loadHabits()
+        logic.loadRecords()
     }
 
     // business logic

@@ -28,7 +28,6 @@ Page {
     rightBarItem: NavigationBarRow {
         // add new habit
         IconButtonBarItem {
-            visible: !recordDialog.visible
             icon: IconType.plus
             showItem: showItemAlways
             onClicked: {
@@ -112,7 +111,6 @@ Page {
                 detailText: model.description
                 iconSource: IconType[model.icon]
 
-                badgeValue: "Done!"
                 MouseArea {
                     anchors.fill: parent
                     propagateComposedEvents: true // just in case...
@@ -123,10 +121,8 @@ Page {
                         mouse.accepted = true
                     }
                     onPressAndHold: {
-                        recordDialog.show(model.id,
-                                          model.title,
-                                          model.duration,
-                                          model.time)
+                        logic.addRecord(model.id)
+                        page.navigationStack.popAllExceptFirstAndPush(recPage)
                     }
                 }
             }
@@ -139,10 +135,11 @@ Page {
         HabitDetailPage { }
     }
 
-    RecordDialog {
-        id: recordDialog
-        visible: false
-        width: parent.width
-        height: parent.height
+    Component {
+        id: recPage
+        RecordPage {
+            id: recordPage
+            title: qsTr("Log your time on habit")
+        }
     }
 }
