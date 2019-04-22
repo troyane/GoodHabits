@@ -21,4 +21,5 @@ Item {
     signal addRecord(string habitId)
 
     signal removeHabit(string habitId)
+    signal removeRecord(string recordId)
 }

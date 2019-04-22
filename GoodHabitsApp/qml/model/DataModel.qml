@@ -25,6 +25,8 @@ Item {
     signal habitStored(var habit)
 
     signal habitRemoved()
+    signal recordRemoved()
+
 
     // action error signals
     signal loadHabitsFailed(var error)
@@ -189,6 +191,16 @@ Item {
             }
             saveAndUpdateHabits()
             habitRemoved()
+        }
+
+        onRemoveRecord: {
+            for (var i = _.records.length - 1; i >= 0; --i) {
+                if (_.records[i].id == recordId) {
+                    _.records.splice(i, 1)
+                }
+            }
+            saveAndUpdateRecords()
+            recordRemoved()
         }
     }
 

@@ -22,6 +22,12 @@ Page {
 
     // TODO: Add microanimations
 
+    Connections {
+        target: dataModel
+        onRecordRemoved: {
+            recordPage.navigationStack.pop()
+        }
+    }
 
     HBPaper {
         height: parent.height
