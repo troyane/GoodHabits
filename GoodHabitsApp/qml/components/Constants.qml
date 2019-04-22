@@ -2,6 +2,9 @@ pragma Singleton
 
 import QtQuick 2.0
 
+/**
+ *  Lightweight object that stores all constants that could be used in application.
+ */
 QtObject {
     // Constants used as field names
     readonly property string habitsDatabaseName: "GoodHabits"
@@ -26,21 +29,28 @@ QtObject {
     readonly property string rRecordTime: "time"
 
     // Predefined colors
-    readonly property color alternateListItemColor1: "#f7f7f7"
-    readonly property color alternateListItemColor2: "white"
-    readonly property color attentionColor: "#FF5722" // deep orange for attention
-    readonly property color okColor: "#ccff90" // light green for "it goes ok"
+    /// Predefined deep orange color for attention.
+    readonly property color attentionColor: "#FF5722"
+    /// Predefined light green color for "it goes Ok".
+    readonly property color okColor: "#ccff90"
 
     // Default sizes
+    /// Default component padding in pixels. Use in application with \c app.dp().
     readonly property int defaultPadding: 10
+    /// Default spacing between components in pixels. Use in application with \c app.dp().
     readonly property int defaultSpacing: 5
 
     // Animations
     readonly property int animationDuration: 200
 
     // Default font sizes
+    /// Default font size for small text. Use in application as argument to \c AppText.fontSize
     readonly property int fontSizeSmall: 10
+    /// Default font size for normal text. Should be used everywhere for easy readable text.
+    /// Use in application as argument to \c AppText.fontSize.
     readonly property int fontSizeNormal: 14
+    /// Default font size for big text. Should be used only for headers, etc.
+    /// Use in application as argument to \c AppText.fontSize.
     readonly property int fontSizeBig: 18
 
     // Settings names

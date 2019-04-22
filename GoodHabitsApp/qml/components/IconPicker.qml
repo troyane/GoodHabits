@@ -2,18 +2,26 @@ import Felgo 3.0
 import QtQuick 2.0
 import QtQuick.Layouts 1.3
 
+/** Component as a \c Rectangle for choosing icon from a grid of available icons.
+  * \see IconType
+  */
 Rectangle {
     // Rectangle, since we do really want to cover all
 
     id: iconPicker
 
+    /// Signal that emits as soon as user choose icon.
+    /// @param string iconName Human-friendly icon name.
+    /// @param string iconUtf Icon representation as UTF-8 symbol, e.g.: `\uf042` for `adjust` icon.
     signal iconChoosed(string iconName, string iconUtf)
+    /// Signal that emits as user click "Cancel" button.
     signal canceled()
 
+    /// Default backgound color
+    color: Theme.backgroundColor
 
     // TODO: Add microanimations
 
-    color: Theme.backgroundColor
     GHPaper {
         anchors {
             fill: parent

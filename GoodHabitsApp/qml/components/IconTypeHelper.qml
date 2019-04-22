@@ -2,6 +2,8 @@ pragma Singleton
 import Felgo 3.0
 import QtQuick 2.0
 
+/// Helper component aims to get human-readable names of icons in `IconType`.
+/// \warning Available only for Felgo 3.0 version of IconType. Could be invalid for future releases.
 Item {
     id: iconType
 
@@ -16,6 +18,7 @@ Item {
         }
     }
 
+    /// List of available icons in `IconType` for Felgo 3.0.
     readonly property var iconsList: [
         "adjust",
         "adn",
