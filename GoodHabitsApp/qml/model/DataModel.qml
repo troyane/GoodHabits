@@ -130,9 +130,7 @@ Item {
         }
 
         onLoadRecordDetails: {
-            console.log("--- ASKED FOR: ", recordId)
             _.recordDetails = _.records.find(function(element){ return element.id === recordId })
-            console.log("--- FOUND: ", JSON.stringify(_.recordDetails))
         }
 
         onStoreHabits: {
