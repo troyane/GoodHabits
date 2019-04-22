@@ -2,7 +2,8 @@
 layout: default
 title: Features for future development
 permalink: /future
-navigation_weight: 99
+exclude: true
+navigation_weight: -1
 ---
 
-Test
+# There is a whole room for improvements
