@@ -16,10 +16,11 @@ This app helps people to understand how much time do they spend on their hobbies
 
 * Easy-to-yield system of habits & skills tracking.
 * Statistics, visualization, and reporting on gathered data.
-* Gamification of habits cultivation.
-* Sharing and social reinforcement effects applied.
 * Can be used without any limitations by any person who wants to make the world better starting from him- or herself.
+* [WIP] Gamification of habits cultivation.
+* [WIP] Sharing and social reinforcement effects applied.
 
+List of features that are planned for future you can find [here](https://troyane.github.io/GoodHabits/future).
 
 ## Supported platforms
 
