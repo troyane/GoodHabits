@@ -5,6 +5,8 @@ import QtQuick 2.0
 QtObject {
     // Constants used as field names
     readonly property string habitsDatabaseName: "GoodHabits"
+    readonly property string recordsDatabaseName: "GoodHabitsRecords"
+
     readonly property string hHabits: "habits"
     readonly property string hHabitID: "id"
     readonly property string hHabitTitle: "title"

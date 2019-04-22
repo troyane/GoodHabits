@@ -3,12 +3,16 @@ import Felgo 3.0
 
 import "../components"
 
+import "../js/jsonpath.js" as JP
+
+
 Item {
     // property to configure target dispatcher / logic
     property alias dispatcher: logicConnection.target
 
     //
     property alias cache: cache
+    property alias records: recordsStorage
 
     // model data properties
     // all habits
@@ -24,6 +28,13 @@ Item {
     // action error signals
     signal loadHabitsFailed(var error)
     signal storeHabitFailed(var habit, var error)
+
+    function getHabitTitleById(uid) {
+        // TODO: add checks
+        var jpath = "$[?(@.id=='" + uid + "')]";
+        var result = JP.jsonPath(dataModel.habits, jpath)
+        return result[0].title
+    }
 
     function generateId() {
         return Math.random().toString(36).substring(2) + (new Date()).getTime().toString(36);
@@ -133,6 +144,11 @@ Item {
     Storage {
         id: cache
         databaseName: Constants.habitsDatabaseName
+    }
+
+    Storage {
+        id: recordsStorage
+        databaseName: Constants.recordsDatabaseName
     }
 
     // private
