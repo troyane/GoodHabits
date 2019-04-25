@@ -7,6 +7,30 @@ navigation_weight: -1
 
 # How to make a GoodHabits application with Felgo
 
+Table of Contents
+=================
+
+   * [How to make a GoodHabits application with Felgo](#how-to-make-a-goodhabits-application-with-felgo)
+      * [Project structure](#project-structure)
+         * [Felgo Project Properties](#felgo-project-properties)
+         * [Felgo Plugin Selection](#felgo-plugin-selection)
+         * [Project management](#project-management)
+      * [Keeping all secrets](#keeping-all-secrets)
+      * [Keeping all application-wide constants together](#keeping-all-application-wide-constants-together)
+      * [Application](#application)
+      * [Navigation](#navigation)
+      * [Data structures](#data-structures)
+         * [Habits data structure](#habits-data-structure)
+         * [Feeding habits model](#feeding-habits-model)
+         * [Records data structure](#records-data-structure)
+         * [Feeding records model](#feeding-records-model)
+         * [Generation of unique strings](#generation-of-unique-strings)
+      * [DataModel as data provider](#datamodel-as-data-provider)
+         * [Logic](#logic)
+         * [Data provider reaction on signals](#data-provider-reaction-on-signals)
+
+---
+
 This app helps people to understand how much time do they spend on their hobbies and interests, 
 how sustainable their wishes and aims are and where the habit starts to benefit you in the new 
 skills form. And the one effect we’re expecting is that being motivated to spend more time on 
@@ -173,7 +197,6 @@ Page {
     	text: qsTr("Habits list here")
     }
 }
-
 ```
 
 As soon as there are ready page components, lets get back to main component and prepare all required navigation stacks.
@@ -625,6 +648,8 @@ onRemoveHabit: {
 
 
 
+
+
 ---
 [`App`]: https://felgo.com/doc/felgo-app
 [`AppButton`]: https://felgo.com/doc/felgo-appbutton
@@ -642,3 +667,6 @@ onRemoveHabit: {
 [`NavigationStack`]: https://felgo.com/doc/felgo-navigationstack/
 [`splitView`]: https://felgo.com/doc/felgo-navigationstack/#splitView-prop
 [`nativeUtils.displayMessageBox`]: https://felgo.com/doc/felgo-nativeutils/#displayMessageBox-method
+[`Navigation`]: https://felgo.com/doc/felgo-navigation/
+[`IconType`]: https://felgo.com/doc/felgo-icontype/
+[`NavigationItem`]: https://felgo.com/doc/felgo-navigationitem
