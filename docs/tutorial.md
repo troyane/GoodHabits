@@ -550,7 +550,79 @@ Item {
 }
 ```
 
-Signals inside `Logic` are self explanatory.
+Signals inside `Logic` are self explanatory. Since `Logic` component will be created inside `App` in `Main.qml`, it will be accessible from any point of application.
+
+
+### Data provider reaction on signals
+
+We'll take a look at all signals realted to habits. Almost the same will be related to records. Create `Connections` object inside `DataModel` and provide next connection events:
+
+To load habits from previously stored:
+```qml
+onLoadHabits: {
+    var cached = cache.getValue(Constants.hHabits)
+    if (cached) {
+        _.habits = cached
+    } else {
+        console.log("Can't find any")
+        nativeUtils.displayMessageBox(qsTr("Can't find any cached habits!"),
+                                      qsTr("Looks like you run this application for first time."), 1)
+    }
+}
+```
+Also this function could detect situation when there are no previously saved values available. This is situation when user starts application for first time. In this case we need to show respective dialog box. To do it, we have [`nativeUtils.displayMessageBox`] method that will display a native-looking message box dialog with a given title, an optional description that can provide more details, an OK button and an optional Cancel button.
+
+
+To load habit details we'll use [JS find method](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find):
+```qml
+onLoadHabitDetails: {
+    _.habitDetails = _.habits.find(function(element){ return element.id === habitId })
+}
+```
+
+`onStoreHabits` will trigger function`saveAndUpdateHabits()` that will store habits permanently and notify views by sending respective signals:
+```js
+function saveAndUpdateHabits() {
+    cache.setValue(Constants.hHabits, _.habits)
+    habitsChanged()
+    habitDetailsChanged()
+}
+```
+
+Add/remove habit are also quite self explanatory:
+```qml
+onAddEmptyHabit: {
+    var draft = {
+        id: getUniqueId(_.habits),
+        // TODO: Add randomizer for habit names (tunable via settings)
+        title: qsTr("My new habit..."),
+        description: "",
+        icon: "bed",
+        duration: "1.0",
+        time: "09:00",
+        days: "Mon",
+        private: false,
+        notification: true,
+    }
+    _.habits.push(draft)
+    saveAndUpdateHabits()
+    _.habitDetails = draft
+    habitStored(draft)
+}
+
+onRemoveHabit: {
+    for (var i = _.habits.length - 1; i >= 0; --i) {
+        if (_.habits[i].id == habitId) {
+            _.habits.splice(i, 1)
+        }
+    }
+    saveAndUpdateHabits()
+    habitRemoved()
+}
+```
+
+
+
 
 
 ---
@@ -569,3 +641,4 @@ Signals inside `Logic` are self explanatory.
 [`tablet`]: https://felgo.com/doc/felgo-app/#tablet-prop
 [`NavigationStack`]: https://felgo.com/doc/felgo-navigationstack/
 [`splitView`]: https://felgo.com/doc/felgo-navigationstack/#splitView-prop
+[`nativeUtils.displayMessageBox`]: https://felgo.com/doc/felgo-nativeutils/#displayMessageBox-method
