@@ -1,6 +1,6 @@
 ---
 layout: default
-title: How to make a GoodHabits application with Felgo
+title: Tutorial
 permalink: /tutorial/
 navigation_weight: 2
 ---
