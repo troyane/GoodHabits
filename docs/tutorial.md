@@ -101,6 +101,27 @@ QtObject {
 }
 ```
 
+## Keeping all application-wide constants together
+
+Good practive is to keep all application-wide constants in one place. This should be lightweight singleton component (`components/Constants.qml`) 
+that will contain information in next structure:
+
+```qml
+QtObject {
+    // Constants used as field names
+    readonly property string habitsDatabaseName: "GoodHabits"
+ 
+    readonly property string hHabits: "habits"
+    readonly property string hHabitID: "id"
+    readonly property string hHabitTitle: "title"
+    readonly property string hHabitDescription: "description"
+    readonly property string hHabitIcon: "icon"
+    readonly property string hHabitDuration: "duration"
+    readonly property string hHabitTime: "time"
+    // ...
+}
+```
+
 
 ## Application
 
@@ -290,6 +311,7 @@ var habitsData = [
 ```
 So, it will contain JSON array of objects of previously defined structure.
 
+
 ### Feeding habits model
 
 Let's create [`AppListView`]  (`ListView` that provids native `ScrollIndicator`, an empty view and swipe gestures for its list delegates) in `HabitListPage` to show habits from `testData.js`.
@@ -408,31 +430,142 @@ AppListView {
         detailText: model.time
         badgeValue: model.duration + "h"
 
-    section.property: "date"
-    section.delegate: SimpleSection {
-        textItem.font.bold: true
-    }
+	    section.property: "date"
+	    section.delegate: SimpleSection {
+	        textItem.font.bold: true
+	    }
+	}
 }
 
 ```
 
 Now you are able to view a list of habits and list of a records.
 
+
+### Generation of unique strings
+
+As for habit same for record object we use unique `id` identifier. It could be any identifier (even number), and we do not rely on order of that `id`s, we are not going to do sort on `id`. Problem with number as identifier is that if we need to generate new unique identifier we need to iterate over all of identifiers, and find the last one, then increment it.
+
+To avoid this, we are going to use strings for `id`s and prepare `id` as random string based on random number and on time:
+```js
+/**
+  * Function returns random id based on random and on time.
+  * Simple and light implementation UUID.
+  * @return type:string containing random uid.
+  */
+function generateId() {
+    return Math.random().toString(36).substring(2) + (new Date()).getTime().toString(36);
+}
+```
+Collision probability is quite low, but to be sure that we've got unique `id` we are going to iterate over all given `array` and check it, 
+otherwise, we need to generate new `id`.
+
+```js
+/**
+  * Function generate unique id using \c generateId. Then iterate over given \c array to ensure that generated
+  * id is unique. If so, returns it, otherwise generate new and repeat procedure until generated id will be
+  * unique.
+  * @param type:var JSON-array of elements with attribute `id`.
+  * @return type:string containing random unique (on \c array) uid.
+  */
+function getUniqueId(array) {
+    var needToRegenerate = false
+    do {
+        var possibleUnique = generateId();
+        for (var i = 0; i < array.length; ++i) {
+            if (array[i].id == possibleUnique) {
+                needToRegenerate = true;
+                break;
+            }
+        }
+    } while (needToRegenerate)
+    return possibleUnique;
+}
+```
+
+
+## `DataModel` as data provider
+
+We'd like to work with real user-created data instad of predefined. For this purpose we are going to create
+special component that will be hot plugged instead of our `TestData`.
+
+It will encapsulate all related to loading, holding in memory, and storing of data (habits and records) and 
+will have easy access to it via properties:
+
+```qml
+property alias records: // ...
+property alias habits: // ...
+```
+
+As you may understand, we need to change `model` parameter of our `JsonListModels` to this ones.
+
+Next properties will be used to access to particular, currently loaded habit or record:
+```qml
+property alias habitDetails: // ...
+property alias recordDetails: // ...
+```
+
+Actual variables will be stored in so-called private section, inside component:
+```qml
+Item {
+    id: _
+    property var habits: []  // Array
+    property var habitDetails: ({}) // Map
+    property var records: [] // Array
+    property var recordDetails: ({}) // Map
+}
+```
+
+Storage and load will be done via [`Storage`] component. We define `databaseName` just to be sure that we didn't miss anything.
+
+```qml
+Storage {
+    id: cache
+    databaseName: Constants.habitsDatabaseName
+}
+``` 
+
+### Logic
+
+All data manipulation is supposed to be triggered via one entry-point component, called `Logic`.  This is signals-only component that trigers signals related to data manipulations. Signals-approach gives us flexibility. E.g.: in case we switch to WebStorage, logic will remain the same.
+```qml
+Item {
+    signal loadHabits()
+    signal loadRecords()
+
+    signal importHabits(var habits)
+
+    signal loadHabitDetails(string habitId)
+    signal loadRecordDetails(string recordId)
+
+    signal storeHabits()
+    signal storeRecords()
+
+    signal addEmptyHabit()
+    signal addRecord(string habitId)
+
+    signal removeHabit(string habitId)
+    signal removeRecord(string recordId)
+    signal clearCache()
+}
+```
+
+Signals inside `Logic` are self explanatory.
+
+
 ---
-
-App
-AppButton
-AppListView
-Page
-JsonListModel
-SortFilterProxyModel
-SimpleRow
-SearchBar
-navigationStack as Page's
-pop 
-
-<!-- settings // https://felgo.com/doc/felgo-app/#settings-prop -->
-<!-- dp() // https://felgo.com/doc/felgo-app/#dp-method -->
+[`App`]: https://felgo.com/doc/felgo-app
+[`AppButton`]: https://felgo.com/doc/felgo-appbutton
+[`AppListView`]: https://felgo.com/doc/felgo-applistview
+[`Page`]: https://felgo.com/doc/felgo-page
+[`JsonListModel`]: https://felgo.com/doc/felgo-jsonlistmodel
+[`SortFilterProxyModel`]: https://felgo.com/doc/felgo-sortfilterproxymodel
+[`SimpleRow`]: https://felgo.com/doc/felgo-simplerow
+[`SearchBar`]: https://felgo.com/doc/felgo-searchbar
+[`navigationStack`]: https://felgo.com/doc/felgo-page/#navigationStack-prop
+[`pop`]: https://felgo.com/doc/felgo-navigationstack/#pop-method
+[`settings`]: https://felgo.com/doc/felgo-app/#settings-prop
+[`dp()`]: https://felgo.com/doc/felgo-app/#dp-method
 [`tablet`]: https://felgo.com/doc/felgo-app/#tablet-prop
 [`NavigationStack`]: https://felgo.com/doc/felgo-navigationstack/
 [`splitView`]: https://felgo.com/doc/felgo-navigationstack/#splitView-prop
