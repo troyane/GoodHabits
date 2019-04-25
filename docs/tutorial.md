@@ -2,7 +2,7 @@
 layout: default
 title: How to make a GoodHabits application with Felgo
 permalink: /tutorial/
-navigation_weight: -1
+navigation_weight: 2
 ---
 
 # How to make a GoodHabits application with Felgo
@@ -27,8 +27,13 @@ navigation_weight: -1
   * [Connecting DataProvider to real models](#connecting-dataprovider-to-real-models)
 * [View/edit habits](#viewedit-habits)
   * [HabitDetailPage](#habitdetailpage)
-     * [Custom controls](#custom-controls)
-
+  * [Custom controls](#custom-controls)
+     * [WarningPaper](#warningpaper)
+     * [GHTextInputTime](#ghtextinputtime)
+     * [DaysPicker](#dayspicker)
+     * [IconPicker "dialog" and IconTypeHelper](#iconpicker-dialog-and-icontypehelper)
+  * [Advanced features](#advanced-features)
+     * [Usage of JSONPath](#usage-of-jsonpath)
 
 ---
 

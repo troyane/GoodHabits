@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Blog
-navigation_weight: 2
+navigation_weight: -1
 permalink: /blog/
 ---
 <h1>Latest Posts</h1>

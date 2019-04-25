@@ -59,3 +59,7 @@ As a result -- you'll get documentation already built inside folder `GoodHabits/
 ### Already built documentation
 
 Documentation is avaialble [here](https://troyane.github.io/GoodHabits/doxy/).
+
+## Project history
+
+7-dayes project history is avaialble [here](https://troyane.github.io/GoodHabits/blog/).
