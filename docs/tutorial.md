@@ -5,7 +5,7 @@ permalink: /tutorial/
 navigation_weight: -1
 ---
 
-# Introduction
+# How to make a GoodHabits application with Felgo
 
 * [Project structure](#project-structure)
   * [Felgo Project Properties](#felgo-project-properties)
@@ -22,8 +22,13 @@ navigation_weight: -1
   * [Feeding records model](#feeding-records-model)
   * [Generation of unique strings](#generation-of-unique-strings)
 * [DataModel as data provider](#datamodel-as-data-provider)
-  * [Logic](#logic)
+  * [Logic as control for data](#logic-as-control-for-data)
   * [Data provider reaction on signals](#data-provider-reaction-on-signals)
+  * [Connecting DataProvider to real models](#connecting-dataprovider-to-real-models)
+* [View/edit habits](#viewedit-habits)
+  * [HabitDetailPage](#habitdetailpage)
+     * [Custom controls](#custom-controls)
+
 
 ---
 
@@ -544,7 +549,7 @@ Storage {
 }
 ``` 
 
-## Logic
+## Logic as control for data
 
 All data manipulation is supposed to be triggered via one entry-point component, called `Logic`.  This is signals-only component that trigers signals related to data manipulations. Signals-approach gives us flexibility. E.g.: in case we switch to WebStorage, logic will remain the same.
 ```qml
@@ -640,7 +645,80 @@ onRemoveHabit: {
 }
 ```
 
+To remove habit from array of habits we use [JS splice method](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice).
 
+
+## Connecting `DataProvider` to real models
+
+To connect habits list model to actual list it is enough to change one line in `HabitsListPage`:
+
+```qml
+JsonListModel {
+    id: listModel
+    source: dataModel.habits // <--
+``` 
+
+# View/edit habits
+
+We'll use the same page `HabitDetailPage` as for viewing, same for editing habit. The same idea will be used for records.
+
+We need to get from list model item to new page regarding clicked item. It is easy to do. On `listView` of `HabitDetailPage` we need to put [`MouseArea`]:
+
+```qml
+MouseArea {
+    anchors.fill: parent
+    onClicked: {
+        logic.loadHabitDetails(model.id)
+        page.navigationStack.popAllExceptFirstAndPush(detailPageComponent,
+                                                      { habitId: model.id })
+        mouse.accepted = true
+    }
+}
+```
+
+On click we should ask to load habit details with given `id` and push `detailPageComponent` with option that points to habit `id` currently loaded.
+
+## `HabitDetailPage`
+
+This is tricky page, since it will have right bar navigation item inside to reflect if this page is currently locked (locked -- for view only, unlocked for edit).
+
+```qml
+rightBarItem: NavigationBarRow {
+    // edit habit
+    IconButtonBarItem {
+        icon: habitDetailPage.locked ? IconType.lock : IconType.unlock
+        showItem: showItemAlways
+        onClicked: toggleLocked()
+    }
+}
+```
+
+And function `toggleLocked()` will trigger `saveAll()` function in case if user came to locked state from unlocked, to save all values into `currentHabit`, and obviously, store them:
+
+```js
+function saveAll() {
+    currentHabit[Constants.hHabitTitle] = habitTitleText.text
+    currentHabit[Constants.hHabitDescription] = habitDescriptionText.text
+    currentHabit[Constants.hHabitDuration] = habitDurationSlider.value
+    currentHabit[Constants.hHabitTime] = habitTypicalTime.text
+    currentHabit[Constants.hHabitIcon] = habitIconButton.iconName
+    currentHabit[Constants.hHabitDays] = daysPicker.getDays()
+    logic.storeHabits()
+}
+```
+
+Here, we access to each fields by names defined in `Constants`, since it is very useful -- to define it one time and use it anywhere.
+
+
+### Custom controls
+
+Among default controls required for `HabitDetailPage` there are custom ones, like:
+
+* `WarningPaper`
+* `GHTextInputTime`
+* `DaysPicker`
+* `GHDeleteButton`
+* `IconPicker` "dialog"
 
 
 
@@ -666,3 +744,4 @@ onRemoveHabit: {
 [`Navigation`]: https://felgo.com/doc/felgo-navigation/
 [`IconType`]: https://felgo.com/doc/felgo-icontype/
 [`NavigationItem`]: https://felgo.com/doc/felgo-navigationitem
+[`MouseArea`]: https://doc.qt.io/qt-5/qml-qtquick-mousearea.html
