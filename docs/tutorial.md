@@ -5,29 +5,25 @@ permalink: /tutorial/
 navigation_weight: -1
 ---
 
-# How to make a GoodHabits application with Felgo
+# Introduction
 
-Table of Contents
-=================
-
-   * [How to make a GoodHabits application with Felgo](#how-to-make-a-goodhabits-application-with-felgo)
-      * [Project structure](#project-structure)
-         * [Felgo Project Properties](#felgo-project-properties)
-         * [Felgo Plugin Selection](#felgo-plugin-selection)
-         * [Project management](#project-management)
-      * [Keeping all secrets](#keeping-all-secrets)
-      * [Keeping all application-wide constants together](#keeping-all-application-wide-constants-together)
-      * [Application](#application)
-      * [Navigation](#navigation)
-      * [Data structures](#data-structures)
-         * [Habits data structure](#habits-data-structure)
-         * [Feeding habits model](#feeding-habits-model)
-         * [Records data structure](#records-data-structure)
-         * [Feeding records model](#feeding-records-model)
-         * [Generation of unique strings](#generation-of-unique-strings)
-      * [DataModel as data provider](#datamodel-as-data-provider)
-         * [Logic](#logic)
-         * [Data provider reaction on signals](#data-provider-reaction-on-signals)
+* [Project structure](#project-structure)
+  * [Felgo Project Properties](#felgo-project-properties)
+  * [Felgo Plugin Selection](#felgo-plugin-selection)
+  * [Project management](#project-management)
+* [Keeping all secrets](#keeping-all-secrets)
+* [Keeping all application-wide constants together](#keeping-all-application-wide-constants-together)
+* [Application](#application)
+* [Navigation](#navigation)
+* [Data structures](#data-structures)
+  * [Habits data structure](#habits-data-structure)
+  * [Feeding habits model](#feeding-habits-model)
+  * [Records data structure](#records-data-structure)
+  * [Feeding records model](#feeding-records-model)
+  * [Generation of unique strings](#generation-of-unique-strings)
+* [DataModel as data provider](#datamodel-as-data-provider)
+  * [Logic](#logic)
+  * [Data provider reaction on signals](#data-provider-reaction-on-signals)
 
 ---
 
@@ -56,7 +52,7 @@ In this tutorial we will strip up basic things required for each mobile applicat
 * importing third party JS-modules.
 
 
-## Project structure
+# Project structure
 
 We could start from creating basic Felgo application. To prepare basic project structure, use wizard in Felgo QtCreator:
 
@@ -64,18 +60,18 @@ New Project -> Felgo Apps -> Single-Page Application.
 
 Provide name, choose correct folder to store your project to; choose Felgo Toolchain.
 
-### Felgo Project Properties
+## Felgo Project Properties
 
 As Felgo Project Properties provide:
 * **App display name:** `GoodHabits`
 * **App identifier:** provide your unique application identifier in format `com.yourcompany.GoodHabits`.
 * **Interface orientation:** choose `Auto`, since we are going to use layouts and scroll areas to create adaptive UI for application.
 
-### Felgo Plugin Selection
+## Felgo Plugin Selection
 
 For this application no plugins required. No need to choose any.
 
-### Project management
+## Project management
 
 As a result wizard will create a list of files reqired for distributing application as on iOS same for Android:
 
@@ -97,7 +93,7 @@ resources.qrc
 
 That's great. We'll touch only few of them. Now we are ready to start programming.
 
-## Keeping all secrets
+# Keeping all secrets
 
 As you may see, there is our main file `Main.qml` -- it will be our entry point to application.
 
@@ -125,7 +121,7 @@ QtObject {
 }
 ```
 
-## Keeping all application-wide constants together
+# Keeping all application-wide constants together
 
 Good practive is to keep all application-wide constants in one place. This should be lightweight singleton component (`components/Constants.qml`) 
 that will contain information in next structure:
@@ -147,7 +143,7 @@ QtObject {
 ```
 
 
-## Application
+# Application
 
 You may see that newly created project already has [`App`] as a main component. The `App` type is used to create the top-level item in a new Felgo application. Every Felgo app begins with a single `App` component defined at the root of its hierarchy. We'll use its 
 
@@ -157,7 +153,7 @@ You may see that newly created project already has [`App`] as a main component. 
 * method [`dp()`] -- for density-independent measurements for pixel values. This will allow us to define the same physical size for elements across platforms and screens with different densities.
 
 
-## Navigation
+# Navigation
 
 Newly created application already has [`NavigationStack`] with one [`Page`] already defined.
 
@@ -265,13 +261,13 @@ You may see that as soon as you get into `HabitDetailPage`, button `Back` appear
 Prepare rest of pages required for application, so we can do application navigation as it is expected. 
 
 
-## Data structures 
+# Data structures 
 
 Main task of application is to create and store information, so used data structures is vital question.
 
 To simplify testing process and to get instant results, lets create file `qml/js/testData.js` and use it as data source for now. We could easily use [imported JavaScript resources in QML](https://doc.qt.io/qt-5/qtqml-javascript-imports.html).
 
-### Habits data structure
+## Habits data structure
 
 Let's define all required fields for Habit structure. There should be:
 
@@ -335,7 +331,7 @@ var habitsData = [
 So, it will contain JSON array of objects of previously defined structure.
 
 
-### Feeding habits model
+## Feeding habits model
 
 Let's create [`AppListView`]  (`ListView` that provids native `ScrollIndicator`, an empty view and swipe gestures for its list delegates) in `HabitListPage` to show habits from `testData.js`.
 
@@ -392,7 +388,7 @@ SortFilterProxyModel {
 }
 ```
 
-### Records data structure
+## Records data structure
 
 Records data structure is simpler than habits data structure. Each record will contain:
 
@@ -416,7 +412,7 @@ Records data structure is simpler than habits data structure. Each record will c
 Let's populate `testData.js` file with JSON array of records.
 
 
-### Feeding records model
+## Feeding records model
 
 Do the same at `ReportPage` as it was done for `HabitsListPage`: add same components: `JsonListModel`, `SortFilterProxyModel`, `AppListView` with `SimpleRow` delegate.
 
@@ -465,7 +461,7 @@ AppListView {
 Now you are able to view a list of habits and list of a records.
 
 
-### Generation of unique strings
+## Generation of unique strings
 
 As for habit same for record object we use unique `id` identifier. It could be any identifier (even number), and we do not rely on order of that `id`s, we are not going to do sort on `id`. Problem with number as identifier is that if we need to generate new unique identifier we need to iterate over all of identifiers, and find the last one, then increment it.
 
@@ -507,7 +503,7 @@ function getUniqueId(array) {
 ```
 
 
-## `DataModel` as data provider
+# `DataModel` as data provider
 
 We'd like to work with real user-created data instad of predefined. For this purpose we are going to create
 special component that will be hot plugged instead of our `TestData`.
@@ -548,7 +544,7 @@ Storage {
 }
 ``` 
 
-### Logic
+## Logic
 
 All data manipulation is supposed to be triggered via one entry-point component, called `Logic`.  This is signals-only component that trigers signals related to data manipulations. Signals-approach gives us flexibility. E.g.: in case we switch to WebStorage, logic will remain the same.
 ```qml
@@ -576,7 +572,7 @@ Item {
 Signals inside `Logic` are self explanatory. Since `Logic` component will be created inside `App` in `Main.qml`, it will be accessible from any point of application.
 
 
-### Data provider reaction on signals
+## Data provider reaction on signals
 
 We'll take a look at all signals realted to habits. Almost the same will be related to records. Create `Connections` object inside `DataModel` and provide next connection events:
 
