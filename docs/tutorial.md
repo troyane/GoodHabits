@@ -873,6 +873,48 @@ In `GridView`s `delegate` we show [`IconButton`] with respective `icon`, and [`A
 
 As soon as user chooses icon component will emit signal `signal iconChoosed(string iconName, string iconUtf)`.
 
+
+## Advanced features
+
+### Usage of JSONPath
+
+We've added [`jsonpath.js`](https://github.com/kromain/qml-utils/blob/master/JSONListModel/jsonpath.js) to source code, so it could be accessible via
+```js
+import "../js/jsonpath.js" as JP
+```
+
+[JSONPath for JSON is like XPath for XML.](https://www.baeldung.com/guide-to-jayway-jsonpath)
+
+It gives us possibility to get easier access to JS objects. E.g., we have this helper function that returns habit by given id:
+
+```js
+    function getHabitById(uid) {
+        // TODO: add checks
+        var jpath = "$[?(@.id=='" + uid + "')]";
+        var result = JP.jsonPath(dataModel.habits, jpath)
+        if (result == false) {
+            return ""
+        } else {
+            return result[0]
+        }
+    }
+```
+
+and respective wrapper over it to get habit `title` by given `id`:
+
+```js
+function getHabitTitleById(uid) {
+    if (uid == "")
+        return ""
+    var h = getHabitById(uid)
+    if (h == false) return ""
+    return h.title
+}
+```
+
+This function could be used in `ReportPage` to get information on linked habits on partivular records.
+
+
 ---
 [`App`]: https://felgo.com/doc/felgo-app
 [`AppButton`]: https://felgo.com/doc/felgo-appbutton
