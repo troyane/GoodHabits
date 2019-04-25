@@ -13,6 +13,10 @@ You can fork/clone the project from [here](https://github.com/troyane/GoodHabits
 
 Or even use fancy buttons on the left to do it.
 
+## Tutorial on how to create such application
+
+You can see tutorial on how to create this application [here](https://troyane.github.io/GoodHabits/tutorial/).
+
 ## Prepare build environment
 
 To build the project one just need to have Felgo SDK installed. Download it and follow all instructions from https://felgo.com/download.

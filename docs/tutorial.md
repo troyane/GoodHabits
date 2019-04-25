@@ -710,38 +710,194 @@ function saveAll() {
 Here, we access to each fields by names defined in `Constants`, since it is very useful -- to define it one time and use it anywhere.
 
 
-### Custom controls
+## Custom controls
 
 Among default controls required for `HabitDetailPage` there are custom ones, like:
 
 * `WarningPaper`
 * `GHTextInputTime`
 * `DaysPicker`
-* `GHDeleteButton`
 * `IconPicker` "dialog"
 
 
+### `WarningPaper`
+
+This is Simple AppPaper override for any in-place message boxes. Appearance and dissappearance of this box will be animated.
+
+Animation of this component is done via usage of [States](https://doc.qt.io/qt-5/qml-qtquick-state.html) & [Behavior](https://doc.qt.io/qt-5/qml-qtquick-behavior.html):
+
+```qml
+    states: [
+        State {
+            name: "invisible"
+            when: !needShow
+            PropertyChanges { target: editNote; Layout.preferredHeight: 0 }
+        },
+        State {
+            name: "visible"
+            when: needShow
+            PropertyChanges { target: editNote; Layout.preferredHeight: appText.implicitHeight }
+        }
+    ]
+
+    Behavior on Layout.preferredHeight { NumberAnimation { duration: Constants.animationDuration } }
+```
+
+Idea is simple -- we have two states with different `Layout.preferredHeight` values. `Behavior` animates this property change.
 
 
+### `GHTextInputTime`
+
+This is simple [`AppTextInput`] with predefined  `placeholderText` (as `00:00`) and with applied RegExp validator to filter only time in 24H format.
+
+```qml
+AppTextInput {
+    id: editTime
+    text: "09:00"
+    placeholderText: "00:00"
+    validator: RegExpValidator {
+        regExp: /^(0[0-9]|1[0-9]|2[0-3]|[0-9]):[0-5][0-9]$/
+    }
+}
+```
+
+
+### `DaysPicker`
+
+This is [`Grid`]-based component that has [`AppCheckBox`]es for each day in week. Days could be set via string, and get in a string representation.
+
+```js
+/**
+  * Function returns joined string of checked ckeckboxes that represents days.
+  * @return type:string containing joined string.
+  */
+function getDays() {
+    var result = ""
+    result += habitDayMonday.checked    ? dayMonday    + "," : ""
+    result += habitDayTuesday.checked   ? dayTuesday   + "," : ""
+    result += habitDayWednesday.checked ? dayWednesday + "," : ""
+    result += habitDayThursday.checked  ? dayThursday  + "," : ""
+    result += habitDayFriday.checked    ? dayFriday    + "," : ""
+    result += habitDaySaturday.checked  ? daySaturday  + "," : ""
+    result += habitDaySunday.checked    ? daySunday    + "," : ""
+    return result
+}
+```
+
+```js
+    function setDays(fromString) {
+        uncheckAll()
+        if (fromString == "") {
+            console.log("No days specified")
+            return
+        }
+
+        var days = fromString.split(",")
+        if (days.length > 7) {
+            console.warn("Something strange happenning")
+        }
+        for (var i = 0; i < days.length; ++i) {
+            switch (days[i]) {
+            case dayMonday: habitDayMonday.checked = true; break;
+            case dayTuesday: habitDayTuesday.checked = true; break;
+            case dayWednesday: habitDayWednesday.checked = true; break;
+            case dayThursday: habitDayThursday.checked = true; break;
+            case dayFriday: habitDayFriday.checked = true; break;
+            case daySaturday: habitDaySaturday.checked = true; break;
+            case daySunday : habitDaySunday .checked = true; break;
+            }
+        }
+    }
+``` 
+
+Not so elegant implementation, but stable working.
+
+
+### `IconPicker` "dialog" and `IconTypeHelper`
+
+This is component as a [`Rectangle`] for choosing icon from a grid of available icons. To make it possible to implement such component we need to find a way to store icon names of [`IconType`]. So we provide `IconTypeHelper` as a singleton type with a lost of all possible icons in [`IconType`].
+
+```js
+readonly property var iconsModel: ListModel {
+    id: list
+    Component.onCompleted: {
+        for (var i = 0; i < IconTypeHelper.iconsList.length; ++i) {
+            const current = IconTypeHelper.iconsList[i]
+            const pair = { iconText: current, iconUtf: IconType[current] }
+            list.append( pair )
+        }
+    }
+}
+
+/// List of available icons in `IconType` for Felgo 3.0.
+readonly property var iconsList: [
+    "adjust",
+    "adn",
+    "aligncenter",
+    "alignjustify",
+    ...
+    ]
+```
+
+So we have a list of available icons and can iterate over it to populate grid with icons. We create [`GridView`] and populate it with 
+filtered in [`SortFilterProxyModel`] model:
+
+```qml
+GridView {
+    id: grid
+    delegate: Item {
+        id: delegate
+        width: grid.cellWidth
+        height: grid.cellHeight
+        Column {
+            anchors.fill: parent
+            IconButton {
+                icon: iconUtf
+                anchors.horizontalCenter: parent.horizontalCenter
+                onClicked: iconChoosed(iconText, iconUtf)
+            }
+            AppText {
+                text: iconText
+                width: delegate.width - dp(Constants.defaultSpacing)
+                elide: Text.ElideRight
+                horizontalAlignment: Text.AlignHCenter
+            }
+        }
+    }
+    model: filteredModel
+}
+```
+`SortFilterProxyModel` used here with same idea as in `HabitsListPage` -- to give user ability to filter icons by its names.
+
+In `GridView`s `delegate` we show [`IconButton`] with respective `icon`, and [`AppText`] with hicon name.
+
+As soon as user chooses icon component will emit signal `signal iconChoosed(string iconName, string iconUtf)`.
 
 ---
 [`App`]: https://felgo.com/doc/felgo-app
 [`AppButton`]: https://felgo.com/doc/felgo-appbutton
+[`AppCheckbox`]: https://felgo.com/doc/felgo-appcheckbox
 [`AppListView`]: https://felgo.com/doc/felgo-applistview
-[`Page`]: https://felgo.com/doc/felgo-page
-[`JsonListModel`]: https://felgo.com/doc/felgo-jsonlistmodel
-[`SortFilterProxyModel`]: https://felgo.com/doc/felgo-sortfilterproxymodel
-[`SimpleRow`]: https://felgo.com/doc/felgo-simplerow
-[`SearchBar`]: https://felgo.com/doc/felgo-searchbar
-[`navigationStack`]: https://felgo.com/doc/felgo-page/#navigationStack-prop
-[`pop`]: https://felgo.com/doc/felgo-navigationstack/#pop-method
-[`settings`]: https://felgo.com/doc/felgo-app/#settings-prop
+[`AppText`]: https://felgo.com/doc/felgo-apptext
+[`AppTextInput`]: https://felgo.com/doc/felgo-apptextinput
 [`dp()`]: https://felgo.com/doc/felgo-app/#dp-method
-[`tablet`]: https://felgo.com/doc/felgo-app/#tablet-prop
-[`NavigationStack`]: https://felgo.com/doc/felgo-navigationstack/
-[`splitView`]: https://felgo.com/doc/felgo-navigationstack/#splitView-prop
+[`Grid`]: https://doc.qt.io/qt-5/qml-qtquick-grid.html
+[`GridView`]: https://doc.qt.io/qt-5/qml-qtquick-gridview.html
+[`IconButton`]: https://felgo.com/doc/felgo-iconbutton
+[`IconType`]: https://felgo.com/doc/felgo-icontype/
+[`JsonListModel`]: https://felgo.com/doc/felgo-jsonlistmodel
+[`MouseArea`]: https://doc.qt.io/qt-5/qml-qtquick-mousearea.html
 [`nativeUtils.displayMessageBox`]: https://felgo.com/doc/felgo-nativeutils/#displayMessageBox-method
 [`Navigation`]: https://felgo.com/doc/felgo-navigation/
-[`IconType`]: https://felgo.com/doc/felgo-icontype/
 [`NavigationItem`]: https://felgo.com/doc/felgo-navigationitem
-[`MouseArea`]: https://doc.qt.io/qt-5/qml-qtquick-mousearea.html
+[`NavigationStack`]: https://felgo.com/doc/felgo-navigationstack/
+[`navigationStack`]: https://felgo.com/doc/felgo-page/#navigationStack-prop
+[`Page`]: https://felgo.com/doc/felgo-page
+[`pop`]: https://felgo.com/doc/felgo-navigationstack/#pop-method
+[`Rectangle`]: https://doc.qt.io/qt-5/qml-qtquick-rectangle.html
+[`SearchBar`]: https://felgo.com/doc/felgo-searchbar
+[`settings`]: https://felgo.com/doc/felgo-app/#settings-prop
+[`SimpleRow`]: https://felgo.com/doc/felgo-simplerow
+[`SortFilterProxyModel`]: https://felgo.com/doc/felgo-sortfilterproxymodel
+[`splitView`]: https://felgo.com/doc/felgo-navigationstack/#splitView-prop
+[`tablet`]: https://felgo.com/doc/felgo-app/#tablet-prop
