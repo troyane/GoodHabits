@@ -22,7 +22,7 @@ navigation_weight: 2
   * [Feeding records model](#feeding-records-model)
   * [Generation of unique strings](#generation-of-unique-strings)
 * [DataModel as data provider](#datamodel-as-data-provider)
-  * [Logic as control for data](#logic-as-control-for-data)
+  * [Logic as a control for data](#logic-as-control-for-data)
   * [Data provider reaction on signals](#data-provider-reaction-on-signals)
   * [Connecting DataProvider to real models](#connecting-dataprovider-to-real-models)
 * [View/edit habits](#viewedit-habits)
@@ -42,13 +42,12 @@ how sustainable their wishes and aims are and where the habit starts to benefit 
 skills form. And the one effect we’re expecting is that being motivated to spend more time on 
 good habits, you won’t spend time on bad habits...
 
-So, basically it is advanced time tracker with categories mobile application (suitable for tablets 
-too).
+So, basically, it is a mobile application (suitable for tablets too) for advanced time tracking by categories.
 
 ![habits](imgs/habits.gif)
 ![records](imgs/records.gif)
 
-In this tutorial we will strip up basic things required for each mobile application like:
+In this tutorial, we will strip up basic things required for each mobile application like:
 
 * stacked-page navigation,
 * usage of layouts and preparation of adaptive UI,
@@ -57,33 +56,36 @@ In this tutorial we will strip up basic things required for each mobile applicat
 * MVC:
   * model preparation,
   * view organization,
-* loading and storing persistant data,
-* oraganization of source code files,
+* loading and storing persistent data,
+* organization of source code files,
 * importing third party JS-modules.
 
 
 # Project structure
 
-We could start from creating basic Felgo application. To prepare basic project structure, use wizard in Felgo QtCreator:
+We could start with basic Felgo application creation. To prepare a basic project structure, use wizard in Felgo's QtCreator:
 
 New Project -> Felgo Apps -> Single-Page Application.
 
-Provide name, choose correct folder to store your project to; choose Felgo Toolchain.
+Provide name, choose a correct folder to store your project to; choose Felgo Toolchain.
+
 
 ## Felgo Project Properties
 
 As Felgo Project Properties provide:
 * **App display name:** `GoodHabits`
 * **App identifier:** provide your unique application identifier in format `com.yourcompany.GoodHabits`.
-* **Interface orientation:** choose `Auto`, since we are going to use layouts and scroll areas to create adaptive UI for application.
+* **Interface orientation:** choose `Auto`, since we are going to use layouts and scroll areas to create adaptive UI for the application.
+
 
 ## Felgo Plugin Selection
 
 For this application no plugins required. No need to choose any.
 
+
 ## Project management
 
-As a result wizard will create a list of files reqired for distributing application as on iOS same for Android:
+As a result, the wizard will create a list of files, reqired for distributing the application as on iOS same for Android:
 
 ```bash
 /home/user/Projects/GoodHabits:
@@ -101,7 +103,8 @@ main.cpp
 resources.qrc
 ```
 
-That's great. We'll touch only few of them. Now we are ready to start programming.
+Now we are ready to start programming.
+
 
 # Keeping all secrets
 
@@ -110,10 +113,10 @@ As you may see, there is our main file `Main.qml` -- it will be our entry point 
 You may see comment regarding license. In case you've already generated your license, this is great.
 Let's avoid showing your license key in this `Main.qml` file. Create new directory `qml/secrets`. 
 Put there 2 files:
- * `Secrets.qml` -- actual file that will be used in application. No one can see it. Let's agree that this will be file with sensitive data. Do not forget to add this file to your `.gitignore` file, so in case you are using git -- this very file will not get into remote repository.
- * `Secrets.qml_template` -- file that will not be used in applicatino, but will reflect secrets-file structure. This file could be uploaded to repositry without any problems.
+ * `Secrets.qml` -- an actual file that will be used in the application. No one can see it. Let's agree that this will be a file with sensitive data. Do not forget to add this file to your `.gitignore` file, so in case you are using git -- this very file will not get into a remote repository.
+ * `Secrets.qml_template` -- the file that will not be used in the application but will reflect secrets-file structure. This file could be uploaded to the repository without any problems.
 
- To be sure that secrets-component will be as lightweight as possible, we'll create it as singletone [`QtObject`](https://doc.qt.io/qt-5/qml-qtqml-qtobject.html):
+ To be sure that secrets-component will be as lightweight as possible, we'll create it as singleton [`QtObject`](https://doc.qt.io/qt-5/qml-qtqml-qtobject.html):
 ```qml
 pragma Singleton
 
@@ -131,10 +134,10 @@ QtObject {
 }
 ```
 
+
 # Keeping all application-wide constants together
 
-Good practive is to keep all application-wide constants in one place. This should be lightweight singleton component (`components/Constants.qml`) 
-that will contain information in next structure:
+A good practice is to keep all application-wide constants in one place. This should be a lightweight singleton component (`components/Constants.qml`) that will contain information in the next structure:
 
 ```qml
 QtObject {
@@ -155,11 +158,11 @@ QtObject {
 
 # Application
 
-You may see that newly created project already has [`App`] as a main component. The `App` type is used to create the top-level item in a new Felgo application. Every Felgo app begins with a single `App` component defined at the root of its hierarchy. We'll use its 
+You may see that the newly created project already has the [`App`] as a main component. The `App` type is used to create the top-level item in a new Felgo application. Every Felgo app begins with a single `App` component defined at the root of its hierarchy. We'll use its 
 
 * properties:
-  * [`tablet`] -- read-only property that is `true` if the screen's diameter is bigger than 6.7 inches. We'll use it to trigger a [`splitView`] in used [`NavigationStack`]s.
-  * [`settings`] -- as persistent storage for key-value pairs of data, that are also available when the user closes the app and restarts it. This one we'll use for storing user defined settings.
+  * [`tablet`] -- a read-only property that is `true` if the screen's diameter is bigger than 6.7 inches. We'll use it to trigger a [`splitView`] in used [`NavigationStack`]s.
+  * [`settings`] -- as persistent storage for key-value pairs of data, that are also available when the user closes the app and restarts it. This one we'll use for storing user-defined settings.
 * method [`dp()`] -- for density-independent measurements for pixel values. This will allow us to define the same physical size for elements across platforms and screens with different densities.
 
 
@@ -169,21 +172,21 @@ Newly created application already has [`NavigationStack`] with one [`Page`] alre
 
 The [`NavigationStack`] item manages the navigation of hierarchical content represented by a stack of [`Pages`]. The [`NavigationStack`] component adds a navigation bar and is used to navigate between pages. The [`Page`] component is the container for a single page of content.
 
-We'll have 3 different navigation stacks -- each for different purpose:
+We'll have 3 different navigation stacks -- each for a different purpose:
 
 * **Habits** list -- to see a list of habits, see detailed information on habit, edit habits 
 * **Report** -- to see a list of reported logged habits (called `records` in terms of application), see detailed information on records, edit records
 * **Profile** -- see application information, access export/import page, access settings page.
 
-You may understand that each of stacks is stand-alone, and could be navigatable by its own, to its own sub-pages.
+You may understand that each of the stacks is stand-alone, and could be navigatable by its own, to its own sub-pages.
 
-We are going to create next hierarchical structure. Give this pages easy names that describes its content the best.
+We are going to create the next hierarchical structure. Give these pages easy names to describes their content the best.
 
 * Main page -- `Main.qml`
   * Habits
     * Page with a list of habits -- `HabitsListPage.qml`
     * View/Edit/Create habit page -- `HabitDetailPage.qml`
-    * Create record on habit -- `RecordPage.qml`
+    * Create a record on habit -- `RecordPage.qml`
   * Records
     * Report page with a list of records -- `ReportPage.qml`
     * Page to view/edit record -- `RecordPage.qml`
@@ -192,9 +195,9 @@ We are going to create next hierarchical structure. Give this pages easy names t
     * Export/Import application data -- `ImportExportPage.qml`
     * Page with settings -- `SettingsPage.qml`
 
-Best approach is to reflect this structure in your source code folder structure. We'll create folder `qml/pages` where put all of mentioned pages. 
+The best approach is to reflect this structure in your source code folder structure. We'll create folder `qml/pages` where put all of the  mentioned pages. 
 
-We'll implement page changing logic first. Create each page as simple and clean as possible with one item inside (couloured rectangle or centered text), e.g.:
+We'll implement page changing logic first. Create each page as simple and clean as possible with one item inside (coulored rectangle or centered text), e.g.:
 
 ```qml
 Page {
@@ -205,7 +208,7 @@ Page {
 }
 ```
 
-As soon as there are ready page components, lets get back to main component and prepare all required navigation stacks.
+As soon as there are ready page components, lets get back to the main component and prepare all required navigation stacks.
 ```qml
 Navigation {
     id: navigation
@@ -240,13 +243,13 @@ Navigation {
 }
 ```
 
-As a result we'll have native look [`Navigation`] that will automatically use different navigation modes depending on the used platform. For iOS it will be tab bar with three icons on the bottom of the screen. 
+As a result, we'll have native look [`Navigation`] that will automatically use different navigation modes depending on the used platform. For iOS, it will be tab bar with three icons on the bottom of the screen. 
 
-We've set different icons for each tab (`icon`). Icon could be choosed from [`IconType`] -- a global object containing the possible `Icons`.
+We've set different icons for each tab (`icon`). Then icon could be choosed from [`IconType`] -- a global object containing the possible `Icons`.
 
 Each [`NavigationItem`] contains [`NavigationStack`] in it -- now our application could run and do some simple navigation between different stacks, each has one page inside.
 
-Let's add possibility to navigate over pages inside stacks. Inside `HabitsListPage` create component:
+Let's add a possibility to navigate over pages inside stacks. Inside `HabitsListPage` create component:
 
 ```qml
 Component {
@@ -266,28 +269,29 @@ AppButton {
 
 Code is self explanatory, on button click it will access `HabitsListPage`'s attached property [`navigationStack`] and pop every page inside stack except first and push page by its id `detailPageComponent`.
 
-You may see that as soon as you get into `HabitDetailPage`, button `Back` appears on navigation bar. It will [`pop`] your current page and get you to previous page in stack.
+You may see that as soon as you get into `HabitDetailPage`, button `Back` appears on the navigation bar. It will [`pop`] your current page and get you to the previous page in stack.
 
-Prepare rest of pages required for application, so we can do application navigation as it is expected. 
+Prepare rest of pages required for the application so we can do application navigation as it is expected. 
 
 
 # Data structures 
 
-Main task of application is to create and store information, so used data structures is vital question.
+The main task for the application is to create and store information, so used data structures are a vital question.
 
-To simplify testing process and to get instant results, lets create file `qml/js/testData.js` and use it as data source for now. We could easily use [imported JavaScript resources in QML](https://doc.qt.io/qt-5/qtqml-javascript-imports.html).
+To simplify the testing process and to get instant results, let's create file `qml/js/testData.js` and use it as data source for now. We could easily use [imported JavaScript resources in QML](https://doc.qt.io/qt-5/qtqml-javascript-imports.html).
+
 
 ## Habits data structure
 
 Let's define all required fields for Habit structure. There should be:
 
 * `id` as a unique identifier, key value,
-* `title` -- name of habit,
+* `title` -- the name of habit,
 * `description` -- optional detailed description of habit,
-* `icon` -- text identifier of icon used for habit,
+* `icon` -- text identifier of the icon used for habit,
 * `duration` -- float number that represents default amount of time  in hours spent on habit,
-* `time` -- string that contains default time of the day that best suitable for habit,
-* `days` -- string containing comma separated day values best suitable for habit.
+* `time` -- a string that contains default time of the day that best suitable for habit,
+* `days` -- a string containing comma-separated day values best suitable for habit.
 
 Example of such predefined habit could be next one:
 ```js
@@ -343,7 +347,7 @@ So, it will contain JSON array of objects of previously defined structure.
 
 ## Feeding habits model
 
-Let's create [`AppListView`]  (`ListView` that provids native `ScrollIndicator`, an empty view and swipe gestures for its list delegates) in `HabitListPage` to show habits from `testData.js`.
+Let's create [`AppListView`]  (`ListView` that provides native `ScrollIndicator`, an empty view and swipe gestures for its list delegates) in `HabitListPage` to show habits from `testData.js`.
 
 ```qml
 AppListView {
@@ -377,7 +381,12 @@ Beeing right here we could extend view possibility by adding one more proxy [`So
 
 Actual data from `testData.js` -> `JsonListModel` -> `SortFilterProxyModel` -> `AppListView` that will actually show sorted, filtered data using its delegate [`SimpleRow`].
 
-`SortFilterProxyModel` will filter and sort our model. We'd like to have sorting of items by `title`. Also, it will be great to be able to filter habits by its title (in case if user has 10+ habits -- it is vital feature for quick access). Beforehand, create [`SearchBar`] component where user can input his search query. We'll use `RegExpFilter` for this purpose, because we want to get smarter strings matching approach. In case if input query is `car` we would like to get not only results that starts from `car`, but every else that contain `car` inside. To do it we use simple regular expression `.*` + our query.
+`SortFilterProxyModel` will filter and sort our model. We'd like to have sorting of items by `title`. 
+Also, it will be great to be able to filter habits by its title (in case if the user has 10+ habits -- 
+it is a vital feature for quick access). Beforehand, create [`SearchBar`] component where user can input 
+his search query. We'll use `RegExpFilter` for this purpose because we want to get smarter strings matching approach. 
+In case if input query is `car` we would like to get not only results that start from the `car`, 
+but every else that contain `car` inside. To do it we use a simple regular expression `.*` + our query.
 
 ```qml
 SortFilterProxyModel {
@@ -400,10 +409,10 @@ SortFilterProxyModel {
 
 ## Records data structure
 
-Records data structure is simpler than habits data structure. Each record will contain:
+The records data structure is simpler than habits data structure. Each record will contain:
 
 * `id` -- unique identifier of this record
-* `date` -- date where the record was made
+* `date` -- a date where the record was made
 * `habit` -- identifier of habit
 * `duration` -- float value, time spent on habit
 * `time` -- string representation of time, when work on habit started.
@@ -427,9 +436,9 @@ Let's populate `testData.js` file with JSON array of records.
 Do the same at `ReportPage` as it was done for `HabitsListPage`: add same components: `JsonListModel`, `SortFilterProxyModel`, `AppListView` with `SimpleRow` delegate.
 
 Main changes from Habits page are:
-* We need to populate `jsonModel` with `DataModel.recordsData`. Key field is same called `id`, and fields that are interesting to us are `["id", "date", "habit", "duration", "time"]`.
+* We need to populate `jsonModel` with `DataModel.recordsData`. Key field is same named `id`, and fields that are interesting to us are `["id", "date", "habit", "duration", "time"]`.
 * No need to apply any filters, just do sort by date.
-* `AppListView` will contain section by property `date`, so all our records will be structured by date.
+* `AppListView` will contain section by property `date` so all our records will be structured by date.
 
 ```qml
 JsonListModel {
@@ -468,14 +477,14 @@ AppListView {
 
 ```
 
-Now you are able to view a list of habits and list of a records.
+Now you are able to view a list of habits and a list of a records.
 
 
 ## Generation of unique strings
 
-As for habit same for record object we use unique `id` identifier. It could be any identifier (even number), and we do not rely on order of that `id`s, we are not going to do sort on `id`. Problem with number as identifier is that if we need to generate new unique identifier we need to iterate over all of identifiers, and find the last one, then increment it.
+As for habit same for record object we use unique `id` identifier. It could be any identifier (even number), and we do not rely on the order of that `id`s, we are not going to do sorting by `id`s. Problem with the number as an identifier is that if we need to generate new unique identifier we need to iterate over all of the identifiers and find the last one, then increment it.
 
-To avoid this, we are going to use strings for `id`s and prepare `id` as random string based on random number and on time:
+To avoid this, we are going to use strings for `id`s and prepare `id` as random string based on a random number and on time:
 ```js
 /**
   * Function returns random id based on random and on time.
@@ -526,7 +535,7 @@ property alias records: // ...
 property alias habits: // ...
 ```
 
-As you may understand, we need to change `model` parameter of our `JsonListModels` to this ones.
+As you may understand, we need to change the `model` parameter of our `JsonListModels` to these ones.
 
 Next properties will be used to access to particular, currently loaded habit or record:
 ```qml
@@ -534,7 +543,7 @@ property alias habitDetails: // ...
 property alias recordDetails: // ...
 ```
 
-Actual variables will be stored in so-called private section, inside component:
+Actual variables will be stored in a so-called private section, inside component:
 ```qml
 Item {
     id: _
@@ -554,9 +563,11 @@ Storage {
 }
 ``` 
 
-## Logic as control for data
+## Logic as a control for data
 
-All data manipulation is supposed to be triggered via one entry-point component, called `Logic`.  This is signals-only component that trigers signals related to data manipulations. Signals-approach gives us flexibility. E.g.: in case we switch to WebStorage, logic will remain the same.
+All data manipulation is supposed to be triggered via one entry-point component, called `Logic`.  This is a signals-only 
+component that triggers signals related to data manipulations. Signals-approach gives us flexibility. 
+E.g.: in case we switch to [`WebStorage`](https://felgo.com/doc/felgo-webstorage/), logic will remain the same.
 ```qml
 Item {
     signal loadHabits()
@@ -579,12 +590,12 @@ Item {
 }
 ```
 
-Signals inside `Logic` are self explanatory. Since `Logic` component will be created inside `App` in `Main.qml`, it will be accessible from any point of application.
+Signals inside `Logic` are self-explanatory. Since `Logic` component will be created inside `App` in `Main.qml`, it will be accessible from any point of application.
 
 
 ## Data provider reaction on signals
 
-We'll take a look at all signals realted to habits. Almost the same will be related to records. Create `Connections` object inside `DataModel` and provide next connection events:
+We'll take a look at all signals related to habits. Almost the same will be related to records. Create `Connections` object inside `DataModel` and provide next connection events:
 
 To load habits from previously stored:
 ```qml
@@ -595,12 +606,15 @@ onLoadHabits: {
     } else {
         console.log("Can't find any")
         nativeUtils.displayMessageBox(qsTr("Can't find any cached habits!"),
-                                      qsTr("Looks like you run this application for first time."), 1)
+                                      qsTr("Looks like you run this application for the first time."), 1)
     }
 }
 ```
-Also this function could detect situation when there are no previously saved values available. This is situation when user starts application for first time. In this case we need to show respective dialog box. To do it, we have [`nativeUtils.displayMessageBox`] method that will display a native-looking message box dialog with a given title, an optional description that can provide more details, an OK button and an optional Cancel button.
-
+Also, this function could detect the situation when there are no previously saved values available. 
+This is the situation when a user starts application for the first time. In this case, we need to show 
+the respective dialog box. To do it, we have [`nativeUtils.displayMessageBox`] method that will display 
+a native-looking message box dialog with a given title, an optional description that can provide more 
+details, an OK button, and an optional Cancel button.
 
 To load habit details we'll use [JS find method](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find):
 ```qml
@@ -667,7 +681,7 @@ JsonListModel {
 
 We'll use the same page `HabitDetailPage` as for viewing, same for editing habit. The same idea will be used for records.
 
-We need to get from list model item to new page regarding clicked item. It is easy to do. On `listView` of `HabitDetailPage` we need to put [`MouseArea`]:
+We need to get from list model item to new page regarding the clicked item. It is easy to do. On `listView` of `HabitDetailPage` we need to put [`MouseArea`]:
 
 ```qml
 MouseArea {
@@ -685,7 +699,7 @@ On click we should ask to load habit details with given `id` and push `detailPag
 
 ## `HabitDetailPage`
 
-This is tricky page, since it will have right bar navigation item inside to reflect if this page is currently locked (locked -- for view only, unlocked for edit).
+It is a tricky page since it will have right bar navigation item inside to reflect if this page is currently locked (locked -- for view only, unlocked for edit).
 
 ```qml
 rightBarItem: NavigationBarRow {
@@ -727,9 +741,9 @@ Among default controls required for `HabitDetailPage` there are custom ones, lik
 
 ### `WarningPaper`
 
-This is Simple AppPaper override for any in-place message boxes. Appearance and dissappearance of this box will be animated.
+This is Simple AppPaper override for any in-place message boxes. Appearance and disappearance of this box will be animated.
 
-Animation of this component is done via usage of [States](https://doc.qt.io/qt-5/qml-qtquick-state.html) & [Behavior](https://doc.qt.io/qt-5/qml-qtquick-behavior.html):
+Animation of this component is done of the usage of [States](https://doc.qt.io/qt-5/qml-qtquick-state.html) & [Behavior](https://doc.qt.io/qt-5/qml-qtquick-behavior.html):
 
 ```qml
     states: [
@@ -820,7 +834,9 @@ Not so elegant implementation, but stable working.
 
 ### `IconPicker` "dialog" and `IconTypeHelper`
 
-This is component as a [`Rectangle`] for choosing icon from a grid of available icons. To make it possible to implement such component we need to find a way to store icon names of [`IconType`]. So we provide `IconTypeHelper` as a singleton type with a lost of all possible icons in [`IconType`].
+This is a component as a [`Rectangle`] for choosing an icon from a grid of available icons. To make it possible to 
+implement such a component we need to find a way to store icon names of [`IconType`]. So we provide `IconTypeHelper` 
+as a singleton type with a list of all possible icons in [`IconType`].
 
 ```js
 readonly property var iconsModel: ListModel {
@@ -844,7 +860,7 @@ readonly property var iconsList: [
     ]
 ```
 
-So we have a list of available icons and can iterate over it to populate grid with icons. We create [`GridView`] and populate it with 
+So we have a list of available icons and can iterate over it to populate the grid with icons. We create [`GridView`] and populate it with 
 filtered in [`SortFilterProxyModel`] model:
 
 ```qml
@@ -874,23 +890,23 @@ GridView {
 ```
 `SortFilterProxyModel` used here with same idea as in `HabitsListPage` -- to give user ability to filter icons by its names.
 
-In `GridView`s `delegate` we show [`IconButton`] with respective `icon`, and [`AppText`] with hicon name.
+In `GridView`s `delegate` we show [`IconButton`] with respective `icon` and [`AppText`] with icon name.
 
-As soon as user chooses icon component will emit signal `signal iconChoosed(string iconName, string iconUtf)`.
+As soon as the user chooses icon, the component will emit signal `iconChoosed(string iconName, string iconUtf)`.
 
 
 ## Advanced features
 
 ### Usage of JSONPath
 
-We've added [`jsonpath.js`](https://github.com/kromain/qml-utils/blob/master/JSONListModel/jsonpath.js) to source code, so it could be accessible via
+We've added [`jsonpath.js`](https://github.com/kromain/qml-utils/blob/master/JSONListModel/jsonpath.js) to the source code so it could be accessible via
 ```js
 import "../js/jsonpath.js" as JP
 ```
 
 [JSONPath for JSON is like XPath for XML.](https://www.baeldung.com/guide-to-jayway-jsonpath)
 
-It gives us possibility to get easier access to JS objects. E.g., we have this helper function that returns habit by given id:
+It gives us the possibility to get easier access to JS objects. E.g., we have this helper function that returns habit by given id:
 
 ```js
     function getHabitById(uid) {
