@@ -19,6 +19,17 @@ Page {
         showSearchBox = app.getSettingsValueOrUseDefault(Constants.showHabitsSearchBox, true)
     }
 
+    function logTimeOnSelectedHabit(habitId) {
+        logic.addRecord(habitId)
+        navigationStack.popAllExceptFirstAndPush(recPage)
+    }
+
+    function editSelectedHabit(curHabitId) {
+        logic.loadHabitDetails(curHabitId)
+        navigationStack.popAllExceptFirstAndPush(detailPageComponent,
+                                                      { habitId: curHabitId })
+    }
+
     onAppeared: {
         applySettings()
     }
@@ -73,8 +84,8 @@ Page {
             }]
         sorters: [
             StringSorter {
-              roleName: "title"
-              enabled: sortByTitleActive
+                roleName: "title"
+                enabled: sortByTitleActive
             }]
     }
 
@@ -106,26 +117,35 @@ Page {
             model: filteredModel
 
             // the delegate is the template item for each entry of the list
-            delegate: SimpleRow {
-                style.backgroundColor: index % 2 == 0
-                                       ? Theme.backgroundColor
-                                       : Theme.secondaryBackgroundColor
-                text: model.title
-                detailText: model.description
-                iconSource: IconType[model.icon]
+            delegate: SwipeOptionsContainer {
+                id: container
 
-                MouseArea {
-                    anchors.fill: parent
-                    propagateComposedEvents: true // just in case...
+                leftOption: SwipeButton {
+                    text: qsTr("Edit")
+                    icon: IconType.pencil
+                    height: row.height
                     onClicked: {
-                        logic.loadHabitDetails(model.id)
-                        page.navigationStack.popAllExceptFirstAndPush(detailPageComponent,
-                                                                      { habitId: model.id })
-                        mouse.accepted = true
+                        editSelectedHabit(model.id)
+                        container.hideOptions()
                     }
-                    onPressAndHold: {
-                        logic.addRecord(model.id)
-                        page.navigationStack.popAllExceptFirstAndPush(recPage)
+                }
+
+                SimpleRow {
+                    id: row
+                    style.backgroundColor: index % 2 == 0
+                                           ? Theme.backgroundColor
+                                           : Theme.secondaryBackgroundColor
+                    text: model.title
+                    detailText: model.description
+                    iconSource: IconType[model.icon]
+
+                    MouseArea {
+                        anchors.fill: parent
+                        propagateComposedEvents: true // just in case...
+                        onClicked: {
+                            logTimeOnSelectedHabit(model.id)
+                            mouse.accepted = true
+                        }
                     }
                 }
             }
