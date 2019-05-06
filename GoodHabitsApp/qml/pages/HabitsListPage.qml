@@ -80,7 +80,9 @@ Page {
 
     SortFilterProxyModel {
         id: filteredModel
-        sourceModel: listModel
+        // Note: when using JsonListModel, the sorters or filter might not be applied correctly when directly assigning sourceModel
+        // use the Component.onCompleted handler instead to initialize SortFilterProxyModel
+        Component.onCompleted: sourceModel = listModel
         filters: [
             RegExpFilter {
                 roleName: "title"

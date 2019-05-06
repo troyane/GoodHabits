@@ -31,7 +31,9 @@ Rectangle {
 
         SortFilterProxyModel {
             id: filteredModel
-            sourceModel: IconTypeHelper.iconsModel
+            // Note: when using JsonListModel, the sorters or filter might not be applied correctly when directly assigning sourceModel
+            // use the Component.onCompleted handler instead to initialize SortFilterProxyModel
+            Component.onCompleted: sourceModel = IconTypeHelper.iconsModel
             filters: [
                 RegExpFilter {
                     roleName: "iconText"
