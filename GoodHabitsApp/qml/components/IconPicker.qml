@@ -23,10 +23,7 @@ Rectangle {
     // TODO: Add microanimations
 
     GHPaper {
-        anchors {
-            fill: parent
-            margins: dp(Constants.defaultSpacing)
-        }
+        anchors.fill: parent
         background.color: Theme.backgroundColor
 
         SortFilterProxyModel {
