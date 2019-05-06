@@ -62,8 +62,13 @@ Page {
             }
             section.property: "date"
             section.delegate: SimpleSection {
-                // TODO: provide visible delegate
-                textItem.font.bold: true
+                style: StyleSimpleSection {
+                    backgroundColor: Constants.okColor
+                    textHorizontalAlignment: Qt.AlignHCenter
+                    textVerticalAlignment: Qt.AlignVCenter
+                    showDividers: true
+                    fontBold: true
+                }
             }
         }
     }
