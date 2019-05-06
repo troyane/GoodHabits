@@ -17,7 +17,7 @@ App {
 
     id: app
 
-    /// See `GoodHabitsApp/qml/secrets/Secrets.qml` for
+    /// See `GoodHabitsApp/qml/secrets/Secrets.qml` for more information regarding license key
     licenseKey: Secrets.key
     property int numberAppStarts: 0
 
@@ -30,8 +30,8 @@ App {
     function getSettingsValueOrUseDefault(name, defaultValue) {
         var value = app.settings.getValue(name)
         if (value === undefined) {
-            app.settings.setValue(name, defaultValue)
             value = defaultValue
+            app.settings.setValue(name, value)
         }
         return value
     }
@@ -100,8 +100,7 @@ App {
             icon: IconType.user
 
             NavigationStack {
-                initialPage: ProfilePage {
-                }
+                initialPage: ProfilePage { }
             }
         }
     }

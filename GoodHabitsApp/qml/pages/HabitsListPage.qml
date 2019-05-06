@@ -5,17 +5,18 @@ import QtQuick.Layouts 1.3
 import "../components"
 
 /// Page for displaing a list of habits.
-/// Have several tunables: \c sortByTitleActive and \c showSearchBox
+/// Have several tunables: \c sortAscByTitle and \c showSearchBox
 Page {
     id: page
     title: qsTr("Habits list")
     /// Variable that reflects sort by title strategy (asc/desc)
-    property bool sortByTitleActive: true
+    property bool sortAscByTitle
     /// Variable that reflects weather we need to show search box
     property bool showSearchBox: true
 
     function applySettings() {
-        sortByTitleActive = app.getSettingsValueOrUseDefault(Constants.habitsSorted, true)
+        console.log("In apply")
+        sortAscByTitle = app.getSettingsValueOrUseDefault(Constants.habitsSorted, true)
         showSearchBox = app.getSettingsValueOrUseDefault(Constants.showHabitsSearchBox, true)
     }
 
@@ -28,6 +29,11 @@ Page {
         logic.loadHabitDetails(curHabitId)
         navigationStack.popAllExceptFirstAndPush(detailPageComponent,
                                                       { habitId: curHabitId })
+    }
+
+    function toggleSortByTitle() {
+        sortAscByTitle = !sortAscByTitle
+        app.settings.setValue(Constants.habitsSorted, sortAscByTitle)
     }
 
     onAppeared: {
@@ -56,7 +62,7 @@ Page {
         target: dataModel
         onHabitStored: {
             page.navigationStack.popAllExceptFirstAndPush(detailPageComponent,
-                                                          { habitId: habit.id, locked: false})
+                                                          { habitId: habit.id, locked: false })
         }
         onHabitRemoved: {
             page.navigationStack.popAllExceptFirst()
@@ -84,8 +90,10 @@ Page {
             }]
         sorters: [
             StringSorter {
+                id: sorter
                 roleName: "title"
-                enabled: sortByTitleActive
+                enabled: true
+                sortOrder: sortAscByTitle ? Qt.AscendingOrder : Qt.DescendingOrder
             }]
     }
 
@@ -100,11 +108,8 @@ Page {
                 barBackgroundColor: Theme.backgroundColor
             }
             IconButton {
-                icon: sortByTitleActive ? IconType.arrowdown : IconType.arrowup
-                onClicked: {
-                    sortByTitleActive = !sortByTitleActive
-                    app.settings.setValue(Constants.habitsSorted, sortByTitleActive)
-                }
+                icon: sortAscByTitle ? IconType.arrowdown : IconType.arrowup
+                onClicked: toggleSortByTitle()
             }
         }
 
