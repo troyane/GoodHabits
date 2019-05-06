@@ -28,7 +28,7 @@ Page {
     function editSelectedHabit(curHabitId) {
         logic.loadHabitDetails(curHabitId)
         navigationStack.popAllExceptFirstAndPush(detailPageComponent,
-                                                      { habitId: curHabitId })
+                                                      { habitId: curHabitId, locked: false })
     }
 
     function toggleSortByTitle() {
