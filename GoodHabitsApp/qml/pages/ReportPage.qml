@@ -47,16 +47,12 @@ Page {
                 detailText: model.time
                 badgeValue: model.duration + "h"
 
-                MouseArea {
-                    anchors.fill: parent
-                    propagateComposedEvents: true // just in case...
-                    onClicked: {
-                        console.log(JSON.stringify(model.id))
-                        logic.loadRecordDetails(model.id)
-                        reportPage.navigationStack.popAllExceptFirstAndPush(recPage)
-                        mouse.accepted = true
-                    }
+                onSelected: {
+                    console.log(JSON.stringify(model.id))
+                    logic.loadRecordDetails(model.id)
+                    reportPage.navigationStack.popAllExceptFirstAndPush(recPage)
                 }
+
                 TimeScale {
                     anchors {
                         left: parent.left

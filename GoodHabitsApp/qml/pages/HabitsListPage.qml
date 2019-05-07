@@ -146,14 +146,7 @@ Page {
                     detailText: model.description
                     iconSource: IconType[model.icon]
 
-                    MouseArea {
-                        anchors.fill: parent
-                        propagateComposedEvents: true // just in case...
-                        onClicked: {
-                            logTimeOnSelectedHabit(model.id)
-                            mouse.accepted = true
-                        }
-                    }
+                    onSelected: logTimeOnSelectedHabit(model.id)
                 }
             }
         }
