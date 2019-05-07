@@ -47,8 +47,6 @@ Page {
                 detailText: model.time
                 badgeValue: model.duration + "h"
 
-                // TODO: Add range-slider-like element for visualization
-
                 MouseArea {
                     anchors.fill: parent
                     propagateComposedEvents: true // just in case...
@@ -58,6 +56,16 @@ Page {
                         reportPage.navigationStack.popAllExceptFirstAndPush(recPage)
                         mouse.accepted = true
                     }
+                }
+                TimeScale {
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                        bottom: parent.bottom
+                    }
+                    height: dp(10)
+                    startTime: model.time
+                    duration: model.duration
                 }
             }
             section.property: "date"
