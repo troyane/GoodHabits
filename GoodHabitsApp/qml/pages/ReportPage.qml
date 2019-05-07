@@ -69,15 +69,7 @@ Page {
             section.property: "date"
             section.delegate: SimpleSection {
                 title: DateUtils.formatDateToStringFancy(section)
-                style: StyleSimpleSection {
-                    backgroundColor: Constants.okColor
-                    textHorizontalAlignment: Qt.AlignHCenter
-                    textVerticalAlignment: Qt.AlignVCenter
-                    showDividers: true
-                    fontBold: true
-                    textColor: "black"
-                    totalHeight: dp(20)
-                }
+                style: ReportSectionStyleDelegate { }
             }
         }
     }

@@ -8,3 +8,4 @@ GHTextInputTime 1.0 GHTextInputTime.qml
 GHScrollView 1.0 GHScrollView.qml
 GHPaper 1.0 GHPaper.qml
 GHDeleteButton 1.0 GHDeleteButton.qml
+ReportSectionStyleDelegate 1.0 ReportSectionStyleDelegate.qml
