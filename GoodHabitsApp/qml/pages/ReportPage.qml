@@ -3,6 +3,7 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.3
 
 import "../components"
+import "../js/dateUtils.js" as DateUtils
 
 /// Page that display list of user's records.
 Page {
@@ -33,18 +34,20 @@ Page {
     ColumnLayout {
         height: parent.height
         width: parent.width
-
         AppListView {
             id: listView
             Layout.fillHeight: true
             Layout.fillWidth: true
             model: sortedModel
             delegate: SimpleRow {
+
+                anchors.margins: parent.width * 0.05
                 style.backgroundColor: index % 2 == 0
                                        ? Theme.backgroundColor
                                        : Theme.secondaryBackgroundColor
                 text: dataModel.getHabitTitleById(model.habit)
-                detailText: model.time
+                detailText: " " // model.time
+                iconSource: IconType[dataModel.getHabitById(model.habit).icon]
                 badgeValue: model.duration + "h"
 
                 onSelected: {
@@ -59,19 +62,21 @@ Page {
                         right: parent.right
                         bottom: parent.bottom
                     }
-                    height: dp(10)
                     startTime: model.time
                     duration: model.duration
                 }
             }
             section.property: "date"
             section.delegate: SimpleSection {
+                title: DateUtils.formatDateToStringFancy(section)
                 style: StyleSimpleSection {
                     backgroundColor: Constants.okColor
                     textHorizontalAlignment: Qt.AlignHCenter
                     textVerticalAlignment: Qt.AlignVCenter
                     showDividers: true
                     fontBold: true
+                    textColor: "black"
+                    totalHeight: dp(20)
                 }
             }
         }

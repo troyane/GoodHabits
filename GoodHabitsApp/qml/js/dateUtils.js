@@ -19,6 +19,16 @@ function formatDateToString(date) {
     return result
 }
 
+function formatDateToStringFancy(date) {
+    var result = ""
+    try {
+        result = Qt.formatDate(date, "ddd, dd MMM yyyy")
+    } catch(error) {
+        console.log(error)
+    }
+    return result
+}
+
 function getCurrentDate() {
     return formatDateToString(new Date())
 }

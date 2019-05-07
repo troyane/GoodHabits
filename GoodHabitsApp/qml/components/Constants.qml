@@ -44,6 +44,8 @@ QtObject {
     readonly property int animationDuration: 200
 
     // Default font sizes
+    /// Default font size for timy text. Use in application as argument to \c AppText.fontSize
+    readonly property int fontSizeTiny: 7
     /// Default font size for small text. Use in application as argument to \c AppText.fontSize
     readonly property int fontSizeSmall: 10
     /// Default font size for normal text. Should be used everywhere for easy readable text.

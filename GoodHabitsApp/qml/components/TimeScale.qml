@@ -1,17 +1,20 @@
 import Felgo 3.0
 import QtQuick 2.0
 
-/// ...
+/// Component that displays time scale with time marks on it
 Rectangle {
     // ...
     color: "transparent"
-    property string startTime: "12:30"
+    height: dp(16)
+    property string startTime: "12:30" // just an example
     property double duration: 2.5
 
     onStartTimeChanged: _inside.calculate()
     onDurationChanged: _inside.calculate()
 
-    Item {
+    Component.onCompleted: _inside.calculate()
+
+    Item { // private item
         id: _inside
         property int startTimeInMinutes: 0
         property int endTimeInMinutes: 0
@@ -42,9 +45,8 @@ Rectangle {
         }
     }
 
-    Component.onCompleted: _inside.calculate()
-
-    Rectangle { // axis line
+    Rectangle {
+        id: axisLine
         width: parent.width
         height: dp(1)
         anchors.centerIn: parent
@@ -52,6 +54,7 @@ Rectangle {
     }
 
     Rectangle { // bullet
+        id: bullet
         x: _inside.startTimeInPercent * parent.width
         width: _inside.durationInPercent * parent.width
         height: dp(5)
@@ -62,5 +65,38 @@ Rectangle {
             width: dp(1)
         }
         radius: dp(3)
+    }
+
+    AppText {
+        id: startTimeLabel
+        anchors {
+            left: bullet.left
+            top: parent.top
+            topMargin: -startTimeLabel.height / 2
+        }
+        fontSize: Constants.fontSizeSmall
+        text: startTime
+    }
+
+    AppText {
+        anchors {
+            left: axisLine.left
+            leftMargin: dp(1)
+            top: parent.top
+            topMargin: -dp(5)
+        }
+        text: "00:00"
+        fontSize: Constants.fontSizeTiny
+    }
+
+    AppText {
+        anchors {
+            right: axisLine.right
+            rightMargin: dp(1)
+            top: parent.top
+            topMargin: -dp(5)
+        }
+        text: "24:00"
+        fontSize: Constants.fontSizeTiny
     }
 }
