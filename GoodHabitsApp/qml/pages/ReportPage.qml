@@ -39,31 +39,18 @@ Page {
             Layout.fillHeight: true
             Layout.fillWidth: true
             model: sortedModel
-            delegate: SimpleRow {
-
-                anchors.margins: parent.width * 0.05
-                style.backgroundColor: index % 2 == 0
-                                       ? Theme.backgroundColor
-                                       : Theme.secondaryBackgroundColor
+            delegate: ReportItemDelegate {
+                height: dp(60)
+                width: parent.width
+                icon: IconType[dataModel.getHabitById(model.habit).icon]
                 text: dataModel.getHabitTitleById(model.habit)
-                detailText: " " // model.time
-                iconSource: IconType[dataModel.getHabitById(model.habit).icon]
-                badgeValue: model.duration + "h"
+                duration: model.duration
+                time: model.time
 
                 onSelected: {
-                    console.log(JSON.stringify(model.id))
+                    // console.log(JSON.stringify(model.id))
                     logic.loadRecordDetails(model.id)
                     reportPage.navigationStack.popAllExceptFirstAndPush(recPage)
-                }
-
-                TimeScale {
-                    anchors {
-                        left: parent.left
-                        right: parent.right
-                        bottom: parent.bottom
-                    }
-                    startTime: model.time
-                    duration: model.duration
                 }
             }
             section.property: "date"
