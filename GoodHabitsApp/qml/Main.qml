@@ -19,7 +19,6 @@ App {
 
     /// See `GoodHabitsApp/qml/secrets/Secrets.qml` for more information regarding license key
     licenseKey: Secrets.key
-    property int numberAppStarts: 0
 
     /**
       * Gets stored settings value with given \c name, or if not found -- returns default value
@@ -71,7 +70,7 @@ App {
         enabled: true
         NavigationItem {
             id: navHabits
-            title: qsTr("Habits list ") + numberAppStarts
+            title: qsTr("Habits list")
             icon: IconType.list
 
             onSelected: {
