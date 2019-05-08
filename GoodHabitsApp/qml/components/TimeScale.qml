@@ -5,7 +5,6 @@ import QtQuick 2.0
 Rectangle {
     // ...
     color: "transparent"
-    height: dp(16)
     property string startTime: "12:30" // just an example
     property double duration: 2.5
 
@@ -41,6 +40,8 @@ Rectangle {
             if (endTimeInPercent > 1.0) {
                 over = true
                 endTimeInPercent = 1.0
+            } else {
+                over = false
             }
         }
     }
@@ -96,7 +97,7 @@ Rectangle {
             top: parent.top
             topMargin: -dp(5)
         }
-        text: "24:00"
+        text: _inside.over ? ">" : "24:00"
         fontSize: Constants.fontSizeTiny
     }
 }
