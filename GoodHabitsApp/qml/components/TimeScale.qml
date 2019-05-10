@@ -75,6 +75,8 @@ Rectangle {
             top: parent.top
             topMargin: -startTimeLabel.height / 2
         }
+        style: Text.Outline
+        styleColor: "white"
         fontSize: Constants.fontSizeSmall
         text: startTime
     }
@@ -87,6 +89,8 @@ Rectangle {
             topMargin: -dp(5)
         }
         text: "00:00"
+        style: Text.Outline
+        styleColor: "white"
         fontSize: Constants.fontSizeTiny
     }
 
@@ -97,6 +101,8 @@ Rectangle {
             top: parent.top
             topMargin: -dp(5)
         }
+        style: Text.Outline
+        styleColor: "white"
         text: _inside.over ? ">" : "24:00"
         fontSize: Constants.fontSizeTiny
     }
