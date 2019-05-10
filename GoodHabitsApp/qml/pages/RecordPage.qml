@@ -122,6 +122,7 @@ Page {
 
             AppButton {
                 text: qsTr("Done!")
+                flat: false
                 Layout.fillWidth: true
                 onClicked: {
                     console.log("Done clicked")
