@@ -50,7 +50,8 @@ Page {
                 onSelected: {
                     // console.log(JSON.stringify(model.id))
                     logic.loadRecordDetails(model.id)
-                    reportPage.navigationStack.popAllExceptFirstAndPush(recPage)
+                    reportPage.navigationStack.popAllExceptFirstAndPush(recPage,
+                                                                        { choosedDate: model.date } )
                 }
             }
             section.property: "date"

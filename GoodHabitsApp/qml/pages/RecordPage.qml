@@ -1,4 +1,4 @@
-import Felgo 3.0
+﻿import Felgo 3.0
 import QtQuick 2.0
 import QtQuick.Layouts 1.3
 
@@ -12,7 +12,6 @@ Page {
     property var currentRecord: dataModel.recordDetails
     /// Dynamically loaded habit name of currently loaded record
     readonly property string habitName: dataModel.getHabitTitleById(currentRecord.habit)
-    property string todayText: qsTr("Today")
     property date choosedDate: new Date()
 
     /// Signal that emits as user click "Done" button
@@ -21,6 +20,7 @@ Page {
     function saveAll() {
         currentRecord[Constants.rRecordDate] = DateUtils.formatDateToString(choosedDate)
         currentRecord[Constants.rRecordDuration] = habitDurationSlider.value.toFixed(2)
+        currentRecord[Constants.rRecordTime] = habitTypicalTime.text
         logic.storeRecords()
     }
 
@@ -72,7 +72,7 @@ Page {
                 id: dateButton
                 enabled: false
                 Layout.fillWidth: true
-                text: recordPage.todayText
+                text: DateUtils.formatDateToString(choosedDate)
                 onClicked: nativeUtils.displayDatePicker()
             }
 
